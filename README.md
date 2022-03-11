@@ -41,8 +41,8 @@ To be added.
 
 ## Documentation
 All relevant documentation for the project can be found in one of these locations:
-* Our wiki, which can be read [here]wiki link to be added.
-* Our javadoc, which can be read [here]wiki link to be added.
+* Our wiki, which can be read [here](https://gitlab.stud.idi.ntnu.no/johnfb/football-tournament-application/-/wikis/Home---wiki).
+* Our javadoc, which can be read [here](javadoc link to be added).
 
 If you have further questions about the project, feel free to send an email to one of the group members by clicking one
 of the names below. We will be happy to help!
