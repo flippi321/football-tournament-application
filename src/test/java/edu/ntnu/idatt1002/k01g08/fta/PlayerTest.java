@@ -1,4 +1,4 @@
-package objects;
+package edu.ntnu.idatt1002.k01g08.fta;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import org.junit.jupiter.api.Test;
