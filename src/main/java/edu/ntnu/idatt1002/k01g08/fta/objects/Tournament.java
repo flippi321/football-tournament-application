@@ -2,7 +2,9 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
 import java.util.ArrayList;
 
 public abstract class Tournament {
-    ArrayList<Team> teams;
+    protected ArrayList<Team> teams;
+    protected ArrayList<Match> matches;
+    protected ArrayList<Match> upcomingMatches;
     private String tournamentName;
     private int firstPrize;
     private String startDate;
