@@ -1,9 +1,18 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+/**
+ * Creates a KnockOut type of Tournament
+ * @author John Fredrik Bendvold
+ * @version 2022-03-22
+ */
 public class KnockOut extends Tournament {
+    //Number of stages in the tournament
     private int stages;
+    //Contains all matches from the previous stage
+    private ArrayList<Match> previousRoundMatches = new ArrayList<>();
 
     public KnockOut(String name, String startDate, ArrayList<Team> teams) {
         super(teams, name, startDate);
@@ -57,7 +66,45 @@ public class KnockOut extends Tournament {
      * Finds what matches are going to be played,
      * then places them in the upcomingMatches-list.
      */
-    private void findUpcomingMatches() {
+    public void findUpcomingMatches() {
+        ArrayList<Match> placeholderMatches = new ArrayList<>();
+        ArrayList<Team> teamsRemaining;
 
+        Random random = new Random();
+
+        if (previousRoundMatches.isEmpty()) { //If previousRound == null, then it's the first round.
+            teamsRemaining = teams;
+
+            while (!teamsRemaining.isEmpty()) {
+                //Get two random numbers within the teamsRemaining-size
+                int homeTeamNum = random.nextInt(teamsRemaining.size());
+                int awayTeamNum;
+                do {
+                    awayTeamNum = random.nextInt(teamsRemaining.size());
+                } while (homeTeamNum == awayTeamNum);
+
+                Team homeTeam = teamsRemaining.get(homeTeamNum);
+                Team awayTeam = teamsRemaining.get(awayTeamNum);
+
+
+                //Match match = new Match(homeTeam, awayTeam);
+                //upCommingMatches.add(match);
+
+                teamsRemaining.remove(homeTeam);
+                teamsRemaining.remove(awayTeam);
+            }
+        }
+        else { //If a previous round has been played, get winners from the matches.
+            while (!previousRoundMatches.isEmpty()) {
+                int homeTeamNum = random.nextInt(previousRoundMatches.size());
+                int awayTeamNum;
+                do {
+                    awayTeamNum = random.nextInt(previousRoundMatches.size());
+                } while (homeTeamNum == awayTeamNum);
+            }
+        }
+
+        previousRoundMatches.addAll(placeholderMatches);
+        upcomingMatches.addAll(placeholderMatches);
     }
 }
