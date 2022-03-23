@@ -70,6 +70,16 @@ public abstract class Tournament {
         this.firstPrize = 0;
     }
 
+    /**
+     * Constructor for object which represents an abstract tournament,
+     * mainly used for tests
+     */
+    public Tournament() {
+        this.tournamentName = "";
+        this.firstPrize = 0;
+        this.startDate = "[NO DATE]";
+        this.matchLength = 90;
+    }
 
     public void setUpcomingMatch(Team team1, Team team2){
         Match newMatch = new Match(team1, team2);
