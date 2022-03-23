@@ -16,6 +16,8 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  */
 public class Foul extends GameEvent{
     private String foulTag;
+    private int yellowCard;
+    private int redCard;
 
     /**
      * First constructor of the Foul class
