@@ -54,6 +54,17 @@ public abstract class Tournament {
         upcomingMatches.add(newMatch);
     }
 
+    public void startNextMatch(){
+        if(upcomingMatches.isEmpty()){
+            findUpcomingMatches();
+        }
+        else{
+            upcomingMatches.get(0).startMatch();
+        }
+    }
+
+    public abstract void findUpcomingMatches();
+
     public Team getWinner() {
         return winner;
     }
