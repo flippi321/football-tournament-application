@@ -26,6 +26,7 @@ public abstract class Tournament {
         this.firstPrize = firstPrize;
         this.startDate = startDate;
         this.matchLength = matchLength;
+        upcomingMatches = new ArrayList<>();
     }
 
     /**
@@ -41,6 +42,7 @@ public abstract class Tournament {
         this.firstPrize = firstPrize;
         this.startDate = startDate;
         this.matchLength = 90;
+        upcomingMatches = new ArrayList<>();
     }
 
     /**
@@ -56,6 +58,7 @@ public abstract class Tournament {
         this.startDate = startDate;
         this.firstPrize = 0;
         this.matchLength = matchLength;
+        upcomingMatches = new ArrayList<>();
     }
 
     /**
@@ -68,6 +71,7 @@ public abstract class Tournament {
         this.tournamentName = tournamentName;
         this.startDate = "[NO DATE]";
         this.firstPrize = 0;
+        upcomingMatches = new ArrayList<>();
     }
 
     /**
@@ -87,7 +91,7 @@ public abstract class Tournament {
     }
 
     public void startNextMatch(){
-        if(upcomingMatches.isEmpty()){
+        if(upcomingMatches.isEmpty()) {
             findUpcomingMatches();
         }
         currentMatch = upcomingMatches.get(0);
@@ -139,8 +143,6 @@ public abstract class Tournament {
 
     @Override
     public String toString() {
-        return "Tournament{" +
-                "teams=" + teams +
-                '}';
+        return "TournamentName: " + tournamentName;
     }
 }
