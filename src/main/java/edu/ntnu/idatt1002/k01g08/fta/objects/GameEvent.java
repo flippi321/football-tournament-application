@@ -14,7 +14,7 @@ public abstract class GameEvent {
         if(timeStamp == null) throw new IllegalArgumentException("The value of the timestamp of " +
                 "substitution was 'null', please try again.");
         if(timeStamp.isBlank()) throw new IllegalArgumentException("The timestamp was inputted " +
-                "an empty string, please try again");
+                "an empty string, please try again.");
         this.player = player;
         this.team = team;
         this.timeStamp = timeStamp;

@@ -32,23 +32,20 @@ public class Foul extends GameEvent{
      * @param team, is a Team
      * @param giveCard, is an integer deciding if the foul gives a card
      * @throws IllegalArgumentException if the parameter timeStampOfMatchTime is either of null-value or
-     * is a blank string
+     * is a blank string TODO: has changed logic, a foul should preferably increase the attribute of cards gotten in class Player
      */
     public Foul(String foulTag, String timeStampOfMatchTime, Player player, Team team, int giveCard) throws
             IllegalArgumentException {
         super(player, team, timeStampOfMatchTime);
         if(foulTag.isBlank()) foulTag = null;
         this.foulTag = foulTag;
-
         if(giveCard == 1) {
-            yellowCard++;
-            if(yellowCard == 2) redCard++;
+            player.increaseYellowCards();
+            if(yellowCard == 2) player.increaseRedCards();
         } else if (giveCard == 2) {
-            redCard++;
+            player.increaseRedCards();
         }
     }
-
-    //TODO: add a third constructor which just needs the committingPlayer
     /**
      * Accessor method to get the tag of this foul
      * @return String foulTag
@@ -63,6 +60,22 @@ public class Foul extends GameEvent{
      */
     public void setFoulTag(String foulTag) {
         this.foulTag = foulTag;
+    }
+
+    /**
+     * Accessor method to get the amount of yellow cards given with this foul
+     * @return integer yellowCard
+     */
+    public int getYellowCard() {
+        return yellowCard;
+    }
+
+    /**
+     * Accessor method to get the amount of red cards given with this foul
+     * @return integer redCard
+     */
+    public int getRedCard() {
+        return redCard;
     }
 
     @Override
