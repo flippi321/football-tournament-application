@@ -42,7 +42,7 @@ public abstract class GameEvent {
      *
      * @return GameEvent value
      */
-    public abstract GameEvent getEvent();
+    public abstract String getEvent();
 
     /**
      * Accessor method to get the player who is associated with this game event
@@ -59,18 +59,18 @@ public abstract class GameEvent {
         this.player = player;
     }
     /**
-     * Accessor method to get the team that has this foul registered to it
-     * @return Team teamCommittingFoul
+     * Accessor method to get the team that is associated with this game event
+     * @return Team team
      */
-    public Team getTeamCommittingFoul() {
-        return teamCommittingFoul;
+    public Team getTeam() {
+        return team;
     }
     /**
-     * Mutator method to alter which team that committed this foul
-     * @param teamCommittingFoul is a team
+     * Mutator method to alter which team that is associated with this game event
+     * @param team is a team
      */
-    public void setTeamCommittingFoul(Team teamCommittingFoul) {
-        this.teamCommittingFoul = teamCommittingFoul;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     @Override

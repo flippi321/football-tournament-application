@@ -49,7 +49,7 @@ public class Foul extends GameEvent{
         this.foulTag = foulTag;
     }
     @Override
-    public int getEvent() {
-        return 0;
+    public String getEvent() {
+        return foulTag;
     }
 }
