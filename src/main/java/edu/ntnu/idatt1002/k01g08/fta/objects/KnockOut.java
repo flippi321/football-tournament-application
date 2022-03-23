@@ -17,6 +17,21 @@ public class KnockOut extends Tournament {
     /**
      * Constructor for a KnockOut-Tournament
      * @param name the name of the tournament
+     * @param teams a list of all teams in the tournament
+     */
+    public KnockOut(String name, ArrayList<Team> teams) {
+        super(teams, name);
+        if (numberOfTeamsInvalid(teams.size())) {
+            throw new IllegalArgumentException("The number of teams is invalid.");
+        }
+
+        calculateStages();
+        findUpcomingMatches();
+    }
+
+    /**
+     * Constructor for a KnockOut-Tournament
+     * @param name the name of the tournament
      * @param startDate when the tournament starts
      * @param teams a list of all teams in the tournament
      */
