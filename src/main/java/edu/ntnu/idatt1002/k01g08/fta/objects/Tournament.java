@@ -40,4 +40,28 @@ public abstract class Tournament {
         Match newMatch = new Match();
         upcomingMatches.add(newMatch);
     }
+
+    public ArrayList<Team> getTeams() {
+        return teams;
+    }
+
+    public ArrayList<Match> getMatches() {
+        return matches;
+    }
+
+    public ArrayList<Match> getUpcomingMatches() {
+        return upcomingMatches;
+    }
+
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public int getFirstPrize() {
+        return firstPrize;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
 }
