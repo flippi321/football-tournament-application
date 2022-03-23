@@ -72,7 +72,7 @@ public abstract class Tournament {
 
 
     public void setUpcomingMatch(Team team1, Team team2){
-        Match newMatch = new Match();
+        Match newMatch = new Match(team1, team2);
         upcomingMatches.add(newMatch);
     }
 

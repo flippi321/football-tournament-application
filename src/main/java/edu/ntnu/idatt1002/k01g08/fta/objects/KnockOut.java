@@ -34,9 +34,10 @@ public class KnockOut extends Tournament {
      * @param name the name of the tournament
      * @param startDate when the tournament starts
      * @param teams a list of all teams in the tournament
+     * @param matchLength the length which the match should be
      */
-    public KnockOut(String name, String startDate, ArrayList<Team> teams) {
-        super(teams, name, startDate);
+    public KnockOut(String name, String startDate, ArrayList<Team> teams, int matchLength) {
+        super(teams, name, startDate, matchLength);
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
         }
@@ -52,8 +53,27 @@ public class KnockOut extends Tournament {
      * @param teams a list of all teams in the tournament
      * @param firstPrice what you get for achieving first place
      */
-    public KnockOut(String name, String startDate, ArrayList<Team> teams, int firstPrice) {
+    public KnockOut(String name, String startDate, int firstPrice, ArrayList<Team> teams) {
         super(teams, name, firstPrice, startDate);
+        if (numberOfTeamsInvalid(teams.size())) {
+            throw new IllegalArgumentException("The number of teams is invalid.");
+        }
+
+        calculateStages();
+        findUpcomingMatches();
+    }
+
+    /**
+     * Constructor for a KnockOut-Tournament
+     * @param teams a list of all teams in the tournament
+     * @param tournamentName the name of the tournament
+     * @param firstPrize what you get for achieving first place
+     * @param startDate when the tournament starts
+     * @param matchLength the length which the match should be
+     */
+    public KnockOut(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength) {
+        super(teams, tournamentName, firstPrize, startDate, matchLength);
+
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
         }
