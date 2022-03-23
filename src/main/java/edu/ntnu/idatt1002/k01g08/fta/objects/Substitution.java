@@ -31,6 +31,7 @@ public class Substitution extends GameEvent {
         this.playerIn = playerIn;
         this.playerOut = playerOut;
     }
+    //TODO: another constructor with just playerIn and playerOut that gets the timestamp from Match and teamSwitching
 
     /**
      * Accessor method to get the player that is substituted in this Substitution
@@ -68,6 +69,6 @@ public class Substitution extends GameEvent {
     @Override
     public String getEvent() {
         return "Substitution";
-    }
+    } // TODO: Update to explain event
 }
 
