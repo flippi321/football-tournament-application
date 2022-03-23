@@ -5,8 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Match implements Iterable<GameEvent> {
-    final private Team homeTeam;
-    final private Team awayTeam;
+    private Team homeTeam;
+    private Team awayTeam;
+    private boolean finished = false;
     final private List<GameEvent> matchHistory;
 
     public Match(Team homeTeam, Team awayTeam) {
@@ -21,6 +22,19 @@ public class Match implements Iterable<GameEvent> {
 
     public Team getAwayTeam() {
         return awayTeam;
+    }
+
+    public Team getWinner() {
+        if (finished) return awayTeam;
+        return null;
+    }
+
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public void setAwayTeam(Team awayTeam) {
+        this.awayTeam = awayTeam;
     }
 
     public GameEvent getGameEvent(int i) {
