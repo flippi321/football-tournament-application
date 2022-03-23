@@ -24,7 +24,7 @@ public abstract class GameEvent {
         return timeStamp;
     }
     /**
-     * Mutator method to alter the timestamp of this foul
+     * Mutator method to alter the timestamp of this event
      * @param timeStampOfMatchTime is a String which cannot have value zero or be a blank string
      * @throws IllegalArgumentException, if the parameter timeStampOfMatchTime is either of null-value or
      * is a blank string
@@ -38,7 +38,40 @@ public abstract class GameEvent {
         this.timeStamp = timeStampOfMatchTime;
     }
 
-    public abstract int getAction();
+    /**
+     *
+     * @return GameEvent value
+     */
+    public abstract GameEvent getEvent();
+
+    /**
+     * Accessor method to get the player who is associated with this game event
+     * @return Player player
+     */
+    public Player getPlayer() {
+        return player;
+    }
+    /**
+     * Mutator method to alter the player who is associated with this game event
+     * @param player is a Player
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    /**
+     * Accessor method to get the team that has this foul registered to it
+     * @return Team teamCommittingFoul
+     */
+    public Team getTeamCommittingFoul() {
+        return teamCommittingFoul;
+    }
+    /**
+     * Mutator method to alter which team that committed this foul
+     * @param teamCommittingFoul is a team
+     */
+    public void setTeamCommittingFoul(Team teamCommittingFoul) {
+        this.teamCommittingFoul = teamCommittingFoul;
+    }
 
     @Override
     public String toString() {
