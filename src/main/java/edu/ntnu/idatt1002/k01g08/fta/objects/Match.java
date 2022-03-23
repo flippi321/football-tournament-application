@@ -1,8 +1,11 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
+import javafx.beans.binding.ObjectExpression;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -16,6 +19,12 @@ public class Match implements Iterable<GameEvent> {
     private boolean finished = false;
     final private List<GameEvent> matchHistory;
 
+    /*
+    --------------------------------------------
+    -- Constructors
+    --------------------------------------------
+     */
+
     /**
      * Creates a new match
      */
@@ -28,11 +37,18 @@ public class Match implements Iterable<GameEvent> {
      * @param homeTeam home team for this match
      * @param awayTeam away team for this match
      */
-    public Match(Team homeTeam, Team awayTeam) {
+    public Match(Team homeTeam, Team awayTeam) throws IllegalArgumentException {
+        if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.matchHistory = new ArrayList<>();
     }
+
+    /*
+    --------------------------------------------
+    -- Getters & setters
+    --------------------------------------------
+     */
 
     /**
      * Returns the home team for this match
@@ -49,6 +65,48 @@ public class Match implements Iterable<GameEvent> {
     public Team getAwayTeam() {
         return awayTeam;
     }
+
+    /**
+     * Sets the specified team as the home team.
+     * @param homeTeam the team to set as the home team
+     */
+    public void setHomeTeam(Team homeTeam) throws IllegalArgumentException {
+        if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
+        this.homeTeam = homeTeam;
+    }
+
+    /**
+     * Sets the specified team as the away team.
+     * @param awayTeam the team to set as the away team
+     */
+    public void setAwayTeam(Team awayTeam) throws IllegalArgumentException {
+        if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
+        this.awayTeam = awayTeam;
+    }
+
+    /**
+     * Returns the game event at the specified position in the match history.
+     * @param index position of the event in the match history
+     * @return game event at the specified position in the match history
+     */
+    public GameEvent getGameEvent(int index) {
+        return matchHistory.get(index);
+    }
+
+    /**
+     * Returns the game event at the specified position in the match history, counted from the last event.
+     * @param index position of the event in the match history
+     * @return game event at the specified position in the match history, counted from the last event
+     */
+    public GameEvent getLastGameEvent(int index) {
+        return matchHistory.get(matchHistory.size()-++index);
+    }
+
+    /*
+    --------------------------------------------
+    -- Results & team scores
+    --------------------------------------------
+     */
 
     /**
      * Returns the score (number of goals) of the home team in this match
@@ -75,8 +133,10 @@ public class Match implements Iterable<GameEvent> {
         int homeScore = 0;
         int awayScore = 0;
         for (GameEvent event : matchHistory) {
-            homeScore += 0;
-            awayScore += 0;
+            if (event instanceof Goal) {
+                if (Objects.equals(homeTeam, event.getTeam())) homeScore++;
+                else if (Objects.equals(awayTeam, event.getTeam())) awayScore++;
+            }
         }
         return new int[]{homeScore, awayScore};
     }
@@ -89,7 +149,7 @@ public class Match implements Iterable<GameEvent> {
     private int getTeamScore(Team team) {
         int score = 0;
         for (GameEvent event : matchHistory) {
-            score += 0;
+            if (event instanceof Goal && Objects.equals(team, event.getTeam())) score++;
         }
         return score;
     }
@@ -110,39 +170,60 @@ public class Match implements Iterable<GameEvent> {
         return null;
     }
 
-    /**
-     * Sets the specified team as the home team.
-     * @param homeTeam the team to set as the home team
+    /*
+    --------------------------------------------
+    -- Match control methods
+    --------------------------------------------
      */
-    public void setHomeTeam(Team homeTeam) {
-        this.homeTeam = homeTeam;
+
+    /**
+     * Adds a game event to the match history.
+     * @param gameEvent game event to add to the match history.
+     */
+    public void addGameEvent(GameEvent gameEvent) {
+        matchHistory.add(gameEvent);
     }
 
     /**
-     * Sets the specified team as the away team.
-     * @param awayTeam the team to set as the away team
+     * Removes the game event at the specified position in the match history. Returns the event that was removed.
+     * @param index position of the event to be removed
+     * @return the event that was removed
+     * @throws IndexOutOfBoundsException if no event exists at the specified position
      */
-    public void setAwayTeam(Team awayTeam) {
-        this.awayTeam = awayTeam;
+    public GameEvent removeGameEvent(int index) throws IndexOutOfBoundsException {
+        return matchHistory.remove(index);
     }
 
     /**
-     * Returns the game event at the specified position in the match history.
-     * @param i position of the event in the match history
-     * @return game event at the specified position in the match history
+     * Removes the game event at the specified position in the match history, counted from the last. Returns the event that was removed.
+     * @param index position of the event to be removed, counted from the last
+     * @return the event that was removed
+     * @throws IndexOutOfBoundsException if no event exists at the specified position
      */
-    public GameEvent getGameEvent(int i) {
-        return matchHistory.get(i);
+    public GameEvent removeLastGameEvent(int index) throws IndexOutOfBoundsException {
+        return matchHistory.remove(matchHistory.size()-++index);
     }
 
     /**
-     * Returns the game event at the specified position in the match history, counted from the last event.
-     * @param i position of the event in the match history
-     * @return game event at the specified position in the match history, counted from the last event
+     * Starts the match.
      */
-    public GameEvent getLastGameEvent(int i) {
-        return matchHistory.get(matchHistory.size()-++i);
+    public void start() {
     }
+
+    /**
+     * Ends the match and returns the winning team.
+     * @return winning team of this match
+     */
+    public Team end() {
+        finished = true;
+        return getWinner();
+    }
+
+    /*
+    --------------------------------------------
+    -- Utility methods
+    --------------------------------------------
+     */
 
     /**
      * Returns an iterator over the game events in the match history.
@@ -159,28 +240,5 @@ public class Match implements Iterable<GameEvent> {
      */
     public Stream<GameEvent> eventStream() {
         return matchHistory.stream();
-    }
-
-    /**
-     * Adds a game event to the match history.
-     * @param gameEvent game event to add to the match history.
-     */
-    public void addGameEvent(GameEvent gameEvent) {
-        matchHistory.add(gameEvent);
-    }
-
-    /**
-     * Starts the match.
-     */
-    public void start() {
-    }
-
-    /**
-     * Ends the match and returns the winning team.
-     * @return winning team of this match
-     */
-    public Team end() {
-        finished = true;
-        return getWinner();
     }
 }
