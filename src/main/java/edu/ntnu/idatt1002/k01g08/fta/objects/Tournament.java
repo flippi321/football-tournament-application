@@ -5,13 +5,31 @@ public abstract class Tournament {
     protected ArrayList<Team> teams;
     protected ArrayList<Match> matches;
     protected ArrayList<Match> upcomingMatches;
+    private Match currentMatch;
     private final String tournamentName;
     private final int firstPrize;
     private final String startDate;
     private Team winner;
+    private int matchLength;
 
     /**
      * Constructor for object which represents an abstract tournament
+     * @param teams a list of all teams in the tournament
+     * @param tournamentName the name of the tournament
+     * @param firstPrize what you get for achieving first place
+     * @param startDate when the tournament starts
+     * @param matchLength the length which the match should be
+     */
+    public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength) {
+        this.teams = teams;
+        this.tournamentName = tournamentName;
+        this.firstPrize = firstPrize;
+        this.startDate = startDate;
+        this.matchLength = matchLength;
+    }
+
+    /**
+     * Constructor for object which represents an abstract tournament, without matchLength
      * @param teams a list of all teams in the tournament
      * @param tournamentName the name of the tournament
      * @param firstPrize what you get for achieving first place
@@ -22,6 +40,22 @@ public abstract class Tournament {
         this.tournamentName = tournamentName;
         this.firstPrize = firstPrize;
         this.startDate = startDate;
+        this.matchLength = 90;
+    }
+
+    /**
+     * Constructor for object which represents an abstract tournament, without a winning prize
+     * @param teams a list of all teams in the tournament
+     * @param tournamentName the name of the tournament
+     * @param startDate when the tournament starts
+     * @param matchLength the length which the match should be
+     */
+    public Tournament(ArrayList<Team> teams, String tournamentName, String startDate, int matchLength) {
+        this.teams = teams;
+        this.tournamentName = tournamentName;
+        this.startDate = startDate;
+        this.firstPrize = 0;
+        this.matchLength = matchLength;
     }
 
     /**
@@ -36,18 +70,6 @@ public abstract class Tournament {
         this.firstPrize = 0;
     }
 
-    /**
-     * Constructor for object which represents an abstract tournament, without a winning prize
-     * @param teams a list of all teams in the tournament
-     * @param tournamentName the name of the tournament
-     * @param startDate when the tournament starts
-     */
-    public Tournament(ArrayList<Team> teams, String tournamentName, String startDate) {
-        this.teams = teams;
-        this.tournamentName = tournamentName;
-        this.startDate = startDate;
-        this.firstPrize = 0;
-    }
 
     public void setUpcomingMatch(Team team1, Team team2){
         Match newMatch = new Match();
@@ -58,9 +80,17 @@ public abstract class Tournament {
         if(upcomingMatches.isEmpty()){
             findUpcomingMatches();
         }
-        else{
-            upcomingMatches.get(0).startMatch();
-        }
+        currentMatch = upcomingMatches.get(0);
+    }
+
+    public void endMatch() {
+        upcomingMatches.remove(0);
+        matches.add(currentMatch);
+        currentMatch = null;
+    }
+
+    public Match getCurrentMatch() {
+        return currentMatch;
     }
 
     public abstract void findUpcomingMatches();
