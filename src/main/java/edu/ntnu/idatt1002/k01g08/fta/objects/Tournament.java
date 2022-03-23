@@ -35,4 +35,9 @@ public abstract class Tournament {
         this.startDate = startDate;
         this.firstPrize = 0;
     }
+
+    public void setUpcomingMatch(Team team1, Team team2){
+        Match newMatch = new Match();
+        upcomingMatches.add(newMatch);
+    }
 }
