@@ -1,4 +1,5 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
+
 /**
  * Class representing a specific type of GameEvent called Foul
  * The Foul has a String for a foulTag, this can be a brief description, for example:
@@ -26,9 +27,9 @@ public class Foul extends GameEvent{
      * @throws IllegalArgumentException if the parameter timeStampOfMatchTime is either of null-value or
      * is a blank string
      */
-    public Foul(String foulTag,String timeStampOfMatchTime, Player player, Team team) throws
+    public Foul(String foulTag, String timeStampOfMatchTime, Player player, Team team) throws
             IllegalArgumentException {
-        super( player, team, timeStampOfMatchTime);
+        super(player, team, timeStampOfMatchTime);
         if(foulTag.isBlank()) foulTag = null;
         this.foulTag = foulTag;
     }
