@@ -15,9 +15,6 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  */
 public class Foul extends GameEvent{
     private String foulTag;
-    private String timeStampOfMatchTime;
-    private Player committingPlayer;
-    private Team teamCommittingFoul;
 
     /**
      * First constructor of the Foul class
@@ -80,23 +77,7 @@ public class Foul extends GameEvent{
      * Accessor method to get the timestamp string of this foul
      * @return String timeStampOfMatchTime
      */
-    public String getTimeStampOfMatchTime() {
-        return timeStampOfMatchTime;
-    }
-    /**
-     * Mutator method to alter the timestamp of this foul
-     * @param timeStampOfMatchTime is a String which cannot have value zero or be a blank string
-     * @throws IllegalArgumentException, if the parameter timeStampOfMatchTime is either of null-value or
-     * is a blank string
-     */
-    public void setTimeStampOfMatchTime(String timeStampOfMatchTime) throws
-            IllegalArgumentException {
-        if(timeStampOfMatchTime == null) throw new IllegalArgumentException("The value of the timestamp of " +
-                "substitution was 'null', please try again.");
-        if(timeStampOfMatchTime.isBlank()) throw new IllegalArgumentException("The timestamp was inputted " +
-                "an empty string, please try again");
-        this.timeStampOfMatchTime = timeStampOfMatchTime;
-    }
+
     /**
      * Accessor method to get the player who committed this foul
      * @return Player committingPlayer
