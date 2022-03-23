@@ -9,6 +9,10 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  * The first takes parameters for all attributes
  *
  * and understands which team that is making a substitution based on the players switched
+ *
+ * @author bjornjob & magnulal
+ * @version 2022-03-21
+ *
  */
 public class Substitution extends GameEvent {
     private Team teamSwitchingPlayers;

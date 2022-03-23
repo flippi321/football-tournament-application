@@ -13,11 +13,15 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  * The second leaves foulTag at null-value
  * The third only takes the player who committed the foul as a parameter, and
  * sets values for all the other attributes
+ *
+ * @author bjornjob & magnulal
+ * @version 2022-03-21
  */
 public class Foul extends GameEvent{
     private String foulTag;
-    private int yellowCard;
-    private int redCard;
+    private int giveCard;
+    private int yellowCard = 0;
+    private int redCard = 0;
 
     /**
      * First constructor of the Foul class
@@ -34,7 +38,15 @@ public class Foul extends GameEvent{
         super(player, team, timeStampOfMatchTime);
         if(foulTag.isBlank()) foulTag = null;
         this.foulTag = foulTag;
+
+        if(giveCard == 1) {
+            yellowCard++;
+            if(yellowCard == 2) redCard++;
+        } else if (giveCard == 2) {
+            redCard++;
+        }
     }
+
     //TODO: add a third constructor which just needs the committingPlayer
     /**
      * Accessor method to get the tag of this foul
@@ -43,6 +55,7 @@ public class Foul extends GameEvent{
     public String getFoulTag() {
         return foulTag;
     }
+
     /**
      * Mutator method to alter the tag of this foul
      * @param foulTag is a String
@@ -50,6 +63,7 @@ public class Foul extends GameEvent{
     public void setFoulTag(String foulTag) {
         this.foulTag = foulTag;
     }
+
     @Override
     public String getEvent() {
         return foulTag;
