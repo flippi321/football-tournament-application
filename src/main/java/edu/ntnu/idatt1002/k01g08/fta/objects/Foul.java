@@ -24,16 +24,17 @@ public class Foul extends GameEvent{
     private int redCard = 0;
 
     /**
-     * First constructor of the Foul class
+     * Constructor of the Foul class
      * The constructor takes parameters for all attributes of the class
      * @param foulTag, is a String that is given the value 'null' if the string is blank
      * @param timeStampOfMatchTime, is a String which cannot have value zero or be a blank string
      * @param player, is a Player
      * @param team, is a Team
+     * @param giveCard, is an integer deciding if the foul gives a card
      * @throws IllegalArgumentException if the parameter timeStampOfMatchTime is either of null-value or
      * is a blank string
      */
-    public Foul(String foulTag, String timeStampOfMatchTime, Player player, Team team) throws
+    public Foul(String foulTag, String timeStampOfMatchTime, Player player, Team team, int giveCard) throws
             IllegalArgumentException {
         super(player, team, timeStampOfMatchTime);
         if(foulTag.isBlank()) foulTag = null;
