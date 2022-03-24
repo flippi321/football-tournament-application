@@ -36,6 +36,7 @@ public class Match implements Iterable<GameEvent> {
      * Creates a new match with the specified home and away team.
      * @param homeTeam home team for this match
      * @param awayTeam away team for this match
+     * @throws IllegalArgumentException if the teams are equal
      */
     public Match(Team homeTeam, Team awayTeam) throws IllegalArgumentException {
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
@@ -69,6 +70,7 @@ public class Match implements Iterable<GameEvent> {
     /**
      * Sets the specified team as the home team.
      * @param homeTeam the team to set as the home team
+     * @throws IllegalArgumentException if the specified team equals the away team
      */
     public void setHomeTeam(Team homeTeam) throws IllegalArgumentException {
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
@@ -78,6 +80,7 @@ public class Match implements Iterable<GameEvent> {
     /**
      * Sets the specified team as the away team.
      * @param awayTeam the team to set as the away team
+     * @throws IllegalArgumentException if the specified team equals the home team
      */
     public void setAwayTeam(Team awayTeam) throws IllegalArgumentException {
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
