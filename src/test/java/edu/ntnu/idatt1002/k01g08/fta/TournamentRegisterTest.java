@@ -12,9 +12,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TournamentRegisterTest {
     private TournamentRegister testReg;
+    private Tournament testTournament;
+    private Tournament testTournament2;
+    private Tournament testTournament3;
+
     @BeforeEach
     public void initializeNewRegister(){
         this.testReg = new TournamentRegister();
+        this.testTournament = new Tournament() {
+            @Override
+            public void findUpcomingMatches() {
+
+            }
+        };
+        this.testTournament2 = new Tournament() {
+            @Override
+            public void findUpcomingMatches() {
+
+            }
+        };
+        this.testTournament3 = new Tournament() {
+            @Override
+            public void findUpcomingMatches() {
+
+            }
+        };
     }
     @Nested
     public class TestForConstuctor {
@@ -30,14 +52,11 @@ public class TournamentRegisterTest {
         public class PositiveTestsForAddMethod {
             @Test
             public void addMethodOnEmptyRegister(){
-                Tournament testTournament = new Tournament(); //TODO: must be updated
                 testReg.addTournament(testTournament);
                 assertEquals(1, testReg.getNumberOfTournaments());
             }
             @Test
             public void addMethodOnRegisterWithAnElement(){
-                Tournament testTournament = new Tournament(); //TODO: must be updated
-                Tournament testTournament2 = new Tournament(); //TODO: must be updated
                 testReg.addTournament(testTournament);
                 testReg.addTournament(testTournament2);
                 assertEquals(2, testReg.getNumberOfTournaments());
@@ -58,7 +77,6 @@ public class TournamentRegisterTest {
             @Test
             public void addingATournamentThatIsAlreadyRegistered(){
                 try{
-                    Tournament testTournament = new Tournament(); //TODO: must be updated
                     testReg.addTournament(testTournament);
                     testReg.addTournament(testTournament);
                 }catch (IllegalArgumentException e){
@@ -74,7 +92,6 @@ public class TournamentRegisterTest {
         public class PositiveTestsForRemoveMethod {
             @Test
             public void removeARegisteredTournament(){
-                Tournament testTournament = new Tournament(); //TODO: must be updated
                 testReg.addTournament(testTournament);
                 testReg.removeTournament(testTournament);
                 assertEquals(0,testReg.getNumberOfTournaments());
@@ -85,8 +102,6 @@ public class TournamentRegisterTest {
             @Test
             public void removeAnUnregisteredTournamentExpectingException(){
                 try{
-                    Tournament testTournament = new Tournament(); //TODO: must be updated
-                    Tournament testTournament2 = new Tournament(); //TODO: must be updated
                     testReg.addTournament(testTournament);
                     testReg.removeTournament(testTournament2);
                 }catch(IllegalArgumentException e){
@@ -102,9 +117,6 @@ public class TournamentRegisterTest {
         public class PositiveTestsForAddAllMethod {
             @Test
             public void addAllInAListToTheRegister(){
-                Tournament testTournament = new Tournament(); //TODO: must be updated
-                Tournament testTournament2 = new Tournament(); //TODO: must be updated
-                Tournament testTournament3 = new Tournament(); //TODO: must be updated
                 ArrayList<Tournament> testList = new ArrayList<>();
                 testList.add(testTournament);
                 testList.add(testTournament2);
@@ -114,9 +126,6 @@ public class TournamentRegisterTest {
             }
             @Test
             public void addOnlyTournamentsWhichAreNotAlreadyRegisteredToTheRegister(){ //TODO: must be updated after equals
-                Tournament testTournament = new Tournament(); //TODO: must be updated
-                Tournament testTournament2 = new Tournament(); //TODO: must be updated
-                Tournament testTournament3 = new Tournament(); //TODO: must be updated
                 ArrayList<Tournament> testList = new ArrayList<>();
                 testList.add(testTournament);
                 testList.add(testTournament2);
@@ -145,8 +154,6 @@ public class TournamentRegisterTest {
     public class TestForClearRegisterMethod {
         @Test
         public void clearingARegister(){
-            Tournament testTournament = new Tournament(); //TODO: must be updated
-            Tournament testTournament2 = new Tournament(); //TODO: must be updated
             testReg.addTournament(testTournament);
             testReg.addTournament(testTournament2);
             testReg.clearRegister();
