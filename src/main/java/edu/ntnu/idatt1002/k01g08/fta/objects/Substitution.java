@@ -72,7 +72,7 @@ public class Substitution extends GameEvent {
      */
     @Override
     public String getEvent() {
-        return "Substitution";
-    } // TODO: Update to explain event
+        return playerIn + " substituted " + playerOut;
+    }
 }
 
