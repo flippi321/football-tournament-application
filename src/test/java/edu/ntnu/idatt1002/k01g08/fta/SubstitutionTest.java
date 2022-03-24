@@ -25,7 +25,7 @@ public class SubstitutionTest {
             public void initializeASubstitutionWithAllCorrectParameters() {
                 Player testPlayerOne = new Player("Bat Man", 10);
                 Player testPlayerTwo = new Player("Cat Man", 11);
-                Team team = new Team();
+                Team team = new Team("Team1");
 
                 try {
                     Substitution substitution = new Substitution("10:20", team, testPlayerOne,
@@ -46,7 +46,7 @@ public class SubstitutionTest {
         public void initializeASubstitutionWithNullInputForTimeStamp() {
             Player testPlayerOne = new Player("Bat Man", 10);
             Player testPlayerTwo = new Player("Cat Man", 11);
-            Team team = new Team();
+            Team team = new Team("Team1");
 
             try {
                 Substitution substitution = new Substitution(null, team, testPlayerOne,
@@ -62,7 +62,7 @@ public class SubstitutionTest {
         public void initializeASubstitutionWithBlankInputForTimeStamp() {
             Player testPlayerOne = new Player("Bat Man", 10);
             Player testPlayerTwo = new Player("Cat Man", 11);
-            Team team = new Team();
+            Team team = new Team("Team1");
 
             try {
                 Substitution substitution = new Substitution("", team, testPlayerOne,

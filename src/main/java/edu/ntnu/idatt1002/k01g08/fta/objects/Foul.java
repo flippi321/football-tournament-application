@@ -32,7 +32,7 @@ public class Foul extends GameEvent{
      * @param team, is a Team
      * @param giveCard, is an integer deciding if the foul gives a card
      * @throws IllegalArgumentException if the parameter timeStampOfMatchTime is either of null-value or
-     * is a blank string TODO: has changed logic, a foul should preferably increase the attribute of cards gotten in class Player
+     * is a blank string
      */
     public Foul(String foulTag, String timeStampOfMatchTime, Player player, Team team, int giveCard) throws
             IllegalArgumentException {

@@ -38,6 +38,14 @@ public class Goal extends GameEvent {
     }
 
     /**
+     * Accessor method to get the assisting player of this goal
+     * @return Player assistingPlayer
+     */
+    public Player getAssistingPlayer() {
+        return assistingPlayer;
+    }
+
+    /**
      * GetEvent method to get a full description of the Goal event
      * @return String goal description
      */

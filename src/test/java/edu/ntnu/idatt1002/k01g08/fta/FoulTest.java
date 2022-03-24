@@ -20,7 +20,7 @@ public class FoulTest {
             public void initializeAFoulWithAllCorrectParameters(){
                 try {
                     Player testPlayer = new Player("Morgan Freeman", 10);
-                    Team testTeam = new Team();
+                    Team testTeam = new Team("Team");
                     Foul testFoul = new Foul("Hands",
                             "40:20", testPlayer, testTeam, 1);
                 } catch(IllegalArgumentException e) {
@@ -32,7 +32,7 @@ public class FoulTest {
             public void initializeAFoulWithoutTagMeaningAnEmptyStringAsParameter(){
                 try {
                     Player testPlayer = new Player("Morgan Freeman", 10);
-                    Team testTeam = new Team();
+                    Team testTeam = new Team("Team");
                     Foul testFoul = new Foul("", "40:20", testPlayer, testTeam, 1);
                     assertNull(testFoul.getFoulTag());
                 } catch(IllegalArgumentException e) {
@@ -48,7 +48,7 @@ public class FoulTest {
             public void instantiatingAFoulWithParameterTimeStampHavingNullValue(){
                 try {
                     Player testPlayer = new Player("Morgan Freeman", 10);
-                    Team testTeam = new Team();
+                    Team testTeam = new Team("Team");
                     String nullVal = null;
                     Foul testFoul = new Foul("Hands", nullVal, testPlayer, testTeam, 1);
                 } catch(IllegalArgumentException e) {
@@ -61,7 +61,7 @@ public class FoulTest {
             public void instantiatingAFoulWithParameterTimeStampAsABlankString(){
                 try {
                     Player testPlayer = new Player("Morgan Freeman", 10);
-                    Team testTeam = new Team();
+                    Team testTeam = new Team("Team");
                     Foul testFoul = new Foul("Hands", "", testPlayer, testTeam, 1);
                 } catch(IllegalArgumentException e) {
                     assertEquals("The timestamp was inputted as an empty string, please try again.",
