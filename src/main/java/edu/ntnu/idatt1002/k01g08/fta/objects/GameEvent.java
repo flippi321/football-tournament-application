@@ -13,7 +13,7 @@ public abstract class GameEvent {
     public GameEvent(Player player, Team team, String timeStamp) throws IllegalArgumentException {
         if(timeStamp == null) throw new IllegalArgumentException("The value of the timestamp of " +
                 "substitution was 'null', please try again.");
-        if(timeStamp.isBlank()) throw new IllegalArgumentException("The timestamp was inputted " +
+        if(timeStamp.isBlank()) throw new IllegalArgumentException("The timestamp was inputted as " +
                 "an empty string, please try again.");
         this.player = player;
         this.team = team;
@@ -77,11 +77,14 @@ public abstract class GameEvent {
         this.team = team;
     }
 
+    /**
+     * Get string version of a GameEvent object.
+     * @return a string representing an object of the class GameEvent.
+     */
     @Override
     public String toString() {
-        return "GameEvent{" +
-                "player=" + player +
-                ", team=" + team +
-                '}';
+        return "\nGameEvent" +
+                "\nplayer" + player +
+                "\nteam" + team;
     }
 }

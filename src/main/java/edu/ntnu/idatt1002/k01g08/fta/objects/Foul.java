@@ -37,6 +37,7 @@ public class Foul extends GameEvent{
     public Foul(String foulTag, String timeStampOfMatchTime, Player player, Team team, int giveCard) throws
             IllegalArgumentException {
         super(player, team, timeStampOfMatchTime);
+
         if(foulTag.isBlank()) foulTag = null;
         this.foulTag = foulTag;
         if(giveCard == 1) {
@@ -46,6 +47,7 @@ public class Foul extends GameEvent{
             player.increaseRedCards();
         }
     }
+
     /**
      * Accessor method to get the tag of this foul
      * @return String foulTag
