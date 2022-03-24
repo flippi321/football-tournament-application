@@ -3,6 +3,9 @@ package edu.ntnu.idatt1002.k01g08.fta;
 import edu.ntnu.idatt1002.k01g08.fta.objects.*;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MatchTest {
@@ -28,7 +31,7 @@ public class MatchTest {
     }
 
     @Nested
-    class GetterTests {
+    class AccessorTests {
         @Test
         public void getHomeTeamReturnsCorrectTeam() {
             Team team1 = new Team("Odd");
@@ -137,6 +140,44 @@ public class MatchTest {
             GameEvent event = new Goal(player1, team1, "20", player2);
             assertDoesNotThrow(()->match.addGameEvent(event));
         }
+
+        @Test
+        public void removesRightEvent() {
+            Team team1 = new Team("Odd");
+            Team team2 = new Team("München");
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            Match match = new Match(team1, team2);
+            GameEvent event1 = new Goal(player1, team1, "20", player2);
+            GameEvent event2 = new Goal(player2, team2, "25", player1);
+            match.addGameEvent(event1);
+            match.addGameEvent(event2);
+
+            match.removeGameEvent(0);
+            assertEquals(event2, match.getGameEvent(0));
+
+            match.addGameEvent(event1);
+            match.removeLastGameEvent(1);
+            assertEquals(event1, match.getGameEvent(0));
+        }
+
+        @Test
+        public void removeReturnsRightEvent() {
+            Team team1 = new Team("Odd");
+            Team team2 = new Team("München");
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            Match match = new Match(team1, team2);
+            GameEvent event1 = new Goal(player1, team1, "20", player2);
+            GameEvent event2 = new Goal(player2, team2, "25", player1);
+            match.addGameEvent(event1);
+            match.addGameEvent(event2);
+
+            assertEquals(event1, match.removeGameEvent(0));
+
+            match.addGameEvent(event1);
+            assertEquals(event1, match.removeLastGameEvent(0));
+        }
     }
 
     @Nested
@@ -200,6 +241,57 @@ public class MatchTest {
             assertNull(match.getWinner());
             assertEquals(team1, match.end());
             assertEquals(team1, match.getWinner());
+
+            match = new Match(team2, team1);
+            match.addGameEvent(event1);
+            match.addGameEvent(event2);
+            match.addGameEvent(event3);
+            match.addGameEvent(event4);
+            assertEquals(team1, match.end());
         }
+    }
+
+    @Test
+    public void iteratorReturnsRightEvents() {
+        Team team1 = new Team("Odd");
+        Team team2 = new Team("München");
+        Player player1 = new Player("Gunnar", 30);
+        Player player2 = new Player("Nordstoga", 32);
+        Match match = new Match(team1, team2);
+        GameEvent event1 = new Goal(player1, team1, "20", player2);
+        GameEvent event2 = new Goal(player2, team2, "25", player1);
+        GameEvent event3 = new Substitution("26", team2, player1, player2);
+        GameEvent event4 = new Goal(player1, team1, "30", player2);
+        match.addGameEvent(event1);
+        match.addGameEvent(event2);
+        match.addGameEvent(event3);
+        match.addGameEvent(event4);
+
+        Iterator<GameEvent> it = match.iterator();
+        assertTrue(it.hasNext());
+        assertEquals(event1, it.next());
+        assertEquals(event2, it.next());
+        assertEquals(event3, it.next());
+        assertEquals(event4, it.next());
+        assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void streamIsNotNull() {
+        Team team1 = new Team("Odd");
+        Team team2 = new Team("München");
+        Player player1 = new Player("Gunnar", 30);
+        Player player2 = new Player("Nordstoga", 32);
+        Match match = new Match(team1, team2);
+        GameEvent event1 = new Goal(player1, team1, "20", player2);
+        GameEvent event2 = new Goal(player2, team2, "25", player1);
+        GameEvent event3 = new Substitution("26", team2, player1, player2);
+        GameEvent event4 = new Goal(player1, team1, "30", player2);
+        match.addGameEvent(event1);
+        match.addGameEvent(event2);
+        match.addGameEvent(event3);
+        match.addGameEvent(event4);
+
+        assertNotNull(match.eventStream());
     }
 }
