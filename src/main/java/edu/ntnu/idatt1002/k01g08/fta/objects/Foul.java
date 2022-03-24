@@ -80,8 +80,22 @@ public class Foul extends GameEvent{
         return redCard;
     }
 
+    /**
+     * GetEvent method to return a string description of this Foul event
+     * @return String foul description
+     */
     @Override
     public String getEvent() {
-        return foulTag;
+        return  "Foul type:" + foulTag +
+                ", yellow cards given:" + yellowCard +
+                ", red card given:" + redCard +
+                ". committed by player: " + getPlayer().getName();
+    }
+
+    @Override
+    public String toString() {
+        return "FoulTag:'" + foulTag +
+                ", amount of yellow cards:" + yellowCard +
+                ", red card given:" + redCard;
     }
 }
