@@ -19,7 +19,8 @@ public class KnockOut extends Tournament {
      * @param name the name of the tournament
      * @param teams a list of all teams in the tournament
      */
-    public KnockOut(String name, ArrayList<Team> teams) {
+    public KnockOut(String name, ArrayList<Team> teams)
+            throws IllegalArgumentException{
         super(teams, name);
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
@@ -36,7 +37,8 @@ public class KnockOut extends Tournament {
      * @param teams a list of all teams in the tournament
      * @param matchLength the length which the match should be
      */
-    public KnockOut(String name, String startDate, ArrayList<Team> teams, int matchLength) {
+    public KnockOut(String name, String startDate, ArrayList<Team> teams, int matchLength)
+            throws IllegalArgumentException {
         super(teams, name, startDate, matchLength);
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
@@ -53,7 +55,8 @@ public class KnockOut extends Tournament {
      * @param teams a list of all teams in the tournament
      * @param firstPrice what you get for achieving first place
      */
-    public KnockOut(String name, String startDate, int firstPrice, ArrayList<Team> teams) {
+    public KnockOut(String name, String startDate, int firstPrice, ArrayList<Team> teams)
+            throws IllegalArgumentException{
         super(teams, name, firstPrice, startDate);
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
@@ -71,7 +74,8 @@ public class KnockOut extends Tournament {
      * @param startDate when the tournament starts
      * @param matchLength the length which the match should be
      */
-    public KnockOut(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength) {
+    public KnockOut(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength)
+            throws IllegalArgumentException {
         super(teams, tournamentName, firstPrize, startDate, matchLength);
 
         if (numberOfTeamsInvalid(teams.size())) {
@@ -113,15 +117,14 @@ public class KnockOut extends Tournament {
     /**
      * Finds what matches are going to be played,
      * then places them in the upcomingMatches-list.
+     * TODO: maybe add tests for this method
      */
     @Override
     public void findUpcomingMatches() {
-        ArrayList<Team> teamsRemaining;
-
         Random random = new Random();
 
         if (previousRoundMatches.isEmpty()) { //If previousRound == null, then it's the first round.
-            teamsRemaining = teams;
+            ArrayList<Team> teamsRemaining = new ArrayList<>(teams);
 
             while (!teamsRemaining.isEmpty()) {
                 //Get two random numbers within the teamsRemaining-size

@@ -83,4 +83,10 @@ public abstract class GameEvent {
                 "\nplayer" + player +
                 "\nteam" + team;
     }
+
+    //TODO
+    // Make exception messages more concise
+    // Reword JavaDoc
+    // Add NullPointerException
+    // Create tests (possibly abstract)
 }

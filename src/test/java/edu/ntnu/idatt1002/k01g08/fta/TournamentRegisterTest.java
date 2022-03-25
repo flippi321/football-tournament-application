@@ -39,7 +39,7 @@ public class TournamentRegisterTest {
         };
     }
     @Nested
-    public class TestForConstuctor {
+    public class TestForConstructor {
         @Test
         public void initializingANewRegisterUsingConstructor(){
             TournamentRegister testTournamentRegister = new TournamentRegister();

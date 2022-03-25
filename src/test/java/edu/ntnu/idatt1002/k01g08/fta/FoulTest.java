@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//TODO
+// Change nested names to fit regex
+// Better coverage
+
 public class FoulTest {
 
     @Nested
@@ -64,8 +68,8 @@ public class FoulTest {
                     Team testTeam = new Team("Team");
                     Foul testFoul = new Foul("Hands", "", testPlayer, testTeam, 1);
                 } catch(IllegalArgumentException e) {
-                    assertEquals("The timestamp was inputted as an empty string, please try again.",
-                                e.getMessage());
+                    assertEquals("The timestamp was inputted as an empty string, " +
+                            "please try again.", e.getMessage());
                 }
             }
         }
