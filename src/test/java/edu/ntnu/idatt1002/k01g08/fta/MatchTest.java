@@ -295,3 +295,4 @@ public class MatchTest {
         assertNotNull(match.eventStream());
     }
 }
+// TODO: Should add tests for the new constructor exceptions that are mentioned in the Match-class

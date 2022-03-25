@@ -101,8 +101,8 @@ public abstract class Tournament {
     }
 
     public void endMatch() {
+        matches.add(upcomingMatches.get(0));
         upcomingMatches.remove(0);
-        matches.add(currentMatch);
         currentMatch = null;
     }
 
@@ -160,4 +160,13 @@ public abstract class Tournament {
         Tournament that = (Tournament) o;
         return Objects.equals(tournamentName, that.tournamentName);
     }
+
+    //TODO
+    // Add Javadoc
+    // Change class variables 'teams', 'matches' and 'upcomingMatches' to private.
+    // - Note: this will have to be reflected in the class Knockout which uses these attributes directly. Knockout must
+    //          use get methods from this class.
+    // Add exception handling in class constructor.
+    // - You should not be able to add an empty ArrayList 'teams'.
+    // - You should not be able to add 'tournamentName' as null-input or as an empty string.
 }
