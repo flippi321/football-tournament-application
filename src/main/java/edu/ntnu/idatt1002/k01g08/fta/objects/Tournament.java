@@ -20,6 +20,7 @@ public abstract class Tournament {
      * @param firstPrize what you get for achieving first place
      * @param startDate when the tournament starts
      * @param matchLength the length which the match should be
+     *
      */
     public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength) {
         this.teams = teams;
@@ -141,6 +142,10 @@ public abstract class Tournament {
 
     public String getStartDate() {
         return startDate;
+    }
+
+    public int getNumberOfTeams(){
+        return teams.size();
     }
 
     @Override

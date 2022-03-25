@@ -3,26 +3,26 @@ package edu.ntnu.idatt1002.k01g08.fta;
 import edu.ntnu.idatt1002.k01g08.fta.objects.KnockOut;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
-import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class KnockOutTest {
     @Nested
     public class TestingConstructor{
         @Test
-        @DisplayName("Testing Constructor")
+        @DisplayName("Testing Constructor with correct parameters")
         public void initializingNewTournamentUsingConstructor(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<8; i++){
                 teams.add(new Team("Rosenborg " + i));
             }
             Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
+            assertEquals(8, testTournament.getNumberOfTeams());
+            assertEquals("Tippeligaen2022", testTournament.getTournamentName());
             assertNotNull(testTournament);
         }
 
@@ -35,7 +35,7 @@ public class KnockOutTest {
             }
             try {
                 Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
-                fail("Test Failed");
+                fail("Test 'testingKnockoutThrowingIllegalException' did not throw an exception to when expected to.");
             } catch (Exception e) {
                 assertEquals(e.getMessage(), "The number of teams is invalid.");
             }
@@ -49,11 +49,10 @@ public class KnockOutTest {
                 teams.add(new Team("Rosenborg " + i));
             }
             try {
-                Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
+                new KnockOut("Tippeligaen2022", teams);
             } catch (Exception e) {
                 fail("Illegal argument Exception Thrown");
             }
-            assertTrue(true);
         }
 
         @Test
@@ -64,7 +63,7 @@ public class KnockOutTest {
                 teams.add(new Team("Rosenborg " + i));
             }
             Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
-            assertEquals(testTournament.getUpcomingMatches().size(), 4);
+            assertEquals(4, testTournament.getUpcomingMatches().size());
         }
     }
 }
