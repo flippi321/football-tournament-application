@@ -8,11 +8,6 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  * is stored as a String timeStampOfMatchTime. It also stores information about which player committed the
  * foul. This attribute is of class Player. A foul is also done by one of the two teams, and therefore
  * the foul has information about Team teamCommittingFoul.
- * This class has three constructors
- * The first takes parameters for all attributes
- * The second leaves foulTag at null-value
- * The third only takes the player who committed the foul as a parameter, and
- * sets values for all the other attributes
  *
  * @author bjornjob & magnulal
  * @version 2022-03-21

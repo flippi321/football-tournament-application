@@ -19,19 +19,19 @@ public class TournamentRegisterTest {
     @BeforeEach
     public void initializeNewRegister(){
         this.testReg = new TournamentRegister();
-        this.testTournament = new Tournament() {
+        this.testTournament = new Tournament("Test") {
             @Override
             public void findUpcomingMatches() {
 
             }
         };
-        this.testTournament2 = new Tournament() {
+        this.testTournament2 = new Tournament("Test2") {
             @Override
             public void findUpcomingMatches() {
 
             }
         };
-        this.testTournament3 = new Tournament() {
+        this.testTournament3 = new Tournament("Test3") {
             @Override
             public void findUpcomingMatches() {
 
@@ -130,7 +130,7 @@ public class TournamentRegisterTest {
                 testList.add(testTournament);
                 testList.add(testTournament2);
                 testList.add(testTournament3);
-                //testReg.addTournament(testTournament);
+                testReg.addTournament(testTournament);
                 assertEquals(1, testReg.getNumberOfTournaments());
                 testReg.addAllTournaments(testList);
                 assertEquals(3, testReg.getNumberOfTournaments());
@@ -161,26 +161,3 @@ public class TournamentRegisterTest {
         }
     }
 }
-/**
- *TODO: COPY/PASTE
- @Nested
- public class TestsForRemoveMethod {
- @Nested
- public class PositiveTestsForRemoveMethod {
- @Test
- public void removeARegisteredTournament(){
- }
- }
- @Nested
- public class NegativeTestsForRemoveMethod {
- @Test
- public void removeAnUnregisteredTournamentExpectingException(){
- try{
- }catch(IllegalArgumentException e){
- }
- }
- }
- }
- *
- *
- */

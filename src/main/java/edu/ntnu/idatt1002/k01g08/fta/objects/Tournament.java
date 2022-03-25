@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Tournament {
     protected ArrayList<Team> teams;
@@ -26,6 +27,7 @@ public abstract class Tournament {
         this.firstPrize = firstPrize;
         this.startDate = startDate;
         this.matchLength = matchLength;
+        upcomingMatches = new ArrayList<>();
     }
 
     /**
@@ -41,6 +43,7 @@ public abstract class Tournament {
         this.firstPrize = firstPrize;
         this.startDate = startDate;
         this.matchLength = 90;
+        upcomingMatches = new ArrayList<>();
     }
 
     /**
@@ -56,6 +59,7 @@ public abstract class Tournament {
         this.startDate = startDate;
         this.firstPrize = 0;
         this.matchLength = matchLength;
+        upcomingMatches = new ArrayList<>();
     }
 
     /**
@@ -68,14 +72,16 @@ public abstract class Tournament {
         this.tournamentName = tournamentName;
         this.startDate = "[NO DATE]";
         this.firstPrize = 0;
+        upcomingMatches = new ArrayList<>();
     }
 
     /**
+     * @param tournamentName the name of the tournament
      * Constructor for object which represents an abstract tournament,
      * mainly used for tests
      */
-    public Tournament() {
-        this.tournamentName = "";
+    public Tournament(String tournamentName) {
+        this.tournamentName = tournamentName;
         this.firstPrize = 0;
         this.startDate = "[NO DATE]";
         this.matchLength = 90;
@@ -87,7 +93,7 @@ public abstract class Tournament {
     }
 
     public void startNextMatch(){
-        if(upcomingMatches.isEmpty()){
+        if(upcomingMatches.isEmpty()) {
             findUpcomingMatches();
         }
         currentMatch = upcomingMatches.get(0);
@@ -139,8 +145,14 @@ public abstract class Tournament {
 
     @Override
     public String toString() {
-        return "Tournament{" +
-                "teams=" + teams +
-                '}';
+        return "TournamentName: " + tournamentName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tournament that = (Tournament) o;
+        return Objects.equals(tournamentName, that.tournamentName);
     }
 }
