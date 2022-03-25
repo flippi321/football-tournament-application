@@ -65,5 +65,7 @@ public class KnockOutTest {
             Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
             assertEquals(4, testTournament.getUpcomingMatches().size());
         }
+
+        //TODO: test equals method
     }
 }
