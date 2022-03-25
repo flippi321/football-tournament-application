@@ -11,13 +11,9 @@ public abstract class GameEvent {
     private String timeStamp;
 
     public GameEvent(Player player, Team team, String timeStamp) throws IllegalArgumentException {
-        if(timeStamp == null) throw new IllegalArgumentException("The value of the timestamp of " +
-                "substitution was 'null', please try again.");
-        if(timeStamp.isBlank()) throw new IllegalArgumentException("The timestamp was inputted as " +
-                "an empty string, please try again.");
         this.player = player;
         this.team = team;
-        this.timeStamp = timeStamp;
+        this.setTimeStampOfMatchTime(timeStamp);
     }
 
     public String getTimeStampOfMatchTime() {
@@ -34,8 +30,8 @@ public abstract class GameEvent {
             IllegalArgumentException {
         if(timeStampOfMatchTime == null) throw new IllegalArgumentException("The value of the timestamp of " +
                 "substitution was 'null', please try again.");
-        if(timeStampOfMatchTime.isBlank()) throw new IllegalArgumentException("The timestamp was inputted " +
-                "an empty string, please try again");
+        if(timeStampOfMatchTime.isBlank()) throw new IllegalArgumentException("The timestamp was inputted as " +
+                "an empty string, please try again.");
         this.timeStamp = timeStampOfMatchTime;
     }
 
@@ -87,4 +83,10 @@ public abstract class GameEvent {
                 "\nplayer" + player +
                 "\nteam" + team;
     }
+
+    //TODO
+    // Make exception messages more concise
+    // Reword JavaDoc
+    // Add NullPointerException
+    // Create tests (possibly abstract)
 }
