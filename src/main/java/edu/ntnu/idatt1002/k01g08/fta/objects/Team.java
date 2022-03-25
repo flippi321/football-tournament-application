@@ -92,6 +92,8 @@ public class Team implements Iterable<Player> {
         return (players.remove(number) != null);
     }
 
+    //TODO: add a getter to retrieve the size of this team
+
     /**
      * Returns an iterator over the players in this team.
      * @return an iterator over the players in this team.
