@@ -253,3 +253,8 @@ public class Match implements Iterable<GameEvent> {
         return matchHistory.stream();
     }
 }
+
+// TODO: Make exception handling in constructor for not allowing the creation of a match without two teams, and both
+//  teams most contain at least 11 players.
+//  Important!
+//  Create function for match-clock, remember to include half-time/full-time.
