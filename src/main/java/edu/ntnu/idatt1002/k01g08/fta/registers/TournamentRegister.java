@@ -55,7 +55,6 @@ public class TournamentRegister {
                 "be added, please try again");
         for(Tournament element: addList){
             if (!tournamentList.contains(element)) tournamentList.add(element);
-            //TODO: add an equals-method in Tournament Class
         }
     }
     /**
