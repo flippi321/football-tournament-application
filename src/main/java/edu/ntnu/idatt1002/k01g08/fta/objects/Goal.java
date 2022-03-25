@@ -49,11 +49,13 @@ public class Goal extends GameEvent {
      * GetEvent method to get a full description of the Goal event
      * @return String goal description
      */
+
+    //TODO: Add test
     @Override
     public String getEvent() {
         if(assistingPlayer != null){
             return "The player: " + getPlayer().getName() + " scored a goal for team: " + getTeam() +
-                    " with assist from player: " + assistingPlayer + "at time: " + getTimeStampOfMatchTime();
+                    " with assist from player: " + getAssistingPlayer() + "at time: " + getTimeStampOfMatchTime();
         }else{
             return "The player: " + getPlayer().getName() +
                     " scored a goal for team: " + getTeam() + "at time: " + getTimeStampOfMatchTime();
