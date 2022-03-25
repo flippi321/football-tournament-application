@@ -54,7 +54,7 @@ public class TournamentRegister {
         if (addList.isEmpty()) throw new IllegalArgumentException("The list was empty. No new tournaments could " +
                 "be added, please try again");
         for(Tournament element: addList){
-            if (!tournamentList.contains(element)) tournamentList.addAll(addList);
+            if (!tournamentList.contains(element)) tournamentList.add(element);
             //TODO: add an equals-method in Tournament Class
         }
     }

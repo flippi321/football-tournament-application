@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Tournament {
     protected ArrayList<Team> teams;
@@ -75,11 +76,12 @@ public abstract class Tournament {
     }
 
     /**
+     * @param tournamentName the name of the tournament
      * Constructor for object which represents an abstract tournament,
      * mainly used for tests
      */
-    public Tournament() {
-        this.tournamentName = "";
+    public Tournament(String tournamentName) {
+        this.tournamentName = tournamentName;
         this.firstPrize = 0;
         this.startDate = "[NO DATE]";
         this.matchLength = 90;
@@ -144,5 +146,13 @@ public abstract class Tournament {
     @Override
     public String toString() {
         return "TournamentName: " + tournamentName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tournament that = (Tournament) o;
+        return Objects.equals(tournamentName, that.tournamentName);
     }
 }
