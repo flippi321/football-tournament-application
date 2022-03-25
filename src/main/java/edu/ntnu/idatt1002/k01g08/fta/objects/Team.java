@@ -47,14 +47,30 @@ public class Team implements Iterable<Player> {
 
     /**
      * Adds the given player to this team, if its squad number is not shared by any player already present.
-     * Does not permit null.
      * Returns true if the player was added, and false if not.
      * @param player a player to be added to this team
      * @return true if the player was added, false if not
+     * @throws NullPointerException if player is null
      */
-    public boolean addPlayer(Player player) {
-        if (player == null) return false;
+    public boolean addPlayer(Player player) throws NullPointerException {
+        if (player == null) throw new NullPointerException();
         return players.putIfAbsent(player.getNumber(), player) == null;
+    }
+
+    /**
+     * Tries to add all the players in the given collection to the team.
+     * Returns true if any of the players were added.
+     * @param players a player to be added to this team
+     * @return true any of the players were added
+     * @throws NullPointerException if player is null
+     */
+    public boolean addPlayers(Collection<? extends Player> players) throws NullPointerException {
+        boolean changed = false;
+        if (players == null) throw new NullPointerException();
+        for (Player player : players) {
+            if (addPlayer(player)) changed = true;
+        }
+        return changed;
     }
 
     /**

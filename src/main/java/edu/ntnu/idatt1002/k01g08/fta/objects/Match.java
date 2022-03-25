@@ -231,7 +231,7 @@ public class Match implements Iterable<GameEvent> {
      * Returns true if the match has started. (Returns false if not.)
      */
     public boolean start() {
-        started = (homeTeam == null || awayTeam == null);
+        started = (homeTeam != null && awayTeam != null);
         return started;
     }
 
