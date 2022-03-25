@@ -1,27 +1,47 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MatchTest {
+    Team team1;
+    Team team2;
+
+    @BeforeEach
+    public void setUp() {
+        team1 = new Team("Odd");
+        team2 = new Team("München");
+        for (int i = 1; i < 12; i++) {
+            team1.addPlayer(new Player("Oddær nr. " + i, i));
+            team2.addPlayer(new Player("Baron von " + i, i));
+        }
+    }
+
     @Nested
     class ConstructorTests {
         @Test
-        public void differentTeamsDoesNotThrowException() {
+        public void emptyTeamsThrowsException() {
             Team team1 = new Team("Odd");
             Team team2 = new Team("München");
+            assertThrows(IllegalArgumentException.class, () -> new Match(team1, team2));
+        }
+
+        @Test
+        public void differentTeamsDoesNotThrowException() {
             assertDoesNotThrow(() -> new Match(team1, team2));
         }
 
         @Test
         public void equalTeamsThrowsException() {
-            Team team = new Team("Arsenal");
-            assertThrows(IllegalArgumentException.class, () -> new Match(team, team));
+            assertThrows(IllegalArgumentException.class, () -> new Match(team1, team1));
         }
 
         @Test
@@ -34,16 +54,12 @@ public class MatchTest {
     class AccessorTests {
         @Test
         public void getHomeTeamReturnsCorrectTeam() {
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Match match = new Match(team1, team2);
             assertEquals(team1, match.getHomeTeam());
         }
 
         @Test
         public void getAwayTeamReturnsCorrectTeam() {
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Match match = new Match(team1, team2);
             assertEquals(team2, match.getAwayTeam());
         }
@@ -57,11 +73,10 @@ public class MatchTest {
 
         @Test
         public void getGameEventGetsRightEvent() {
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
+            match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
             match.addGameEvent(event1);
@@ -74,11 +89,10 @@ public class MatchTest {
         @Test
         public void getLastGameEventGetsRightEvent() {
 
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
+            match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
             match.addGameEvent(event1);
@@ -93,26 +107,26 @@ public class MatchTest {
     class MutatorTests {
         @Test
         public void homeTeamIsSet() {
-            Team team = new Team("Odd");
             Match match = new Match();
-            match.setHomeTeam(team);
-            assertEquals(team, match.getHomeTeam());
+            match.setHomeTeam(team1);
+            assertEquals(team1, match.getHomeTeam());
         }
 
         @Test
         public void awayTeamIsSet() {
-            Team team = new Team("Odd");
             Match match = new Match();
-            match.setAwayTeam(team);
-            assertEquals(team, match.getAwayTeam());
+            match.setAwayTeam(team1);
+            assertEquals(team1, match.getAwayTeam());
         }
 
         @Test
         public void setterOverridesExisting() {
-            Team team1 = new Team("Bayern");
-            Team team2 = new Team("München");
-            Team team3 = new Team("Odd");
+            Team team3 = new Team("Bayern");
             Team team4 = new Team("Pors");
+            for (int i = 1; i < 12; i++) {
+                team3.addPlayer(new Player("Spiller " + i, i));
+                team4.addPlayer(new Player("\"Person\" " + i, i));
+            }
             Match match = new Match(team1, team2);
             match.setHomeTeam(team3);
             match.setAwayTeam(team4);
@@ -123,31 +137,36 @@ public class MatchTest {
 
         @Test
         public void settingEqualTeamsThrowsException() {
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Match match = new Match(team1, team2);
             assertThrows(IllegalArgumentException.class, ()->match.setAwayTeam(team1));
             assertThrows(IllegalArgumentException.class, ()->match.setHomeTeam(team2));
         }
 
         @Test
-        public void addingEventDoesNotThrowException() {
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
+        public void addingEventBeforeStartThrownsException() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
+            GameEvent event = new Goal(player1, team1, "20", player2);
+            assertThrows(RuntimeException.class, ()->match.addGameEvent(event));
+        }
+
+        @Test
+        public void addingEventAfterStartDoesNotThrowException() {
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            Match match = new Match(team1, team2);
+            match.start();
             GameEvent event = new Goal(player1, team1, "20", player2);
             assertDoesNotThrow(()->match.addGameEvent(event));
         }
 
         @Test
         public void removesRightEvent() {
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
+            match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
             match.addGameEvent(event1);
@@ -163,11 +182,10 @@ public class MatchTest {
 
         @Test
         public void removeReturnsRightEvent() {
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
+            match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
             match.addGameEvent(event1);
@@ -185,11 +203,10 @@ public class MatchTest {
         @Test
         public void getsRightHomeTeamScore() {
 
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
+            match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
             GameEvent event3 = new Substitution("26", team2, player1, player2);
@@ -205,11 +222,10 @@ public class MatchTest {
         @Test
         public void getsRightAwayTeamScore() {
 
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
+            match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
             GameEvent event3 = new Substitution("26", team2, player1, player2);
@@ -224,11 +240,10 @@ public class MatchTest {
 
         @Test
         public void getsRightWinner() {
-            Team team1 = new Team("Odd");
-            Team team2 = new Team("München");
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
+            match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
             GameEvent event3 = new Substitution("26", team2, player1, player2);
@@ -243,6 +258,7 @@ public class MatchTest {
             assertEquals(team1, match.getWinner());
 
             match = new Match(team2, team1);
+            match.start();
             match.addGameEvent(event1);
             match.addGameEvent(event2);
             match.addGameEvent(event3);
@@ -253,11 +269,10 @@ public class MatchTest {
 
     @Test
     public void iteratorReturnsRightEvents() {
-        Team team1 = new Team("Odd");
-        Team team2 = new Team("München");
         Player player1 = new Player("Gunnar", 30);
         Player player2 = new Player("Nordstoga", 32);
         Match match = new Match(team1, team2);
+        match.start();
         GameEvent event1 = new Goal(player1, team1, "20", player2);
         GameEvent event2 = new Goal(player2, team2, "25", player1);
         GameEvent event3 = new Substitution("26", team2, player1, player2);
@@ -278,11 +293,10 @@ public class MatchTest {
 
     @Test
     public void streamIsNotNull() {
-        Team team1 = new Team("Odd");
-        Team team2 = new Team("München");
         Player player1 = new Player("Gunnar", 30);
         Player player2 = new Player("Nordstoga", 32);
         Match match = new Match(team1, team2);
+        match.start();
         GameEvent event1 = new Goal(player1, team1, "20", player2);
         GameEvent event2 = new Goal(player2, team2, "25", player1);
         GameEvent event3 = new Substitution("26", team2, player1, player2);
