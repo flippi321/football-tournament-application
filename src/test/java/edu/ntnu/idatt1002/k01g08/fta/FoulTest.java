@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//TODO
+// Change nested names to fit regex
+// Better coverage
+
 public class FoulTest {
 
     @Nested
