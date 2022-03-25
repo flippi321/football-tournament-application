@@ -36,6 +36,8 @@ public class TeamRegister {
      * @param team is the team getting removed from the list
      * @throws IllegalArgumentException if the team isn't in the list
      */
+    //TODO
+    // trenger vi en IllegalArgumentException her? Bare lurer
     public void removeTeam(Team team) throws IllegalArgumentException{
         if (!this.teams.contains(team)) throw new IllegalArgumentException("This team isn't in the register!");
         this.teams.remove(team);
@@ -55,6 +57,9 @@ public class TeamRegister {
     public List<Team> getTeams(){
         return new ArrayList<>(this.teams);
     }
+
+    //TODO
+    // legge til get metode for ett spesifikt lag?
 
     /**
      * Find the number of teams in the register
