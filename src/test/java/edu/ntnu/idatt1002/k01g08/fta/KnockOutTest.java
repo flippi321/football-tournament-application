@@ -37,7 +37,7 @@ public class KnockOutTest {
                 Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
                 fail("Test 'testingKnockoutThrowingIllegalException' did not throw an exception to when expected to.");
             } catch (Exception e) {
-                assertEquals(e.getMessage(), "The number of teams is invalid.");
+                assertEquals( "The number of teams is invalid.", e.getMessage());
             }
         }
 
