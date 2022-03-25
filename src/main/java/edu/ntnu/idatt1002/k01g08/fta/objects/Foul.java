@@ -1,5 +1,13 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
+//TODO
+// Use NullPointerException
+// Reword method descriptions to descibe what the methods does
+// Better test coverage
+// Could change getYellowCard and getRedCard to a getCardType
+// Related: store card-type in a bool, or similar
+
+
 /**
  * Class representing a specific type of GameEvent called Foul
  * The Foul has a String for a foulTag, this can be a brief description, for example:
