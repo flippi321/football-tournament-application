@@ -15,26 +15,26 @@ public class Goal extends GameEvent {
 
     /**
      * First constructor to instantiate specific Goals
-     * @param player is a Player
-     * @param team is a Team
-     * @param timeStamp is a String
-     * @param assistingPlayer is another Player. The one that assisted the goal
+     * @param goalScorer is the player scoring the goal
+     * @param team is the team scoring the goal
+     * @param timeStamp is a String with the time of the goal
+     * @param assistingPlayer is the player assisting the goal
      * @throws IllegalArgumentException specified in the GameEvent class
      */
-    public Goal(Player player, Team team, String timeStamp, Player assistingPlayer) throws IllegalArgumentException {
-        super(player, team, timeStamp);
+    public Goal(Player goalScorer, Team team, String timeStamp, Player assistingPlayer) throws IllegalArgumentException {
+        super(goalScorer, team, timeStamp);
         this.assistingPlayer = assistingPlayer;
     }
 
     /**
      * Second constructor to instantiate a Goal without an assistingPlayer
-     * @param player is a Player
+     * @param goalScorer is the player scoring the goal
      * @param team is a Team
      * @param timeStamp is String
      * @throws IllegalArgumentException specified in the GameEvent class
      */
-    public Goal(Player player, Team team, String timeStamp) throws IllegalArgumentException {
-        super(player, team, timeStamp);
+    public Goal(Player goalScorer, Team team, String timeStamp) throws IllegalArgumentException {
+        super(goalScorer, team, timeStamp);
     }
 
     /**
@@ -62,8 +62,7 @@ public class Goal extends GameEvent {
 
     @Override
     public String toString() {
-        return "Goal{" +
-                "assistingPlayer=" + assistingPlayer +
-                '}';
+        return "Goal by: "+getPlayer().getName()+""  +
+                "\nAssisted by: " + getAssistingPlayer();
     }
 }
