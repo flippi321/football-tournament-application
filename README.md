@@ -101,7 +101,7 @@ Work-process description, concerning coding of classes:
 
 1.	Issue is created with description of contents expected to be included in each class. The issue is put in the “Open” board. 
 
-a.	The issue is written on the form “Code 'class name' with unit tests”.
+    a.	The issue is written on the form “Code 'class name' with unit tests”.
 
 2.	A group member creates a class with JavaDoc and unit tests in a distinct test class. The issue is moved to the “In progress” board.
 
@@ -111,9 +111,9 @@ a.	The issue is written on the form “Code 'class name' with unit tests”.
 
 5.	Then the issue is moved to “Testing” again, for double assurance of the quality. The same group member which originally tested is once again assigned to the issue. 
 
-a.	If the class is approved, it is moved to the board “Done”.
+    a.	If the class is approved, it is moved to the board “Done”.
 
-b.	Otherwise the process described over is repeated.
+    b.	Otherwise the process described over is repeated.
 
 
 - [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
