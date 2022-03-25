@@ -79,10 +79,26 @@ public class Player {
     }
 
     /**
+     * Increases this player's number of red cards.
+     * @param number the number to increase this player's red cards by
+     */
+    public void increaseRedCards(int number) {
+        redCards += number;
+    }
+
+    /**
      * Increments this player's number of yellow cards
      */
     public void increaseYellowCards() {
         yellowCards++;
+    }
+
+    /**
+     * Increases this player's number of yellow cards.
+     * @param number the number to increase this player's yellow cards by
+     */
+    public void increaseYellowCards(int number) {
+        yellowCards += number;
     }
 
     /**
@@ -93,9 +109,35 @@ public class Player {
     }
 
     /**
+     * Increases this player's number of scored goals.
+     * @param number the number to increase this player's goals by
+     */
+    public void increaseGoals(int number) {
+        goals += number;
+    }
+
+    /**
      * Increments this player's number of assists
      */
     public void increaseAssists() {
         assists++;
+    }
+
+    /**
+     * Increases this player's number of assists.
+     * @param number the number to increase this player's assists by
+     */
+    public void increaseAssists(int number) {
+        assists += number;
+    }
+
+    @Override
+    public String toString() {
+        return '(' + name + ' ' + number +
+                ": " + redCards +
+                " red, " + yellowCards +
+                " yellow, " + goals +
+                " goals, " + assists +
+                " assists)";
     }
 }

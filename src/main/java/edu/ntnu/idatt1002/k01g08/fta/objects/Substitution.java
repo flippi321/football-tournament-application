@@ -21,9 +21,9 @@ public class Substitution extends GameEvent {
     /**
      * First constructor for a Substitution which requires all parameters under to instantiate a new Substitution
      * @param timeStampOfMatchTime, is a String which cannot have value zero or be a blank string
-     * @param teamSwitchingPlayers, is of class Team
-     * @param playerIn, is of class Player
-     * @param playerOut, is of class Player
+     * @param teamSwitchingPlayers, is of class Team and is the team making the substitution
+     * @param playerIn, is of class Player and is the player being subbed in
+     * @param playerOut, is of class Player and is the player being subbed out
      * @throws IllegalArgumentException if the parameter timeStampOfMatchTime is either of null-value or
      * is a blank string
      */
@@ -43,13 +43,14 @@ public class Substitution extends GameEvent {
 
     /**
      * Mutator method to alter the player that is substituted in this Substitution
+     * @param playerIn is the player being subbed on
      */
     public void setPlayerIn(Player playerIn) {
         this.playerIn = playerIn;
     }
 
     /**
-     * Accessor method to get the player that is switched out in this Substitution
+     * Accessor method to get the player that is subbed out in this Substitution
      * @return Player playerOut
      */
     public Player getPlayerOut() {
@@ -58,6 +59,7 @@ public class Substitution extends GameEvent {
 
     /**
      * Mutator method to alter the player that is switched out in this Substitution
+     * @param playerOut is the player being subbed out
      */
     public void setPlayerOut(Player playerOut) {
         this.playerOut = playerOut;
@@ -67,16 +69,17 @@ public class Substitution extends GameEvent {
      * GetEvent method to get a string description of the event
      * @return String substitution description
      */
+    //TODO: Add test
     @Override
     public String getEvent() {
-        return "Team: " + getTeam() + " substituted player: "+ playerOut + " for: " + playerIn +
+        return "Team: " + getTeam() + " substituted player: "+ getPlayerOut() + " for: " + getPlayerIn() +
                 " at: " + getTimeStampOfMatchTime() + " of the match.";
     }
     @Override
     public String toString() {
-        return "Substitution:" +
-                "playerIn=" + playerIn +
-                ", playerOut=" + playerOut;
+        return "Substitution:\n" +
+                "Player in: " + getPlayerIn() +
+                "\nPlayer out: " + getPlayerOut();
     }
 }
 
