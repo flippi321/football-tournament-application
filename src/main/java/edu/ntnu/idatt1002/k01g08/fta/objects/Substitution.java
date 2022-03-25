@@ -9,9 +9,12 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  * The first takes parameters for all attributes
  *
  * and understands which team that is making a substitution based on the players switched
+ *
+ * @author bjornjob & magnulal
+ * @version 2022-03-21
+ *
  */
 public class Substitution extends GameEvent {
-    private Team teamSwitchingPlayers;
     private Player playerIn;
     private Player playerOut;
 
@@ -27,12 +30,9 @@ public class Substitution extends GameEvent {
     public Substitution(String timeStampOfMatchTime, Team teamSwitchingPlayers, Player playerIn, Player playerOut)
             throws IllegalArgumentException {
         super(null, teamSwitchingPlayers, timeStampOfMatchTime);
-        this.teamSwitchingPlayers = teamSwitchingPlayers;
         this.playerIn = playerIn;
         this.playerOut = playerOut;
     }
-    //TODO: another constructor with just playerIn and playerOut that gets the timestamp from Match and teamSwitching
-
     /**
      * Accessor method to get the player that is substituted in this Substitution
      * @return Player playerIn
@@ -64,11 +64,19 @@ public class Substitution extends GameEvent {
     }
 
     /**
-     *
+     * GetEvent method to get a string description of the event
+     * @return String substitution description
      */
     @Override
     public String getEvent() {
-        return "Substitution";
-    } // TODO: Update to explain event
+        return "Team: " + getTeam() + " substituted player: "+ playerOut + " for: " + playerIn +
+                " at: " + getTimeStampOfMatchTime() + " of the match.";
+    }
+    @Override
+    public String toString() {
+        return "Substitution:" +
+                "playerIn=" + playerIn +
+                ", playerOut=" + playerOut;
+    }
 }
 

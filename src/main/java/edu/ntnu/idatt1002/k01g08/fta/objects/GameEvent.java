@@ -2,7 +2,7 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
 
 /**
  * Represents a game event.
- * @author bjornjob
+ * @author bjornjob & magnulal
  * @version 2022-03-21
  */
 public abstract class GameEvent {
@@ -13,8 +13,8 @@ public abstract class GameEvent {
     public GameEvent(Player player, Team team, String timeStamp) throws IllegalArgumentException {
         if(timeStamp == null) throw new IllegalArgumentException("The value of the timestamp of " +
                 "substitution was 'null', please try again.");
-        if(timeStamp.isBlank()) throw new IllegalArgumentException("The timestamp was inputted " +
-                "an empty string, please try again");
+        if(timeStamp.isBlank()) throw new IllegalArgumentException("The timestamp was inputted as " +
+                "an empty string, please try again.");
         this.player = player;
         this.team = team;
         this.timeStamp = timeStamp;
@@ -23,6 +23,7 @@ public abstract class GameEvent {
     public String getTimeStampOfMatchTime() {
         return timeStamp;
     }
+
     /**
      * Mutator method to alter the timestamp of this event
      * @param timeStampOfMatchTime is a String which cannot have value zero or be a blank string
@@ -51,6 +52,7 @@ public abstract class GameEvent {
     public Player getPlayer() {
         return player;
     }
+
     /**
      * Mutator method to alter the player who is associated with this game event
      * @param player is a Player
@@ -58,6 +60,7 @@ public abstract class GameEvent {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
     /**
      * Accessor method to get the team that is associated with this game event
      * @return Team team
@@ -65,6 +68,7 @@ public abstract class GameEvent {
     public Team getTeam() {
         return team;
     }
+
     /**
      * Mutator method to alter which team that is associated with this game event
      * @param team is a team
@@ -73,11 +77,14 @@ public abstract class GameEvent {
         this.team = team;
     }
 
+    /**
+     * Get string version of a GameEvent object.
+     * @return a string representing an object of the class GameEvent.
+     */
     @Override
     public String toString() {
-        return "GameEvent{" +
-                "player=" + player +
-                ", team=" + team +
-                '}';
+        return "\nGameEvent" +
+                "\nplayer" + player +
+                "\nteam" + team;
     }
 }
