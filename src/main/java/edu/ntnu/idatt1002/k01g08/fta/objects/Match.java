@@ -208,6 +208,14 @@ public class Match implements Iterable<GameEvent> {
     }
 
     /**
+     * Removes the game event at the specified position in the match history, counted from the last. Returns the event that was removed.
+     * @return the event that was removed
+     */
+    public GameEvent removeLastGameEvent() {
+        return removeLastGameEvent(0);
+    }
+
+    /**
      * Starts the match.
      */
     public void start() {
