@@ -38,6 +38,14 @@ public class Team implements Iterable<Player> {
     }
 
     /**
+     * Returns the number of players on this team.
+     * @return the number of players on this team
+     */
+    public int size() {
+        return players.size();
+    }
+
+    /**
      * Adds the given player to this team, if its squad number is not shared by any player already present.
      * Does not permit null.
      * Returns true if the player was added, and false if not.
