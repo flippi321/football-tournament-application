@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,14 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MatchTest {
     Team team1;
     Team team2;
+    Team team3;
+    Team team4;
 
     @BeforeEach
     public void setUp() {
         team1 = new Team("Odd");
         team2 = new Team("München");
+        team3 = new Team("Bayern");
+        team4 = new Team("Pors");
         for (int i = 1; i < 12; i++) {
             team1.addPlayer(new Player("Oddær nr. " + i, i));
             team2.addPlayer(new Player("Baron von " + i, i));
+            team3.addPlayer(new Player("Spiller " + i, i));
+            team4.addPlayer(new Player("\"Person\" " + i, i));
         }
     }
 
@@ -52,6 +56,26 @@ public class MatchTest {
 
     @Nested
     class AccessorTests {
+        @Test
+        public void matchIsStartedTest() {
+            Match match = new Match(team1, team2);
+            assertFalse(match.isStarted());
+            match.start();
+            assertTrue(match.isStarted());
+            match.end();
+            assertTrue(match.isStarted());
+        }
+
+        @Test
+        public void matchIsFinishedTest() {
+            Match match = new Match(team1, team2);
+            assertFalse(match.isFinished());
+            match.start();
+            assertFalse(match.isFinished());
+            match.end();
+            assertTrue(match.isFinished());
+        }
+
         @Test
         public void getHomeTeamReturnsCorrectTeam() {
             Match match = new Match(team1, team2);
@@ -120,13 +144,15 @@ public class MatchTest {
         }
 
         @Test
+        public void settingTeamAfterStartThrowsException() {
+            Match match = new Match(team1, team2);
+            match.start();
+            assertThrows(RuntimeException.class, ()->match.setHomeTeam(team3));
+            assertThrows(RuntimeException.class, ()->match.setAwayTeam(team4));
+        }
+
+        @Test
         public void setterOverridesExisting() {
-            Team team3 = new Team("Bayern");
-            Team team4 = new Team("Pors");
-            for (int i = 1; i < 12; i++) {
-                team3.addPlayer(new Player("Spiller " + i, i));
-                team4.addPlayer(new Player("\"Person\" " + i, i));
-            }
             Match match = new Match(team1, team2);
             match.setHomeTeam(team3);
             match.setAwayTeam(team4);
@@ -140,6 +166,12 @@ public class MatchTest {
             Match match = new Match(team1, team2);
             assertThrows(IllegalArgumentException.class, ()->match.setAwayTeam(team1));
             assertThrows(IllegalArgumentException.class, ()->match.setHomeTeam(team2));
+        }
+
+        @Test
+        public void settingNullTeamThrowsException() {
+            assertThrows(NullPointerException.class, () -> new Match(null, team1));
+            assertThrows(NullPointerException.class, () -> new Match(team1, null));
         }
 
         @Test
@@ -177,6 +209,21 @@ public class MatchTest {
 
             match.addGameEvent(event1);
             match.removeLastGameEvent(1);
+            assertEquals(event1, match.getGameEvent(0));
+        }
+
+        @Test
+        public void noArgumentRemoveLastRemovesVeryLast() {
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            Match match = new Match(team1, team2);
+            match.start();
+            GameEvent event1 = new Goal(player1, team1, "20", player2);
+            GameEvent event2 = new Goal(player2, team2, "25", player1);
+            match.addGameEvent(event1);
+            match.addGameEvent(event2);
+
+            assertEquals(event2, match.removeLastGameEvent());
             assertEquals(event1, match.getGameEvent(0));
         }
 
@@ -264,6 +311,33 @@ public class MatchTest {
             match.addGameEvent(event3);
             match.addGameEvent(event4);
             assertEquals(team1, match.end());
+        }
+    }
+
+    @Nested
+    class MatchControlTests {
+        @Test
+        public void emptyMatchDoesNotStart() {
+            Match match = new Match();
+            assertFalse(match.start());
+            assertFalse(match.isStarted());
+
+            match.setHomeTeam(team1);
+            assertFalse(match.start());
+            assertFalse(match.isStarted());
+        }
+
+        @Test
+        public void filledMatchStarts() {
+            Match match = new Match(team1, team2);
+            assertTrue(match.start());
+        }
+
+        @Test
+        public void matchDoesNotEndBeforeStart() {
+            Match match = new Match();
+            match.start();
+            assertThrows(RuntimeException.class, match::end);
         }
     }
 

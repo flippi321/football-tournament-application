@@ -16,8 +16,7 @@ import java.util.stream.Stream;
 public class Match implements Iterable<GameEvent> {
     private Team homeTeam;
     private Team awayTeam;
-    private boolean finished = false;
-    private boolean started = false;
+    private int stage;
     final private List<GameEvent> matchHistory;
 
     /*
@@ -69,6 +68,22 @@ public class Match implements Iterable<GameEvent> {
     }
 
     /**
+     * Returns true if the match is finished.
+     * @return true if the match is finished
+     */
+    public boolean isFinished() {
+        return stage == 4;
+    }
+
+    /**
+     * Returns true if the match has started.
+     * @return true if the match has started
+     */
+    public boolean isStarted() {
+        return stage > 0;
+    }
+
+    /**
      * Sets the specified team as the home team.
      * @param homeTeam the team to set as the home team
      * @throws IllegalArgumentException if the specified team equals the away team
@@ -76,9 +91,9 @@ public class Match implements Iterable<GameEvent> {
      * @throws RuntimeException if the match has started
      */
     public void setHomeTeam(Team homeTeam) throws IllegalArgumentException, NullPointerException {
-        if (started) throw new RuntimeException("team change in ongoing match");
-        if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
+        if (isStarted()) throw new RuntimeException("team change in ongoing match");
         if (homeTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
+        if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.homeTeam = homeTeam;
     }
 
@@ -90,9 +105,9 @@ public class Match implements Iterable<GameEvent> {
      * @throws RuntimeException if the match has started
      */
     public void setAwayTeam(Team awayTeam) throws IllegalArgumentException, RuntimeException, NullPointerException {
-        if (started) throw new RuntimeException("team change in ongoing match");
-        if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
+        if (isStarted()) throw new RuntimeException("team change in ongoing match");
         if (awayTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
+        if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.awayTeam = awayTeam;
     }
 
@@ -174,7 +189,7 @@ public class Match implements Iterable<GameEvent> {
      * @return winner of the match if the match is finished, or null if not
      */
     public Team getWinner() {
-        if (finished) {
+        if (isFinished()) {
             int[] scores = getTeamScores();
             if (scores[0] > scores[1]) return homeTeam;
             else return awayTeam;
@@ -194,7 +209,7 @@ public class Match implements Iterable<GameEvent> {
      * @throws RuntimeException if match has not started yet
      */
     public void addGameEvent(GameEvent gameEvent) throws RuntimeException {
-        if (!started) throw new RuntimeException("add game event before match start");
+        if (!isStarted()) throw new RuntimeException("add game event before match start");
         matchHistory.add(gameEvent);
     }
 
@@ -231,8 +246,8 @@ public class Match implements Iterable<GameEvent> {
      * Returns true if the match has started. (Returns false if not.)
      */
     public boolean start() {
-        started = (homeTeam != null && awayTeam != null);
-        return started;
+        if (!isStarted() && (homeTeam != null && awayTeam != null)) stage = 1;
+        return isStarted();
     }
 
     /**
@@ -241,8 +256,8 @@ public class Match implements Iterable<GameEvent> {
      * @throws RuntimeException if the match has not started
      */
     public Team end() throws RuntimeException{
-        if (!started) throw new RuntimeException("match not started");
-        finished = true;
+        if (!isStarted()) throw new RuntimeException("match not started");
+        stage = 4;
         return getWinner();
     }
 
