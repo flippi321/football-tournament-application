@@ -1,7 +1,5 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
-import javafx.beans.binding.ObjectExpression;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +14,13 @@ import java.util.stream.Stream;
 public class Match implements Iterable<GameEvent> {
     private Team homeTeam;
     private Team awayTeam;
-    private int stage;
+    private int maxTime = 45;
+    private int stage = 0; /*   0: Match has not started
+                                1: First half
+                                2: Pause
+                                3: Second half
+                                -1: Finished
+    */
     final private List<GameEvent> matchHistory;
 
     /*
@@ -65,22 +69,6 @@ public class Match implements Iterable<GameEvent> {
      */
     public Team getAwayTeam() {
         return awayTeam;
-    }
-
-    /**
-     * Returns true if the match is finished.
-     * @return true if the match is finished
-     */
-    public boolean isFinished() {
-        return stage == 4;
-    }
-
-    /**
-     * Returns true if the match has started.
-     * @return true if the match has started
-     */
-    public boolean isStarted() {
-        return stage > 0;
     }
 
     /**
@@ -204,6 +192,81 @@ public class Match implements Iterable<GameEvent> {
      */
 
     /**
+     * Starts the match, and the match clock, if both teams have been registered.
+     * Returns true if this match's state changed because of the call.
+     * @return true if this match's state changed because of the call
+     */
+    public boolean start() {
+        if (onPause() && (homeTeam != null && awayTeam != null)) stage++;
+        return isStarted();
+    }
+
+    /**
+     * Pauses the match. Returns true if this match's state changed because of the call.
+     * @return true if this match's state changed.
+     */
+    public boolean pause() {
+        if (isPlaying()) {
+            stage++;
+            return onPause();
+        }
+        return false;
+    }
+
+    /**
+     * Ends the match and returns the winning team.
+     * @return winning team of this match
+     * @throws RuntimeException if the match has not started
+     */
+    public Team end() throws RuntimeException{
+        if (!isStarted()) throw new RuntimeException("match not started");
+        stage = -1;
+        return getWinner();
+    }
+
+    /**
+     * Returns true if the match is finished.
+     * @return true if the match is finished
+     */
+    public boolean isFinished() {
+        return stage == -1;
+    }
+
+    /**
+     * Returns true if the match has started.
+     * @return true if the match has started
+     */
+    public boolean isStarted() {
+        return stage != 0;
+    }
+
+    /**
+     * Returns true if the match is on pause.
+     * @return true if the match is on pause
+     */
+    public boolean onPause() {
+        return (stage&1) == 0; // checks if stage is even
+    }
+
+    /**
+     * Returns true if the match is playing.
+     * @return true if the match is playing
+     */
+    public boolean isPlaying() {
+        return !isFinished()&&!onPause();
+    }
+
+    public int currentHalf() {
+        return (stage+1)/2;
+    }
+
+    /*
+    --------------------------------------------
+    -- Game events
+    --------------------------------------------
+     */
+
+    /**
      * Adds a game event to the match history, if the match has started.
      * @param gameEvent game event to add to the match history.
      * @throws RuntimeException if match has not started yet
@@ -239,26 +302,6 @@ public class Match implements Iterable<GameEvent> {
      */
     public GameEvent removeLastGameEvent() {
         return removeLastGameEvent(0);
-    }
-
-    /**
-     * Starts the match, and the match clock, if both teams have been registered.
-     * Returns true if the match has started. (Returns false if not.)
-     */
-    public boolean start() {
-        if (!isStarted() && (homeTeam != null && awayTeam != null)) stage = 1;
-        return isStarted();
-    }
-
-    /**
-     * Ends the match and returns the winning team.
-     * @return winning team of this match
-     * @throws RuntimeException if the match has not started
-     */
-    public Team end() throws RuntimeException{
-        if (!isStarted()) throw new RuntimeException("match not started");
-        stage = 4;
-        return getWinner();
     }
 
     /*
