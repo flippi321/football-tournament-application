@@ -1,5 +1,9 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
+import edu.ntnu.idatt1002.k01g08.fta.objects.Match;
+import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
+import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +13,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static TeamRegister teamRegister = new TeamRegister();
+    private static TournamentRegister tournamentRegister = new TournamentRegister();
     @Override
     public void start(Stage stage) {
         try{
@@ -33,5 +39,13 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static TeamRegister getTeamRegister() {
+        return teamRegister;
+    }
+
+    public static TournamentRegister getTournamentRegister() {
+        return tournamentRegister;
     }
 }

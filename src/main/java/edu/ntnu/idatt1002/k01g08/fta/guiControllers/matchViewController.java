@@ -7,20 +7,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class matchViewController {
+
     @FXML
-    private Button awayteamGoalButton;
+    private Label titleLabel;
     @FXML
     private Label timeLabel;
-    @FXML
-    private Button hometeamGoalButton;
     @FXML
     private Label resultLabel;
 
     @FXML
-    public void hometeamGoal(ActionEvent actionEvent) {
+    public void awayGoal(ActionEvent actionEvent) {
     }
 
     @FXML
-    public void awayteamGoal(ActionEvent actionEvent) {
+    public void homeGoal(ActionEvent actionEvent) {
     }
 }
