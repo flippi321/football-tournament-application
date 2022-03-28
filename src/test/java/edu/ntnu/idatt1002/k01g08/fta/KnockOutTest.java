@@ -27,7 +27,7 @@ public class KnockOutTest {
         }
 
         @Test
-        @DisplayName("Testing with wrong Number of Teams")
+        @DisplayName("Making a tournament with wrong Number of Teams")
         public void testingKnockoutThrowingIllegalException(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<5; i++){
@@ -38,6 +38,31 @@ public class KnockOutTest {
                 fail("Test 'testingKnockoutThrowingIllegalException' did not throw an exception to when expected to.");
             } catch (Exception e) {
                 assertEquals( "The number of teams is invalid.", e.getMessage());
+            }
+        }
+
+        @Test
+        @DisplayName("Making a tournament without teams")
+        public void testTournamentWithEmptyTeamsList(){
+            ArrayList<Team> teams = new ArrayList<>();
+            try {
+                Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
+                fail("Test 'testTournamentWithEmptyTeamsList' did not throw an exception to when expected to.");
+            } catch (Exception e) {
+                assertEquals( "Must have a valid list of teams, yours was empty", e.getMessage());
+            }
+        }
+
+        @Test
+        @DisplayName("Making a tournament without a name")
+        public void testTournamentWithoutName(){
+            ArrayList<Team> teams = new ArrayList<>();
+            teams.add(new Team("Rosenborg"));
+            try {
+                Tournament testTournament = new KnockOut("", teams);
+                fail("Test 'testTournamentWithoutName' did not throw an exception to when expected to.");
+            } catch (Exception e) {
+                assertEquals( "The tournament must have a name, you gave none", e.getMessage());
             }
         }
 
@@ -66,6 +91,12 @@ public class KnockOutTest {
             assertEquals(4, testTournament.getUpcomingMatches().size());
         }
 
-        //TODO: test equals method
+        @Test
+        @DisplayName("Testing that equals method works")
+        public void testTournamentEqualsMethod(){
+            KnockOut tournament1 = new KnockOut("Tippeligaen2022", 3);
+            KnockOut tournament2 = new KnockOut("Tippeligaen2022", 5);
+            assertTrue(tournament1.equals(tournament2));
+        }
     }
 }
