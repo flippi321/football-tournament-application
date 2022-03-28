@@ -83,6 +83,7 @@ public abstract class Tournament {
      */
     public Tournament(String tournamentName) {
         this.tournamentName = tournamentName;
+        this.teams = new ArrayList<>();
         this.firstPrize = 0;
         this.startDate = "[NO DATE]";
         this.matchLength = 90;
@@ -104,6 +105,10 @@ public abstract class Tournament {
         matches.add(upcomingMatches.get(0));
         upcomingMatches.remove(0);
         currentMatch = null;
+    }
+
+    public void addTeam(Team team) {
+        teams.add(team);
     }
 
     public Match getCurrentMatch() {
