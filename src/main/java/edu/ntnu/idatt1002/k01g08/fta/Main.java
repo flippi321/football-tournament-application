@@ -10,8 +10,15 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        stage.setTitle("My Application");
-        stage.show();
+        try{
+            SceneManager.setView("hello-view");
+            stage.setTitle("FTA");
+            Scene scene = SceneManager.getScene();
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException i){
+            i.printStackTrace();
+        }
     }
 
 
