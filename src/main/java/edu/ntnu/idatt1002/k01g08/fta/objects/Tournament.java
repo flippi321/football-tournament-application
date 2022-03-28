@@ -136,10 +136,10 @@ public abstract class Tournament {
         currentMatch = upcomingMatches.get(0);
     }
 
-    /*
-    Method for ending a match,
-    will remove match from list of future matches
-    and set the current match to empty
+    /**
+     * Method for ending a match,
+     * will remove match from list of future matches
+     * and set the current match to empty
      */
     public void endMatch() {
         matches.add(upcomingMatches.get(0));
@@ -147,8 +147,10 @@ public abstract class Tournament {
         currentMatch = null;
     }
 
-    /*
-    Get method for the match currently being played
+
+    /**
+     * Method for finding the match currently being played
+     * @return the match currently being played
      */
     public Match getCurrentMatch() {
         return currentMatch;
@@ -160,8 +162,9 @@ public abstract class Tournament {
      */
     public abstract void findUpcomingMatches();
 
-    /*
-    Get method for finding the winner of the tournament
+    /**
+     * Method for finding the team which won the tournament
+     * @return the team who won the tournament
      */
     public Team getWinner() {
         return winner;
@@ -252,3 +255,8 @@ public abstract class Tournament {
         return Objects.equals(tournamentName, that.tournamentName);
     }
 }
+
+//TODO:
+// Error handling
+// Private Metoder
+// Javadoc
