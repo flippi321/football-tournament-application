@@ -24,6 +24,7 @@ public class NewTournamentController {
     @FXML
     public void createTournament(ActionEvent actionEvent) throws IOException {
         Tournament tournament = new KnockOut(tournamentNameInput.getText());
+        Main.getTournamentRegister().addTournament(tournament);
         Main.setNumOfTeams(Integer.parseInt(tournamentNumberTeamsInput.getText()));
         SceneManager.setView("newTeam");
     }
