@@ -5,17 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class NewTournamentController {
-
+public class NewPlayerController {
     @FXML
-    private TextField tournamentNumberTeamsInput;
+    private TextField playerNameInput;
     @FXML
-    private TextField tournamentNameInput;
+    private Label playerIdLabel;
+    @FXML
+    private TextField playerNumberInput;
     @FXML
     private Label errorLabel;
 
     @FXML
-    public void createTournament(ActionEvent actionEvent) {
-
+    public void createPlayer(ActionEvent actionEvent) {
     }
 }

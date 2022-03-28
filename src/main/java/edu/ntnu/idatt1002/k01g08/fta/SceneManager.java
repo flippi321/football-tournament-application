@@ -14,12 +14,16 @@ public class SceneManager {
     }
     public static void setView(String viewFxml) throws IOException {
         FXMLLoader loader = getFXMLLoader(viewFxml);
-        scene = new Scene(loader.load());
+        scene.setRoot(loader.load());
     }
     public static FXMLLoader getFXMLLoader(String name) {
         String path = String.format("%s.fxml", name);
         System.out.println(path);
         return new FXMLLoader(Main.class.getResource(path));
+    }
+
+    public static void setScene(Scene scene) {
+        SceneManager.scene = scene;
     }
 
     public static Scene getScene() {

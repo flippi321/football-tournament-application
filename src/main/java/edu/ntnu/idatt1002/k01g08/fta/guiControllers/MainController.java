@@ -24,7 +24,5 @@ public class MainController{
     @FXML
     public void createNewTournamentClick(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("newTournament");
-        stage.setScene(SceneManager.getScene());
-        stage.show();
     }
 }
