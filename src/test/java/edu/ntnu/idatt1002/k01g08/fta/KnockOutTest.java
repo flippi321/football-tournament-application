@@ -96,7 +96,7 @@ public class KnockOutTest {
         public void testTournamentEqualsMethod(){
             KnockOut tournament1 = new KnockOut("Tippeligaen2022", 3);
             KnockOut tournament2 = new KnockOut("Tippeligaen2022", 5);
-            assertTrue(tournament1.equals(tournament2));
+            assertEquals(tournament1, tournament2);
         }
     }
 }
