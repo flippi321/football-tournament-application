@@ -264,8 +264,3 @@ public abstract class Tournament {
         return Objects.equals(tournamentName, that.tournamentName);
     }
 }
-
-//TODO:
-// Error handling
-// Private Metoder
-// Javadoc
