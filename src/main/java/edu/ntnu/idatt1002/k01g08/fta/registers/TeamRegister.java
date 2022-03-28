@@ -2,8 +2,8 @@ package edu.ntnu.idatt1002.k01g08.fta.registers;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a register of football teams
@@ -12,13 +12,13 @@ import java.util.List;
  */
 
 public class TeamRegister {
-    private final List<Team> teams;
+    private final Map<String,Team> teams;
 
     /**
      * Creates a team register
      */
     public TeamRegister() {
-        this.teams = new ArrayList<>();
+        this.teams = new HashMap<>();
     }
 
     /**
@@ -27,17 +27,17 @@ public class TeamRegister {
      * @throws IllegalArgumentException if the team is the team is already in the register
      */
     public void addTeam(Team team) throws IllegalArgumentException{
-        if (this.teams.contains(team)) throw new IllegalArgumentException("This team is already in the register");
-        this.teams.add(team);
+        if (this.teams.containsValue(team)) throw new IllegalArgumentException("This team is already in the register");
+        this.teams.put(team.getName(), team);
     }
 
     /**
      * Remove a team from the register
-     * @param team is the team getting removed from the list
+     * @param team is the team getting removed from the register
      * @return true or false
      */
     public boolean removeTeam(Team team){
-        return this.teams.remove(team);
+        return this.teams.remove(team.getName(), team);
     }
 
     /**
@@ -51,8 +51,8 @@ public class TeamRegister {
      * Method for retrieving the teams in the register
      * @return a copy of the register as an ArrayList
      */
-    public List<Team> getTeams(){
-        return new ArrayList<>(this.teams);
+    public Map<String, Team> getTeams(){
+        return new HashMap<>(this.teams);
     }
 
     /**
@@ -62,7 +62,7 @@ public class TeamRegister {
      * @throws IllegalArgumentException if the team isn't in the register
      */
     public Team getTeam(String teamName) throws IllegalArgumentException{
-        for (Team t : teams){
+        for (Team t : teams.values()){
             if (t.getName().equals(teamName)) return t;
         }
         throw new IllegalArgumentException("This team isn't in the register");
@@ -83,8 +83,8 @@ public class TeamRegister {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Teams\n");
-        for(Team team : this.teams){
-            sb.append(team.toString()).append("\n");
+        for(Team team : this.teams.values()){
+            sb.append(team.getName()).append("\n");
         }
         return sb.toString();
     }
