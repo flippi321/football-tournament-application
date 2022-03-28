@@ -23,6 +23,14 @@ public abstract class Tournament {
      *
      */
     public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength) {
+        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
+                "you gave none");
+        if(firstPrize<0) throw new IllegalArgumentException("First price must be a positive number");
+        if(startDate.isBlank() | startDate.length()>5) throw new IllegalArgumentException("Must be a valid date " +
+                "on the format: mm:ss, (ex: 12:05 or 90:00)");
+        if(matchLength<10 | matchLength > 120 | matchLength%2 != 0) {
+            throw new IllegalArgumentException("The match length must be an even number between 10 and 120");
+        }
         this.teams = teams;
         this.tournamentName = tournamentName;
         this.firstPrize = firstPrize;
@@ -39,6 +47,11 @@ public abstract class Tournament {
      * @param startDate when the tournament starts
      */
     public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate) {
+        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
+                "you gave none");
+        if(firstPrize<0) throw new IllegalArgumentException("First price must be a positive number");
+        if(startDate.isBlank() | startDate.length()>5) throw new IllegalArgumentException("Must be a valid date " +
+                "on the format: mm:ss, (ex: 12:05 or 90:00)");
         this.teams = teams;
         this.tournamentName = tournamentName;
         this.firstPrize = firstPrize;
@@ -55,6 +68,14 @@ public abstract class Tournament {
      * @param matchLength the length which the match should be
      */
     public Tournament(ArrayList<Team> teams, String tournamentName, String startDate, int matchLength) {
+        if (teams.isEmpty()) throw new IllegalArgumentException("Must have a valid list of teams, yours was empty");
+        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
+                "you gave none");
+        if(startDate.isBlank() | startDate.length()>5) throw new IllegalArgumentException("Must be a valid date " +
+                "on the format: mm:ss, (ex: 12:05 or 90:00)");
+        if(matchLength<10 | matchLength > 120 | matchLength%2 != 0) {
+            throw new IllegalArgumentException("The match length must be an even number between 10 and 120");
+        }
         this.teams = teams;
         this.tournamentName = tournamentName;
         this.startDate = startDate;
@@ -64,36 +85,50 @@ public abstract class Tournament {
     }
 
     /**
-     * Constructor for object which represents an abstract tournament, without a winning prize or date
+     * Constructor for object which represents an abstract tournament, without a winning prize, match length or date
      * @param teams a list of all teams in the tournament
      * @param tournamentName the name of the tournament
      */
     public Tournament(ArrayList<Team> teams, String tournamentName) {
+        if (teams.isEmpty()) throw new IllegalArgumentException("Must have a valid list of teams, yours was empty");
+        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
+                "you gave none");
         this.teams = teams;
         this.tournamentName = tournamentName;
         this.startDate = "[NO DATE]";
         this.firstPrize = 0;
+        this.matchLength = 90;
         upcomingMatches = new ArrayList<>();
     }
 
     /**
      * @param tournamentName the name of the tournament
      * Constructor for object which represents an abstract tournament,
-     * mainly used for tests
+     * mainly used for testing purposes
      */
     public Tournament(String tournamentName) {
+        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
+                "you gave none");
         this.tournamentName = tournamentName;
-        this.teams = new ArrayList<>();
         this.firstPrize = 0;
         this.startDate = "[NO DATE]";
         this.matchLength = 90;
+        upcomingMatches = new ArrayList<>();
     }
 
+    /**
+     * Method for planning a new match
+     * @param team1 first team competing in the match
+     * @param team2 second team competing in the match
+     */
     public void setUpcomingMatch(Team team1, Team team2){
         Match newMatch = new Match(team1, team2);
         upcomingMatches.add(newMatch);
     }
 
+    /**
+     * Method for initiating the next match
+     */
     public void startNextMatch(){
         if(upcomingMatches.isEmpty()) {
             findUpcomingMatches();
@@ -101,61 +136,124 @@ public abstract class Tournament {
         currentMatch = upcomingMatches.get(0);
     }
 
+    /**
+     * Method for ending a match,
+     * will remove match from list of future matches
+     * and set the current match to empty
+     */
     public void endMatch() {
         matches.add(upcomingMatches.get(0));
         upcomingMatches.remove(0);
         currentMatch = null;
     }
 
-    public void addTeam(Team team) {
-        teams.add(team);
-    }
 
+    /**
+     * Method for finding the match currently being played
+     * @return the match currently being played
+     */
     public Match getCurrentMatch() {
         return currentMatch;
     }
 
+    /**
+     * Method for finding the planned match time
+     * This is the length of the match in its entirety, so halftime starts at the middle of the inputted time
+     * @return int showing how many minutes a match should last
+     */
+    public int getMatchLength() {
+        return matchLength;
+    }
+
+    /**
+     * Abstract method for generating the next set of matches
+     * Will be called if there are no planned matches yet more teams left
+     */
     public abstract void findUpcomingMatches();
 
+    /**
+     * Method for finding the team which won the tournament
+     * @return the team who won the tournament
+     */
     public Team getWinner() {
         return winner;
     }
 
+    /**
+     * Method for changing match winner
+     * @param winner which team who should win the tournament
+     */
     public void setWinner(Team winner) {
         this.winner = winner;
     }
 
+    /**
+     * Method for finding all teams in the tournament
+     * @return a list of teams
+     */
     public ArrayList<Team> getTeams() {
         return teams;
     }
 
+    /**
+     * Method for finding all finished matches
+     * @return a list of matches
+     */
     public ArrayList<Match> getMatches() {
         return matches;
     }
 
+    /**
+     * Method for finding all planned matches
+     * @return a list of matches
+     */
     public ArrayList<Match> getUpcomingMatches() {
         return upcomingMatches;
     }
 
+    /**
+     * Method for finding the name of the tournament
+     * @return Name of the tournament
+     */
     public String getTournamentName() {
         return tournamentName;
     }
 
+    /**
+     * Method for finding the prize which the winner will receive
+     * @return a number representing the first price value in kr
+     */
     public int getFirstPrize() {
         return firstPrize;
     }
 
+    /**
+     * Method for finding the date of the tournament
+     * @return a String representing the date of the tournament
+     */
     public String getStartDate() {
         return startDate;
     }
 
+    /**
+     * Method for finding how many teams who will participate in the tournament
+     * @return a number representing the number of teams
+     */
     public int getNumberOfTeams(){
         return teams.size();
     }
 
+    /**
+     * Method for acquiring information about the tournament
+     * @return a string representing various tournament information
+     */
     @Override
     public String toString() {
-        return "TournamentName: " + tournamentName;
+        return "Name: " + tournamentName +
+                "\nDate: " + startDate +
+                "\nPrize: " + firstPrize +
+                "\nNumber of teams: " + teams.size() +
+                "\nNext match: " + upcomingMatches.get(0);
     }
 
     @Override
@@ -165,13 +263,4 @@ public abstract class Tournament {
         Tournament that = (Tournament) o;
         return Objects.equals(tournamentName, that.tournamentName);
     }
-
-    //TODO
-    // Add Javadoc
-    // Change class variables 'teams', 'matches' and 'upcomingMatches' to private.
-    // - Note: this will have to be reflected in the class Knockout which uses these attributes directly. Knockout must
-    //          use get methods from this class.
-    // Add exception handling in class constructor.
-    // - You should not be able to add an empty ArrayList 'teams'.
-    // - You should not be able to add 'tournamentName' as null-input or as an empty string.
 }

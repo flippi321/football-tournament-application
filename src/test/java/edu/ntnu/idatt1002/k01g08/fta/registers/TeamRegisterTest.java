@@ -43,6 +43,13 @@ class TeamRegisterTest {
     }
 
     @Test
+    void removeWrongTeamTest(){
+        TeamRegister register = new TeamRegister();
+        Team team = new Team("NTNUI");
+        assertFalse(register.removeTeam(team));
+    }
+
+    @Test
     @DisplayName("Register should be empty after clearing")
     void registerShouldBeEmptyAfterClearing() {
         TeamRegister register = new TeamRegister();
@@ -51,5 +58,22 @@ class TeamRegisterTest {
         register.clearRegister();
         assertEquals(0, register.getNumberOfTeams());
 
+    }
+
+    @Test
+    void getTeamTest(){
+        TeamRegister register = new TeamRegister();
+        register.addTeam(new Team("NTNUI"));
+        register.addTeam(new Team("Tihlde Pythons"));
+        assertEquals("NTNUI", register.getTeam("NTNUI").getName());
+    }
+
+    @Test
+    @DisplayName("Getting team not in register should throw IllegalArgumentException")
+    void getTeamNotInRegisterShouldThrowIllegalArgumenteException(){
+        TeamRegister register = new TeamRegister();
+        register.addTeam(new Team("NTNUI"));
+        register.addTeam(new Team("Tihlde Pythons"));
+        assertThrows(IllegalArgumentException.class, () -> register.getTeam("test"));
     }
 }

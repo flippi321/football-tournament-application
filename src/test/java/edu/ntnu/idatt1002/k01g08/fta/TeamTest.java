@@ -70,7 +70,7 @@ public class TeamTest {
     @Test
     public void nullPlayerIsNotAdded() {
         Team team = new Team("Odd");
-        assertFalse(team.addPlayer(null));
+        assertThrows(NullPointerException.class, () -> team.addPlayer(null));
     }
 
     @Test
