@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
+import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -18,6 +20,6 @@ public class NewTeamController {
 
     @FXML
     public void createTeam(ActionEvent actionEvent) {
-
+        Main.getTeamRegister().addTeam(new Team(teamNameInput.getText()));
     }
 }
