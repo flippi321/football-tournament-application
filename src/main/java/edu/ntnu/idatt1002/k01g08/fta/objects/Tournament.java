@@ -121,57 +121,112 @@ public abstract class Tournament {
         currentMatch = upcomingMatches.get(0);
     }
 
+    /*
+    Method for ending a match,
+    will remove match from list of future matches
+    and set the current match to empty
+     */
     public void endMatch() {
         matches.add(upcomingMatches.get(0));
         upcomingMatches.remove(0);
         currentMatch = null;
     }
 
+    /*
+    Get method for the match currently being played
+     */
     public Match getCurrentMatch() {
         return currentMatch;
     }
 
+    /**
+     * Abstract method for generating the next set of matches
+     * Will be called if there are no planned matches yet more teams left
+     */
     public abstract void findUpcomingMatches();
 
+    /*
+    Get method for finding the winner of the tournament
+     */
     public Team getWinner() {
         return winner;
     }
 
+    /**
+     * Method for changing match winner
+     * @param winner which team who should win the tournament
+     */
     public void setWinner(Team winner) {
         this.winner = winner;
     }
 
+    /**
+     * Method for finding all teams in the tournament
+     * @return a list of teams
+     */
     public ArrayList<Team> getTeams() {
         return teams;
     }
 
+    /**
+     * Method for finding all finished matches
+     * @return a list of matches
+     */
     public ArrayList<Match> getMatches() {
         return matches;
     }
 
+    /**
+     * Method for finding all planned matches
+     * @return a list of matches
+     */
     public ArrayList<Match> getUpcomingMatches() {
         return upcomingMatches;
     }
 
+    /**
+     * Method for finding the name of the tournament
+     * @return Name of the tournament
+     */
     public String getTournamentName() {
         return tournamentName;
     }
 
+    /**
+     * Method for finding the prize which the winner will receive
+     * @return a number representing the first price value in kr
+     */
     public int getFirstPrize() {
         return firstPrize;
     }
 
+    /**
+     * Method for finding the date of the tournament
+     * @return a String representing the date of the tournament
+     */
     public String getStartDate() {
         return startDate;
     }
 
+    /**
+     * Method for finding how many teams who will participate in the tournament
+     * @return a number representing the number of teams
+     */
     public int getNumberOfTeams(){
         return teams.size();
     }
 
+    /**
+     * Method for acquiring information about the tournament
+     * @return a string representing various tournament information
+     */
     @Override
     public String toString() {
-        return "TournamentName: " + tournamentName;
+        return "Name: " + tournamentName +
+                "\nDate: " + startDate +
+                "\nPrize: " + firstPrize +
+                "\nNumber of teams: " + teams.size() +
+                "\nNext match: " + upcomingMatches.get(0);
     }
 
     @Override
