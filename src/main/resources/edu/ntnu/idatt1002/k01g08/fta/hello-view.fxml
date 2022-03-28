@@ -5,13 +5,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.MainController">
-   <children>
-      <Button fx:id="createNewTournamentBtn" layoutX="191.0" layoutY="270.0" mnemonicParsing="false" onAction="#createNewTournament" text="Create New Tournament" />
-      <Text layoutX="58.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Football Tournament Application" wrappingWidth="485.0">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.MainController">
+   <center>
+      <Button fx:id="createNewTournament" mnemonicParsing="false" onAction="#createNewTournamentClick" text="Create New Tournament" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <Label text="Welcome to Football Tournament Application" BorderPane.alignment="CENTER">
          <font>
-            <Font size="24.0" />
+            <Font size="26.0" />
          </font>
-      </Text>
-   </children>
-</AnchorPane>
+      </Label>
+   </top>
+</BorderPane>
