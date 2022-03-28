@@ -67,4 +67,13 @@ class TeamRegisterTest {
         register.addTeam(new Team("Tihlde Pythons"));
         assertEquals("NTNUI", register.getTeam("NTNUI").getName());
     }
+
+    @Test
+    @DisplayName("Getting team not in register should throw IllegalArgumentException")
+    void getTeamNotInRegisterShouldThrowIllegalArgumenteException(){
+        TeamRegister register = new TeamRegister();
+        register.addTeam(new Team("NTNUI"));
+        register.addTeam(new Team("Tihlde Pythons"));
+        assertThrows(IllegalArgumentException.class, () -> register.getTeam("test"));
+    }
 }
