@@ -9,6 +9,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//TODO: add DISPLAY NAME for tests
 public class TeamTest {
     @Test
     public void teamNameIsCorrect() {
@@ -52,6 +53,9 @@ public class TeamTest {
         team.addPlayer(player2);
 
         assertEquals(player1, team.getPlayer(1));
+
+        //TODO: add line beneath to actually check that the size of the team is 1
+        // assertEquals(1, team.getTeamSize()); - - that uses the iterator
     }
 
     @Test
@@ -85,6 +89,7 @@ public class TeamTest {
 
         assertNull(team.getPlayer(1));
         assertNull(team.getPlayer(2));
+        //TODO: add size check for the final team-array
     }
 
     @Test
@@ -97,6 +102,7 @@ public class TeamTest {
         assertFalse(team.removePlayer(3));
         assertFalse(team.removePlayer(player2));
         assertFalse(team.removePlayer(null));
+        //TODO: add size check for the final team-array
     }
 
     @Test

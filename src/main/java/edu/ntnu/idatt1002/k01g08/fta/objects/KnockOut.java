@@ -12,7 +12,13 @@ public class KnockOut extends Tournament {
     //Number of stages in the tournament
     private int stages;
     //Contains all matches from the previous stage
-    private ArrayList<Match> previousRoundMatches = new ArrayList<>();
+    private final ArrayList<Match> previousRoundMatches = new ArrayList<>();
+
+
+    public KnockOut(String tournamentName, int stages) {
+        super(tournamentName);
+        this.stages = stages;
+    }
 
     /**
      * Constructor for a KnockOut-Tournament
@@ -104,7 +110,7 @@ public class KnockOut extends Tournament {
      * and sets that variable as the stages of the tournament.
      */
     private void calculateStages() {
-        int num = super.teams.size();
+        int num = super.getTeams().size();
         int repetitions = 1;
 
         while (num != Math.pow(2, repetitions)) {
@@ -124,7 +130,7 @@ public class KnockOut extends Tournament {
         Random random = new Random();
 
         if (previousRoundMatches.isEmpty()) { //If previousRound == null, then it's the first round.
-            ArrayList<Team> teamsRemaining = new ArrayList<>(teams);
+            ArrayList<Team> teamsRemaining = new ArrayList<>(super.getTeams());
 
             while (!teamsRemaining.isEmpty()) {
                 //Get two random numbers within the teamsRemaining-size
