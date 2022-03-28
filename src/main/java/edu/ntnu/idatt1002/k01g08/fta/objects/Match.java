@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,7 +16,9 @@ import java.util.stream.Stream;
 public class Match implements Iterable<GameEvent> {
     private Team homeTeam;
     private Team awayTeam;
-    private int maxTime = 45;
+    private Instant startTime;
+    private int timeOffset = 0;
+    private int lengthOfHalf = 45; // maximum length of a match half
     private int stage = 0; /*   0: Match has not started
                                 1: First half
                                 2: Pause
@@ -117,6 +121,11 @@ public class Match implements Iterable<GameEvent> {
         return matchHistory.get(matchHistory.size()-++index);
     }
 
+    public void setLengthOfHalf(int minutes) {
+        if (minutes < 1) throw new IllegalArgumentException("match length too low");
+        lengthOfHalf = minutes;
+    }
+
     /*
     --------------------------------------------
     -- Results & team scores
@@ -197,7 +206,10 @@ public class Match implements Iterable<GameEvent> {
      * @return true if this match's state changed because of the call
      */
     public boolean start() {
-        if (onPause() && (homeTeam != null && awayTeam != null)) stage++;
+        if (onPause() && (homeTeam != null && awayTeam != null)) {
+            stage++;
+            startTime = Instant.now();
+        }
         return isStarted();
     }
 
@@ -208,6 +220,7 @@ public class Match implements Iterable<GameEvent> {
     public boolean pause() {
         if (isPlaying()) {
             stage++;
+            timeOffset += lengthOfHalf;
             return onPause();
         }
         return false;
@@ -258,6 +271,19 @@ public class Match implements Iterable<GameEvent> {
 
     public int currentHalf() {
         return (stage+1)/2;
+    }
+
+    /**
+     * Returns the current match time as a string.
+     * If the time is over half of maximum length of half, the time will be returned on the form ("[max length]+[difference]".
+     * @return the current match time as a string.
+     */
+    public String currentMatchTime() {
+        if (onPause()) return Integer.toString(timeOffset);
+        long minutes = Duration.between(startTime, Instant.now()).toMinutes()+1;
+        if (minutes > lengthOfHalf) {
+            return lengthOfHalf+timeOffset + "+" + (minutes-lengthOfHalf);
+        } else return Long.toString(minutes+timeOffset);
     }
 
     /*
