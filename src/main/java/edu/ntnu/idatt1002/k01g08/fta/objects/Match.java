@@ -75,6 +75,11 @@ public class Match implements Iterable<GameEvent> {
         return awayTeam;
     }
 
+    public Team getTeam(boolean homeTeam) {
+        if (homeTeam) return this.homeTeam;
+        else return awayTeam;
+    }
+
     /**
      * Sets the specified team as the home team.
      * @param homeTeam the team to set as the home team
@@ -328,6 +333,49 @@ public class Match implements Iterable<GameEvent> {
      */
     public GameEvent removeLastGameEvent() {
         return removeLastGameEvent(0);
+    }
+
+    /**
+     * Adds a new goal to the match history. If time stamp is null, uses current match time.
+     * @param team the scoring team
+     * @param scoringPlayer the scoring player
+     * @param assistingPlayer the assisting player
+     * @param timeStamp the time stamp of the goal
+     */
+    public void addGoal(Team team, Player scoringPlayer, Player assistingPlayer, String timeStamp) {
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMatchTime();
+        addGameEvent(new Goal(scoringPlayer, team, timeStamp, assistingPlayer));
+    }
+
+    public void addGoal(boolean homeTeam, int scoringPlayerNumber, int assistingPlayerNumber, String timeStamp) {
+        Team team = getTeam(homeTeam);
+        addGoal(team, team.getPlayer(scoringPlayerNumber), team.getPlayer(assistingPlayerNumber), timeStamp);
+    }
+
+    public void addSelfGoal(boolean scoringPlayerIsHomeTeam, int scoringPlayer, String timeStamp) {
+        Team team = getTeam(!scoringPlayerIsHomeTeam);
+        Player player = getTeam(scoringPlayerIsHomeTeam).getPlayer(scoringPlayer);
+        addGoal(team, player, null, timeStamp);
+    }
+
+    public void addSubstitution(Team team, Player playerIn, Player playerOut, String timeStamp) {
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMatchTime();
+        addGameEvent(new Substitution(timeStamp, team, playerIn, playerOut));
+    }
+
+    public void addSubstitution(boolean homeTeam, int playerInNumber, int playerOutNumber, String timeStamp) {
+        Team team = getTeam(homeTeam);
+        addSubstitution(team, team.getPlayer(playerInNumber), team.getPlayer(playerOutNumber), timeStamp);
+    }
+
+    public void addFoul(Team team, Player player, String foulTag, int giveCard, String timeStamp) {
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMatchTime();
+        addGameEvent(new Foul(foulTag, timeStamp, player, team, giveCard));
+    }
+
+    public void addFoul(boolean homeTeam, int playerNumber, String foulTag, int giveCard, String timeStamp) {
+        Team team = getTeam(homeTeam);
+        addFoul(team, team.getPlayer(playerNumber), foulTag, giveCard, timeStamp);
     }
 
     /*
