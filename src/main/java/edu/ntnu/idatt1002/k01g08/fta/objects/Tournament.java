@@ -158,7 +158,7 @@ public abstract class Tournament {
 
     /**
      * Method for finding the planned match time
-     * This is the lenght of the match in its entirety, so halftime starts at the middle of the inputted time
+     * This is the length of the match in its entirety, so halftime starts at the middle of the inputted time
      * @return int showing how many minutes a match should last
      */
     public int getMatchLength() {
