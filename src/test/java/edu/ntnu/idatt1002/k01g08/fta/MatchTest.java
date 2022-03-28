@@ -339,64 +339,6 @@ public class MatchTest {
             match.start();
             assertThrows(RuntimeException.class, match::end);
         }
-
-        @Test
-        public void firstMinuteIsCorrect() {
-            Match match = new Match(team1, team2);
-            match.start();
-            assertEquals("1", match.currentMatchTime());
-            match.pause();
-            assertEquals("45", match.currentMatchTime());
-            match.start();
-            assertEquals("46", match.currentMatchTime());
-            match.pause();
-            assertEquals("90", match.currentMatchTime());
-        }
-
-        @Test
-        public void matchCountsMinutes() {
-            Match match = new Match(team1, team2);
-            match.setLengthOfHalf(2);
-            synchronized (match) {
-                for (int seconds = 0; seconds < 55; seconds++) {
-                    match.start();
-                    try {
-                        match.wait(1000);
-                    } catch (InterruptedException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    assertEquals("1", match.currentMatchTime());
-                    System.out.println(seconds);
-                }
-
-                try {
-                    match.wait(10000);
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
-                }
-
-                assertEquals("2", match.currentMatchTime());
-            }
-        }
-
-        @Test
-        public void matchCountsExtraMinutes() {
-            Match match = new Match(team1, team2);
-            match.setLengthOfHalf(1);
-            synchronized (match) {
-                for (int seconds = 0; seconds < 65; seconds++) {
-                    match.start();
-                    try {
-                        match.wait(1000);
-                    } catch (InterruptedException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    System.out.println(seconds);
-                }
-
-                assertEquals("1+1", match.currentMatchTime());
-            }
-        }
     }
 
     @Test
