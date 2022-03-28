@@ -49,6 +49,19 @@ public class MatchTest {
         }
 
         @Test
+        public void nullTeamThrowsException() {
+            assertThrows(NullPointerException.class, () -> new Match(null, team1));
+            assertThrows(NullPointerException.class, () -> new Match(team1, null));
+        }
+
+        @Test
+        public void tooSmallTeamThrowsException() {
+            team1.removePlayer(1);
+            assertThrows(IllegalArgumentException.class, () -> new Match(team1, team2));
+            assertThrows(IllegalArgumentException.class, () -> new Match(team2, team1));
+        }
+
+        @Test
         public void emptyConstructorDoesNotThrowException() {
             assertDoesNotThrow(()->new Match());
         }
@@ -325,6 +338,11 @@ public class MatchTest {
             match.setHomeTeam(team1);
             assertFalse(match.start());
             assertFalse(match.isStarted());
+
+            match = new Match();
+            match.setAwayTeam(team1);
+            assertFalse(match.start());
+            assertFalse(match.isStarted());
         }
 
         @Test
@@ -383,4 +401,3 @@ public class MatchTest {
         assertNotNull(match.eventStream());
     }
 }
-// TODO: Should add tests for the new constructor exceptions that are mentioned in the Match-class
