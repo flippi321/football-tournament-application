@@ -19,6 +19,7 @@ public class SceneManager {
     public static FXMLLoader getLoader(String fileName) {
         String path = String.format("%s.fxml", fileName); //TODO: update to use root path
         System.out.println(path);
+
         return new FXMLLoader(Main.class.getResource(path));
     }
 

@@ -86,6 +86,7 @@ public abstract class Tournament {
         this.firstPrize = 0;
         this.startDate = "[NO DATE]";
         this.matchLength = 90;
+        this.teams = new ArrayList<>();
     }
 
     public void setUpcomingMatch(Team team1, Team team2){
