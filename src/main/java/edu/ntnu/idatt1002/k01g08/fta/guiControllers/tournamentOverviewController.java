@@ -17,6 +17,7 @@ public class tournamentOverviewController {
     @FXML
     private Label nextMatchLabel;
 
+    @FXML
     public void initialize() {
         Tournament tournament = Main.getTournamentRegister().getTournamentList().get(0);
         tournament.findUpcomingMatches();

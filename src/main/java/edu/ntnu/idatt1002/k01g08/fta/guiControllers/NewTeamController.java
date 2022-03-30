@@ -21,18 +21,12 @@ public class NewTeamController {
     }
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() {
         teamIdLabel.setText("Team: " + (Main.getTeamRegister().getTeams().size() + 1));
 
         ArrayList<Team> teams = Main.getTournamentRegister().getTournamentList().get(0).getTeams();
         for (Team team : teams) {
             System.out.println(team.size());
-        }
-
-        if (Main.getTournamentRegister().getTournamentList().get(0).getNumberOfTeams()
-                == Main.getNumOfTeams()) { //Then all teams have been made
-            Main.getTournamentRegister().getTournamentList().get(0).findUpcomingMatches();
-            SceneManager.setView("tournamentOverview");
         }
     }
 

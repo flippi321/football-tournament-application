@@ -41,7 +41,14 @@ public class NewPlayerController {
            Main.getTournamentRegister().getTournamentList().get(0).getTeams()
                    .get(Main.getTournamentRegister().getTournamentList().get(0).getNumberOfTeams()-1)
                    .addPlayers(Main.getPlayersMade());
-           SceneManager.setView("newTeam");
+           if (Main.getTournamentRegister().getTournamentList().get(0).getNumberOfTeams()
+                   == Main.getNumOfTeams()) {
+               Main.getTournamentRegister().getTournamentList().get(0).findUpcomingMatches();
+               SceneManager.setView("tournamentOverview");
+           }
+           else {
+               SceneManager.setView("newTeam");
+           }
        }
     }
 }
