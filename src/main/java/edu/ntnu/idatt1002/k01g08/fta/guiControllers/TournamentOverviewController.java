@@ -11,12 +11,13 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class tournamentOverviewController {
+public class TournamentOverviewController {
     @FXML
     private Label tournamentNameLabel;
     @FXML
     private Label nextMatchLabel;
 
+    @FXML
     public void initialize() {
         Tournament tournament = Main.getTournamentRegister().getTournamentList().get(0);
         tournament.findUpcomingMatches();
@@ -26,6 +27,7 @@ public class tournamentOverviewController {
         Match match = tournament.getUpcomingMatches().get(0);
 
         String newMatchString = match.getHomeTeam() + "vs" + match.getAwayTeam();
+        nextMatchLabel.setText(newMatchString);
     }
 
     @FXML
