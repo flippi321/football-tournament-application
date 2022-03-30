@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
-import javafx.beans.binding.ObjectExpression;
-
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +16,15 @@ import java.util.stream.Stream;
 public class Match implements Iterable<GameEvent> {
     private Team homeTeam;
     private Team awayTeam;
-    private boolean finished = false;
+    private Instant startTime;
+    private int timeOffset = 0;
+    private int lengthOfHalf = 45; // maximum length of a match half
+    private int stage = 0; /*   0: Match has not started
+                                1: First half
+                                2: Pause
+                                3: Second half
+                                -1: Finished
+    */
     final private List<GameEvent> matchHistory;
 
     /*
@@ -37,11 +45,11 @@ public class Match implements Iterable<GameEvent> {
      * @param homeTeam home team for this match
      * @param awayTeam away team for this match
      * @throws IllegalArgumentException if the teams are equal
+     * @throws NullPointerException if one of the specified teams is null
      */
-    public Match(Team homeTeam, Team awayTeam) throws IllegalArgumentException {
-        if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
+    public Match(Team homeTeam, Team awayTeam) throws IllegalArgumentException, NullPointerException {
+        setHomeTeam(homeTeam);
+        setAwayTeam(awayTeam);
         this.matchHistory = new ArrayList<>();
     }
 
@@ -71,8 +79,12 @@ public class Match implements Iterable<GameEvent> {
      * Sets the specified team as the home team.
      * @param homeTeam the team to set as the home team
      * @throws IllegalArgumentException if the specified team equals the away team
+     * @throws NullPointerException if the specified team is null
+     * @throws RuntimeException if the match has started
      */
-    public void setHomeTeam(Team homeTeam) throws IllegalArgumentException {
+    public void setHomeTeam(Team homeTeam) throws IllegalArgumentException, NullPointerException {
+        if (isStarted()) throw new RuntimeException("team change in ongoing match");
+        if (homeTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.homeTeam = homeTeam;
     }
@@ -81,8 +93,12 @@ public class Match implements Iterable<GameEvent> {
      * Sets the specified team as the away team.
      * @param awayTeam the team to set as the away team
      * @throws IllegalArgumentException if the specified team equals the home team
+     * @throws NullPointerException if the specified team is null
+     * @throws RuntimeException if the match has started
      */
-    public void setAwayTeam(Team awayTeam) throws IllegalArgumentException {
+    public void setAwayTeam(Team awayTeam) throws IllegalArgumentException, RuntimeException, NullPointerException {
+        if (isStarted()) throw new RuntimeException("team change in ongoing match");
+        if (awayTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.awayTeam = awayTeam;
     }
@@ -103,6 +119,11 @@ public class Match implements Iterable<GameEvent> {
      */
     public GameEvent getLastGameEvent(int index) {
         return matchHistory.get(matchHistory.size()-++index);
+    }
+
+    public void setLengthOfHalf(int minutes) {
+        if (minutes < 1) throw new IllegalArgumentException("match length too low");
+        lengthOfHalf = minutes;
     }
 
     /*
@@ -165,7 +186,7 @@ public class Match implements Iterable<GameEvent> {
      * @return winner of the match if the match is finished, or null if not
      */
     public Team getWinner() {
-        if (finished) {
+        if (isFinished()) {
             int[] scores = getTeamScores();
             if (scores[0] > scores[1]) return homeTeam;
             else return awayTeam;
@@ -180,10 +201,104 @@ public class Match implements Iterable<GameEvent> {
      */
 
     /**
-     * Adds a game event to the match history.
-     * @param gameEvent game event to add to the match history.
+     * Starts the match, and the match clock, if both teams have been registered.
+     * Returns true if this match's state changed because of the call.
+     * @return true if this match's state changed because of the call
      */
-    public void addGameEvent(GameEvent gameEvent) {
+    public boolean start() {
+        if (onPause() && (homeTeam != null && awayTeam != null)) {
+            stage++;
+            startTime = Instant.now();
+        }
+        return isStarted();
+    }
+
+    /**
+     * Pauses the match. Returns true if this match's state changed because of the call.
+     * @return true if this match's state changed.
+     */
+    public boolean pause() {
+        if (isPlaying()) {
+            stage++;
+            timeOffset += lengthOfHalf;
+            return onPause();
+        }
+        return false;
+    }
+
+    /**
+     * Ends the match and returns the winning team.
+     * @return winning team of this match
+     * @throws RuntimeException if the match has not started
+     */
+    public Team end() throws RuntimeException{
+        if (!isStarted()) throw new RuntimeException("match not started");
+        stage = -1;
+        return getWinner();
+    }
+
+    /**
+     * Returns true if the match is finished.
+     * @return true if the match is finished
+     */
+    public boolean isFinished() {
+        return stage == -1;
+    }
+
+    /**
+     * Returns true if the match has started.
+     * @return true if the match has started
+     */
+    public boolean isStarted() {
+        return stage != 0;
+    }
+
+    /**
+     * Returns true if the match is on pause.
+     * @return true if the match is on pause
+     */
+    public boolean onPause() {
+        return (stage&1) == 0; // checks if stage is even
+    }
+
+    /**
+     * Returns true if the match is playing.
+     * @return true if the match is playing
+     */
+    public boolean isPlaying() {
+        return !isFinished()&&!onPause();
+    }
+
+    public int currentHalf() {
+        return (stage+1)/2;
+    }
+
+    /**
+     * Returns the current match time as a string.
+     * If the time is over half of maximum length of half, the time will be returned on the form ("[max length]+[difference]".
+     * @return the current match time as a string.
+     */
+    public String currentMatchTime() {
+        if (onPause()) return Integer.toString(timeOffset);
+        long minutes = Duration.between(startTime, Instant.now()).toMinutes()+1;
+        if (minutes > lengthOfHalf) {
+            return lengthOfHalf+timeOffset + "+" + (minutes-lengthOfHalf);
+        } else return Long.toString(minutes+timeOffset);
+    }
+
+    /*
+    --------------------------------------------
+    -- Game events
+    --------------------------------------------
+     */
+
+    /**
+     * Adds a game event to the match history, if the match has started.
+     * @param gameEvent game event to add to the match history.
+     * @throws RuntimeException if match has not started yet
+     */
+    public void addGameEvent(GameEvent gameEvent) throws RuntimeException {
+        if (!isStarted()) throw new RuntimeException("add game event before match start");
         matchHistory.add(gameEvent);
     }
 
@@ -215,21 +330,6 @@ public class Match implements Iterable<GameEvent> {
         return removeLastGameEvent(0);
     }
 
-    /**
-     * Starts the match.
-     */
-    public void start() {
-    }
-
-    /**
-     * Ends the match and returns the winning team.
-     * @return winning team of this match
-     */
-    public Team end() {
-        finished = true;
-        return getWinner();
-    }
-
     /*
     --------------------------------------------
     -- Utility methods
@@ -253,8 +353,3 @@ public class Match implements Iterable<GameEvent> {
         return matchHistory.stream();
     }
 }
-
-// TODO: Make exception handling in constructor for not allowing the creation of a match without two teams, and both
-//  teams most contain at least 11 players.
-//  Important!
-//  Create function for match-clock, remember to include half-time/full-time.

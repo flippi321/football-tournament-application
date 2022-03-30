@@ -92,6 +92,10 @@ public class KnockOut extends Tournament {
         findUpcomingMatches();
     }
 
+    public KnockOut(String tournamentName) {
+        super(tournamentName);
+    }
+
     /**
      * Checks if the variable is in the power of 2,
      * It has to be that inorder to be a valid knockout-tournament.
