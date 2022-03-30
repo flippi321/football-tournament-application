@@ -30,9 +30,6 @@ public class NewTeamController {
 
     @FXML
     public void createTeam(ActionEvent actionEvent) throws IOException {
-        if (currentTeams==2) {
-            SceneManager.setView("newPlayer.fxml");
-        }
         Main.setNumOfPlayers(parseInt(noOfPlayersInput.getText()));
         Main.getTeamRegister().addTeam(new Team(teamNameInput.getText()));
     }

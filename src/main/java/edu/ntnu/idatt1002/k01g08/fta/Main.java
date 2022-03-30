@@ -23,7 +23,7 @@ public class Main extends Application {
         try{
             //SceneManager.setView("hello-view");
 
-            FXMLLoader loader = SceneManager.getFXMLLoader("hello-view");
+            FXMLLoader loader = SceneManager.getLoader("hello-view");
             SceneManager.setScene(new Scene(loader.load()));
             stage.setScene(SceneManager.getScene());
 
