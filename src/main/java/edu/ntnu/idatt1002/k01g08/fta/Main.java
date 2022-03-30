@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static int numOfPlayers = 0;
     private static TeamRegister teamRegister = new TeamRegister();
     private static TournamentRegister tournamentRegister = new TournamentRegister();
     private static int numOfTeams;
@@ -57,5 +58,9 @@ public class Main extends Application {
 
     public static void setNumOfTeams(int numOfTeams) {
         Main.numOfTeams = numOfTeams;
+    }
+
+    public static void setNumOfPlayers(int numOfPlayers) {
+        Main.numOfPlayers = numOfPlayers;
     }
 }
