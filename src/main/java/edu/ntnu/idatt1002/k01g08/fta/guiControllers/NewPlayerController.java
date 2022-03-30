@@ -29,13 +29,15 @@ public class NewPlayerController {
 
     @FXML
     public void createPlayer(ActionEvent actionEvent) throws IOException {
-       Main.addPlayer(new Player(playerNameInput.getText(), Integer.parseInt(playerNumberInput.getText())));
+        for (int i = 0; i < 12; i++) {
+            Main.addPlayer(new Player(playerNameInput.getText(), Integer.parseInt(playerNumberInput.getText()) + i));
+        }
 
         playerIdLabel.setText("Player: " + (1 + Main.getPlayersMade().size()));
         playerNameInput.setText("");
         playerNumberInput.setText("");
 
-       if (Main.getNumOfPlayers() == Main.getPlayersMade().size()) {
+       if (Main.getNumOfPlayers() <= Main.getPlayersMade().size()) {
            Main.getTournamentRegister().getTournamentList().get(0).getTeams()
                    .get(Main.getTournamentRegister().getTournamentList().get(0).getNumberOfTeams()-1)
                    .addPlayers(Main.getPlayersMade());
