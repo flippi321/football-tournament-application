@@ -160,8 +160,8 @@ public class MatchTest {
         public void settingTeamAfterStartThrowsException() {
             Match match = new Match(team1, team2);
             match.start();
-            assertThrows(RuntimeException.class, ()->match.setHomeTeam(team3));
-            assertThrows(RuntimeException.class, ()->match.setAwayTeam(team4));
+            assertThrows(IllegalStateException.class, ()->match.setHomeTeam(team3));
+            assertThrows(IllegalStateException.class, ()->match.setAwayTeam(team4));
         }
 
         @Test
@@ -193,7 +193,7 @@ public class MatchTest {
             Player player2 = new Player("Nordstoga", 32);
             Match match = new Match(team1, team2);
             GameEvent event = new Goal(player1, team1, "20", player2);
-            assertThrows(RuntimeException.class, ()->match.addGameEvent(event));
+            assertThrows(IllegalStateException.class, ()->match.addGameEvent(event));
         }
 
         @Test
@@ -355,7 +355,7 @@ public class MatchTest {
         public void matchDoesNotEndBeforeStart() {
             Match match = new Match();
             match.start();
-            assertThrows(RuntimeException.class, match::end);
+            assertThrows(IllegalStateException.class, match::end);
         }
     }
 

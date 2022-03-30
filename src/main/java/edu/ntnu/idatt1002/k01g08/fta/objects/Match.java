@@ -85,10 +85,10 @@ public class Match implements Iterable<GameEvent> {
      * @param homeTeam the team to set as the home team
      * @throws IllegalArgumentException if the specified team equals the away team
      * @throws NullPointerException if the specified team is null
-     * @throws RuntimeException if the match has started
+     * @throws IllegalStateException if the match has started
      */
-    public void setHomeTeam(Team homeTeam) throws IllegalArgumentException, NullPointerException {
-        if (isStarted()) throw new RuntimeException("team change in ongoing match");
+    public void setHomeTeam(Team homeTeam) throws IllegalArgumentException, NullPointerException, IllegalStateException {
+        if (isStarted()) throw new IllegalStateException("team change in ongoing match");
         if (homeTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.homeTeam = homeTeam;
@@ -99,10 +99,10 @@ public class Match implements Iterable<GameEvent> {
      * @param awayTeam the team to set as the away team
      * @throws IllegalArgumentException if the specified team equals the home team
      * @throws NullPointerException if the specified team is null
-     * @throws RuntimeException if the match has started
+     * @throws IllegalStateException if the match has started
      */
-    public void setAwayTeam(Team awayTeam) throws IllegalArgumentException, RuntimeException, NullPointerException {
-        if (isStarted()) throw new RuntimeException("team change in ongoing match");
+    public void setAwayTeam(Team awayTeam) throws IllegalArgumentException, IllegalStateException, NullPointerException {
+        if (isStarted()) throw new IllegalStateException("team change in ongoing match");
         if (awayTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.awayTeam = awayTeam;
@@ -234,10 +234,10 @@ public class Match implements Iterable<GameEvent> {
     /**
      * Ends the match and returns the winning team.
      * @return winning team of this match
-     * @throws RuntimeException if the match has not started
+     * @throws IllegalStateException if the match has not started
      */
-    public Team end() throws RuntimeException{
-        if (!isStarted()) throw new RuntimeException("match not started");
+    public Team end() throws IllegalStateException{
+        if (!isStarted()) throw new IllegalStateException("match not started");
         stage = -1;
         return getWinner();
     }
@@ -300,10 +300,10 @@ public class Match implements Iterable<GameEvent> {
     /**
      * Adds a game event to the match history, if the match has started.
      * @param gameEvent game event to add to the match history.
-     * @throws RuntimeException if match has not started yet
+     * @throws IllegalStateException if match has not started yet
      */
-    public void addGameEvent(GameEvent gameEvent) throws RuntimeException {
-        if (!isStarted()) throw new RuntimeException("add game event before match start");
+    public void addGameEvent(GameEvent gameEvent) throws IllegalStateException {
+        if (!isStarted()) throw new IllegalStateException("add game event before match start");
         matchHistory.add(gameEvent);
     }
 
