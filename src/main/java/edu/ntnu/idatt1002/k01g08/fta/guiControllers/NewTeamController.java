@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
@@ -23,7 +24,13 @@ public class NewTeamController {
     public void initialize() throws IOException {
         teamIdLabel.setText("Team: " + (Main.getTeamRegister().getTeams().size() + 1));
 
-        if (Main.getTeamRegister().getTeams().size() == Main.getNumOfTeams()) { //Then all teams have been made
+        ArrayList<Team> teams = Main.getTournamentRegister().getTournamentList().get(0).getTeams();
+        for (Team team : teams) {
+            System.out.println(team.size());
+        }
+
+        if (Main.getTournamentRegister().getTournamentList().get(0).getNumberOfTeams()
+                == Main.getNumOfTeams()) { //Then all teams have been made
             Main.getTournamentRegister().getTournamentList().get(0).findUpcomingMatches();
             SceneManager.setView("tournamentOverview");
         }

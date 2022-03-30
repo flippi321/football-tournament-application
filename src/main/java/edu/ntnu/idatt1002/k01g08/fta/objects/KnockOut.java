@@ -134,7 +134,7 @@ public class KnockOut extends Tournament {
         Random random = new Random();
 
         if (previousRoundMatches.isEmpty()) { //If previousRound == null, then it's the first round.
-            ArrayList<Team> teamsRemaining = new ArrayList<>(super.getTeams());
+            ArrayList<Team> teamsRemaining = new ArrayList<>(getTeams());
 
             while (!teamsRemaining.isEmpty()) {
                 //Get two random numbers within the teamsRemaining-size
@@ -153,6 +153,8 @@ public class KnockOut extends Tournament {
                 teamsRemaining.remove(homeTeam);
                 teamsRemaining.remove(awayTeam);
             }
+
+            return;
         }
         else { //If a previous round has been played, get winners from the matches.
             while (!previousRoundMatches.isEmpty()) {
