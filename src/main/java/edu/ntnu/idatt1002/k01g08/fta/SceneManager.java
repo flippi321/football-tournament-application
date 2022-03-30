@@ -9,16 +9,17 @@ import java.io.IOException;
 public class SceneManager {
     private static Scene scene;
     private static Stage stage;
-    public SceneManager(){
 
-    }
+    public SceneManager() {}
+
     public static void setView(String viewFxml) throws IOException {
-        FXMLLoader loader = getFXMLLoader(viewFxml);
+        FXMLLoader loader = getLoader(viewFxml);
         scene.setRoot(loader.load());
     }
-    public static FXMLLoader getFXMLLoader(String name) {
-        String path = String.format("%s.fxml", name);
+    public static FXMLLoader getLoader(String fileName) {
+        String path = String.format("%s.fxml", fileName); //TODO: update to use root path
         System.out.println(path);
+
         return new FXMLLoader(Main.class.getResource(path));
     }
 
