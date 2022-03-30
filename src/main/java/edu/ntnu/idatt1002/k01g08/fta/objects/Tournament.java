@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class Tournament {
@@ -209,6 +210,22 @@ public abstract class Tournament {
      */
     public int getNumberOfTeams(){
         return teams.size();
+    }
+
+    /**
+     * Method for a team into the tournament
+     * @param team to add
+     */
+    public void addTeam(Team team) {
+        this.teams.add(team);
+    }
+
+    /**
+     * Method for adding all teams in a list
+     * @param teams to add
+     */
+    public void addAllTeams(List<Team> teams) {
+        this.teams.addAll(teams);
     }
 
     /**

@@ -20,6 +20,16 @@ public class NewTeamController {
     }
 
     @FXML
+    public void initialize() throws IOException {
+        teamIdLabel.setText("Team: " + (Main.getTeamRegister().getTeams().size() + 1));
+
+        if (Main.getTeamRegister().getTeams().size() == currentTeams) { //Then all teams have been made
+            Main.getTournamentRegister().getTournamentList().get(0).findUpcomingMatches();
+            SceneManager.setView("tournamentOverview");
+        }
+    }
+
+    @FXML
     private TextField noOfPlayersInput;
     @FXML
     private TextField teamNameInput;
@@ -31,6 +41,10 @@ public class NewTeamController {
     @FXML
     public void createTeam(ActionEvent actionEvent) throws IOException {
         Main.setNumOfPlayers(parseInt(noOfPlayersInput.getText()));
-        Main.getTeamRegister().addTeam(new Team(teamNameInput.getText()));
+
+        Team team = new Team(teamNameInput.getText());
+        Main.getTeamRegister().addTeam(team);
+        Main.getTournamentRegister().getTournamentList().get(0).addTeam(team);
+        SceneManager.setView("newPlayer");
     }
 }
