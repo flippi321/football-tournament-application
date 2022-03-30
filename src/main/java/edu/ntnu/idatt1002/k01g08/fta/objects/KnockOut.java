@@ -67,7 +67,6 @@ public class KnockOut extends Tournament {
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
         }
-
         calculateStages();
         findUpcomingMatches();
     }
@@ -173,7 +172,6 @@ public class KnockOut extends Tournament {
                 previousRoundMatches.remove(previousRoundMatches.get(awayTeamNum));
             }
         }
-
         previousRoundMatches.addAll(getUpcomingMatches());
     }
 }
