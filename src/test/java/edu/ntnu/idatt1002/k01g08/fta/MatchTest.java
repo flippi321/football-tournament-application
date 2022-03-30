@@ -357,6 +357,15 @@ public class MatchTest {
             match.start();
             assertThrows(IllegalStateException.class, match::end);
         }
+
+        @Test
+        public void pauseGivesCorrectFeedback() {
+            Match match = new Match(team1, team2);
+            assertFalse(match.pause());
+            match.start();
+            assertTrue(match.pause());
+            assertFalse(match.pause());
+        }
     }
 
     @Test
