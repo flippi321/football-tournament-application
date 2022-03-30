@@ -23,7 +23,7 @@ public class NewTeamController {
     public void initialize() throws IOException {
         teamIdLabel.setText("Team: " + (Main.getTeamRegister().getTeams().size() + 1));
 
-        if (Main.getTeamRegister().getTeams().size() == currentTeams) { //Then all teams have been made
+        if (Main.getTeamRegister().getTeams().size() == Main.getNumOfTeams()) { //Then all teams have been made
             Main.getTournamentRegister().getTournamentList().get(0).findUpcomingMatches();
             SceneManager.setView("tournamentOverview");
         }
@@ -45,6 +45,7 @@ public class NewTeamController {
         Team team = new Team(teamNameInput.getText());
         Main.getTeamRegister().addTeam(team);
         Main.getTournamentRegister().getTournamentList().get(0).addTeam(team);
+        Main.initializePlayerCreation();
         SceneManager.setView("newPlayer");
     }
 }
