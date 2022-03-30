@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class tournamentOverviewController {
+public class TournamentOverviewController {
     @FXML
     private Label tournamentNameLabel;
     @FXML
