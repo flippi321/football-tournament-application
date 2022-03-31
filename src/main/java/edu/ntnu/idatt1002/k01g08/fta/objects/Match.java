@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Represents a football match.
  * @author bendikme
- * @version 2022-03-23
+ * @version 2022-03-31
  */
 public class Match implements Iterable<GameEvent> {
     private Team homeTeam;
