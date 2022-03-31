@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.k01g08.fta;
 import edu.ntnu.idatt1002.k01g08.fta.objects.KnockOut;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+@Disabled
 public class KnockOutTest {
     @Nested
     public class TestingConstructor{
