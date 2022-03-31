@@ -26,7 +26,7 @@ public class TournamentOverviewController {
 
         Match match = tournament.getUpcomingMatches().get(0);
 
-        String newMatchString = match.getHomeTeam() + "vs" + match.getAwayTeam();
+        String newMatchString = match.getHomeTeam().getName() + " vs " + match.getAwayTeam().getName();
         nextMatchLabel.setText(newMatchString);
     }
 
