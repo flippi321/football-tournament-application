@@ -11,7 +11,7 @@ cache:
 build:
   stage: build
   only:
-    - master
+    - main
     - merge_requests
   script:
     - echo "Building project"
@@ -20,7 +20,7 @@ build:
 lint:
   stage: verify
   only:
-    - master
+    - main
     - merge_requests
   script:
     - echo "Checking formatting"
@@ -29,7 +29,7 @@ lint:
 test:
   stage: verify
   only:
-    - master
+    - main
     - merge_requests
   script:
     - echo "Running tests"
