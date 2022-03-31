@@ -14,6 +14,10 @@ public class MatchViewController {
     private Label timeLabel;
     @FXML
     private Label resultLabel;
+    @FXML
+    private Button startButton;
+    @FXML
+    private Button endButton;
 
     @FXML
     public void awayGoal(ActionEvent actionEvent) {
@@ -21,5 +25,13 @@ public class MatchViewController {
 
     @FXML
     public void homeGoal(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void startMatch(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void endMatch(ActionEvent actionEvent) {
     }
 }
