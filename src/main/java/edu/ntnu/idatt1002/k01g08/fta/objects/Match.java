@@ -132,6 +132,14 @@ public class Match implements Iterable<GameEvent> {
     }
 
     /**
+     * Returns the very last game event from the match history.
+     * @return the very last game event in the match history
+     */
+    public GameEvent getLastGameEvent() {
+        return getLastGameEvent(0);
+    }
+
+    /**
      * Returns the length of one half match.
      * @return the length of one half match
      */
