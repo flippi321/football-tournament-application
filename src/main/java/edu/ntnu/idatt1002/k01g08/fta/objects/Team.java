@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Represents a team of football players
  * @author bendikme
- * @version 2022-03-21
+ * @version 2022-03-31
  */
 public class Team implements Iterable<Player> {
     final private String name;
@@ -91,8 +91,6 @@ public class Team implements Iterable<Player> {
     public boolean removePlayer(int number) {
         return (players.remove(number) != null);
     }
-
-    //TODO: add a getter to retrieve the size of this team
 
     /**
      * Returns an iterator over the players in this team.
