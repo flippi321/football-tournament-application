@@ -3,11 +3,18 @@ package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Match;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -44,6 +51,7 @@ public class MatchViewController {
     }
 
 
+
     @FXML
     public void awayGoal(ActionEvent actionEvent) {
         match.addGoal(false, 1, 0, match.currentMatchTime());
@@ -62,8 +70,17 @@ public class MatchViewController {
         endButton.setDisable(false);
         homeGoalButton.setDisable(false);
         awayGoalButton.setDisable(false);
-
         match.start();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            updateTime();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
+    }
+    @FXML
+    public void updateTime() {
+        timeLabel.setText(match.currentMatchTime());
     }
 
     @FXML
