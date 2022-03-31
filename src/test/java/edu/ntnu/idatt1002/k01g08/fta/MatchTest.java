@@ -14,6 +14,7 @@ public class MatchTest {
     Team team2;
     Team team3;
     Team team4;
+    Match match;
 
     @BeforeEach
     public void setUp() {
@@ -27,6 +28,7 @@ public class MatchTest {
             team3.addPlayer(new Player("Spiller " + i, i));
             team4.addPlayer(new Player("\"Person\" " + i, i));
         }
+        match = new Match(team1, team2);
     }
 
     @Nested
@@ -71,7 +73,6 @@ public class MatchTest {
     class AccessorTests {
         @Test
         public void matchIsStartedTest() {
-            Match match = new Match(team1, team2);
             assertFalse(match.isStarted());
             match.start();
             assertTrue(match.isStarted());
@@ -81,7 +82,6 @@ public class MatchTest {
 
         @Test
         public void matchIsFinishedTest() {
-            Match match = new Match(team1, team2);
             assertFalse(match.isFinished());
             match.start();
             assertFalse(match.isFinished());
@@ -91,13 +91,11 @@ public class MatchTest {
 
         @Test
         public void getHomeTeamReturnsCorrectTeam() {
-            Match match = new Match(team1, team2);
             assertEquals(team1, match.getHomeTeam());
         }
 
         @Test
         public void getAwayTeamReturnsCorrectTeam() {
-            Match match = new Match(team1, team2);
             assertEquals(team2, match.getAwayTeam());
         }
 
@@ -112,7 +110,6 @@ public class MatchTest {
         public void getGameEventGetsRightEvent() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
             match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
@@ -128,7 +125,6 @@ public class MatchTest {
 
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
             match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
@@ -158,15 +154,13 @@ public class MatchTest {
 
         @Test
         public void settingTeamAfterStartThrowsException() {
-            Match match = new Match(team1, team2);
             match.start();
-            assertThrows(RuntimeException.class, ()->match.setHomeTeam(team3));
-            assertThrows(RuntimeException.class, ()->match.setAwayTeam(team4));
+            assertThrows(IllegalStateException.class, ()->match.setHomeTeam(team3));
+            assertThrows(IllegalStateException.class, ()->match.setAwayTeam(team4));
         }
 
         @Test
         public void setterOverridesExisting() {
-            Match match = new Match(team1, team2);
             match.setHomeTeam(team3);
             match.setAwayTeam(team4);
 
@@ -176,7 +170,6 @@ public class MatchTest {
 
         @Test
         public void settingEqualTeamsThrowsException() {
-            Match match = new Match(team1, team2);
             assertThrows(IllegalArgumentException.class, ()->match.setAwayTeam(team1));
             assertThrows(IllegalArgumentException.class, ()->match.setHomeTeam(team2));
         }
@@ -185,76 +178,6 @@ public class MatchTest {
         public void settingNullTeamThrowsException() {
             assertThrows(NullPointerException.class, () -> new Match(null, team1));
             assertThrows(NullPointerException.class, () -> new Match(team1, null));
-        }
-
-        @Test
-        public void addingEventBeforeStartThrownsException() {
-            Player player1 = new Player("Gunnar", 30);
-            Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
-            GameEvent event = new Goal(player1, team1, "20", player2);
-            assertThrows(RuntimeException.class, ()->match.addGameEvent(event));
-        }
-
-        @Test
-        public void addingEventAfterStartDoesNotThrowException() {
-            Player player1 = new Player("Gunnar", 30);
-            Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
-            match.start();
-            GameEvent event = new Goal(player1, team1, "20", player2);
-            assertDoesNotThrow(()->match.addGameEvent(event));
-        }
-
-        @Test
-        public void removesRightEvent() {
-            Player player1 = new Player("Gunnar", 30);
-            Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
-            match.start();
-            GameEvent event1 = new Goal(player1, team1, "20", player2);
-            GameEvent event2 = new Goal(player2, team2, "25", player1);
-            match.addGameEvent(event1);
-            match.addGameEvent(event2);
-
-            match.removeGameEvent(0);
-            assertEquals(event2, match.getGameEvent(0));
-
-            match.addGameEvent(event1);
-            match.removeLastGameEvent(1);
-            assertEquals(event1, match.getGameEvent(0));
-        }
-
-        @Test
-        public void noArgumentRemoveLastRemovesVeryLast() {
-            Player player1 = new Player("Gunnar", 30);
-            Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
-            match.start();
-            GameEvent event1 = new Goal(player1, team1, "20", player2);
-            GameEvent event2 = new Goal(player2, team2, "25", player1);
-            match.addGameEvent(event1);
-            match.addGameEvent(event2);
-
-            assertEquals(event2, match.removeLastGameEvent());
-            assertEquals(event1, match.getGameEvent(0));
-        }
-
-        @Test
-        public void removeReturnsRightEvent() {
-            Player player1 = new Player("Gunnar", 30);
-            Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
-            match.start();
-            GameEvent event1 = new Goal(player1, team1, "20", player2);
-            GameEvent event2 = new Goal(player2, team2, "25", player1);
-            match.addGameEvent(event1);
-            match.addGameEvent(event2);
-
-            assertEquals(event1, match.removeGameEvent(0));
-
-            match.addGameEvent(event1);
-            assertEquals(event1, match.removeLastGameEvent(0));
         }
     }
 
@@ -265,7 +188,6 @@ public class MatchTest {
 
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
             match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
@@ -284,7 +206,6 @@ public class MatchTest {
 
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
             match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
@@ -302,7 +223,6 @@ public class MatchTest {
         public void getsRightWinner() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
-            Match match = new Match(team1, team2);
             match.start();
             GameEvent event1 = new Goal(player1, team1, "20", player2);
             GameEvent event2 = new Goal(player2, team2, "25", player1);
@@ -347,7 +267,6 @@ public class MatchTest {
 
         @Test
         public void filledMatchStarts() {
-            Match match = new Match(team1, team2);
             assertTrue(match.start());
         }
 
@@ -355,7 +274,196 @@ public class MatchTest {
         public void matchDoesNotEndBeforeStart() {
             Match match = new Match();
             match.start();
-            assertThrows(RuntimeException.class, match::end);
+            assertThrows(IllegalStateException.class, match::end);
+        }
+
+        @Test
+        public void pauseGivesCorrectFeedback() {
+            assertFalse(match.pause());
+            match.start();
+            assertTrue(match.pause());
+            assertFalse(match.pause());
+        }
+    }
+
+    @Nested
+    class MatchHistoryTests {
+
+        @Test
+        public void addingEventBeforeStartThrowsException() {
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            GameEvent event = new Goal(player1, team1, "20", player2);
+            assertThrows(IllegalStateException.class, ()->match.addGameEvent(event));
+        }
+
+        @Test
+        public void addingEventAfterStartDoesNotThrowException() {
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            match.start();
+            GameEvent event = new Goal(player1, team1, "20", player2);
+            assertDoesNotThrow(()->match.addGameEvent(event));
+        }
+
+        @Test
+        public void removesRightEvent() {
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            match.start();
+            GameEvent event1 = new Goal(player1, team1, "20", player2);
+            GameEvent event2 = new Goal(player2, team2, "25", player1);
+            match.addGameEvent(event1);
+            match.addGameEvent(event2);
+
+            match.removeGameEvent(0);
+            assertEquals(event2, match.getGameEvent(0));
+
+            match.addGameEvent(event1);
+            match.removeLastGameEvent(1);
+            assertEquals(event1, match.getGameEvent(0));
+        }
+
+        @Test
+        public void noArgumentRemoveLastRemovesVeryLast() {
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            match.start();
+            GameEvent event1 = new Goal(player1, team1, "20", player2);
+            GameEvent event2 = new Goal(player2, team2, "25", player1);
+            match.addGameEvent(event1);
+            match.addGameEvent(event2);
+
+            assertEquals(event2, match.removeLastGameEvent());
+            assertEquals(event1, match.getGameEvent(0));
+        }
+
+        @Test
+        public void removeReturnsRightEvent() {
+            Player player1 = new Player("Gunnar", 30);
+            Player player2 = new Player("Nordstoga", 32);
+            match.start();
+            GameEvent event1 = new Goal(player1, team1, "20", player2);
+            GameEvent event2 = new Goal(player2, team2, "25", player1);
+            match.addGameEvent(event1);
+            match.addGameEvent(event2);
+
+            assertEquals(event1, match.removeGameEvent(0));
+
+            match.addGameEvent(event1);
+            assertEquals(event1, match.removeLastGameEvent(0));
+        }
+
+        @Nested
+        class GoalTests {
+            @Test
+            public void goalIsAdded () {
+                match.start();
+                match.addGoal(true, 2, 3, null);
+                Goal goal = (Goal) match.getGameEvent(0);
+                assertEquals(team1.getPlayer(2), goal.getPlayer());
+                assertEquals(team1.getPlayer(3), goal.getAssistingPlayer());
+                assertEquals(team1, goal.getTeam());
+            }
+
+            @Test
+            public void nonexistentScorerGivesException () {
+                match.start();
+                assertThrows(NullPointerException.class,
+                        () -> match.addGoal(false, 12, 3, null));
+            }
+
+            @Test
+            public void assistingPlayerCanBeNull () {
+                match.start();
+                assertDoesNotThrow(() -> match.addGoal(false, 2, -1, null));
+            }
+
+            @Test
+            public void selfGoalIsAdded () {
+                match.start();
+                match.addSelfGoal(true, 4, null);
+                Goal goal = (Goal) match.getGameEvent(0);
+                assertEquals(team1.getPlayer(4), goal.getPlayer());
+                assertEquals(team2, goal.getTeam());
+            }
+
+            @Test
+            public void nullTeamGivesException() {
+                match.start();
+                assertThrows(NullPointerException.class, () -> match.addGoal(null, team1.getPlayer(2), team1.getPlayer(3), null));
+            }
+
+            @Test
+            public void timeStampIsAdded() {
+                match.start();
+                match.addSelfGoal(true, 4, "24");
+                assertEquals("24", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+            }
+
+            @Test
+            public void blankTimeStampUsesCurrent() {
+                match.start();
+                match.addSelfGoal(true, 4, null);
+                match.addSelfGoal(true, 4, "");
+                assertEquals("1", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+                assertEquals("1", match.getLastGameEvent(1).getTimeStampOfMatchTime());
+            }
+        }
+
+        @Nested
+        class SubstitutionTests {
+            @Test
+            public void substitutionIsAdded() {
+                match.start();
+                match.addSubstitution(false, 4, 5, null);
+                Substitution sub = (Substitution) match.getGameEvent(0);
+                assertEquals(team2.getPlayer(4), sub.getPlayerIn());
+                assertEquals(team2.getPlayer(5), sub.getPlayerOut());
+            }
+
+            @Test
+            public void timeStampIsAdded() {
+                match.start();
+                match.addSubstitution(false, 4, 5, "37");
+                assertEquals("37", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+            }
+
+            @Test
+            public void blankTimeStampUsesCurrent() {
+                match.start();
+                match.addSubstitution(false, 4, 5, null);
+                match.addSubstitution(false, 4, 5, "");
+                assertEquals("1", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+                assertEquals("1", match.getLastGameEvent(1).getTimeStampOfMatchTime());
+            }
+        }
+
+        @Nested
+        class FoulTests {
+            @Test
+            public void foulIsAdded() {
+                match.start();
+                match.addFoul(true, 7, "", 2, null);
+                Foul foul = (Foul) match.getGameEvent(0);
+                assertEquals(team1.getPlayer(7), foul.getPlayer());
+            }
+
+            @Test
+            public void timeStampIsAdded() {
+                match.start();
+                match.addFoul(true, 7, "", 2, "30");
+                assertEquals("30", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+            }
+
+            @Test
+            public void blankTimeStampUsesCurrent() {
+                match.start();
+                match.addFoul(true, 7, "", 2, null);
+                match.addFoul(true, 7, "", 2, "");
+                assertEquals("1", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+                assertEquals("1", match.getLastGameEvent(1).getTimeStampOfMatchTime());
+            }
         }
     }
 
@@ -363,7 +471,6 @@ public class MatchTest {
     public void iteratorReturnsRightEvents() {
         Player player1 = new Player("Gunnar", 30);
         Player player2 = new Player("Nordstoga", 32);
-        Match match = new Match(team1, team2);
         match.start();
         GameEvent event1 = new Goal(player1, team1, "20", player2);
         GameEvent event2 = new Goal(player2, team2, "25", player1);
@@ -387,7 +494,6 @@ public class MatchTest {
     public void streamIsNotNull() {
         Player player1 = new Player("Gunnar", 30);
         Player player2 = new Player("Nordstoga", 32);
-        Match match = new Match(team1, team2);
         match.start();
         GameEvent event1 = new Goal(player1, team1, "20", player2);
         GameEvent event2 = new Goal(player2, team2, "25", player1);
