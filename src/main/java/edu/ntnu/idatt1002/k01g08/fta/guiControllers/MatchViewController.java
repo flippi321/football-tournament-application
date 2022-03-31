@@ -51,7 +51,6 @@ public class MatchViewController {
     }
 
 
-
     @FXML
     public void awayGoal(ActionEvent actionEvent) {
         match.addGoal(false, 1, 0, match.currentMatchTime());

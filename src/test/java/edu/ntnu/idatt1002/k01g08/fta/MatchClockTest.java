@@ -4,10 +4,14 @@ import edu.ntnu.idatt1002.k01g08.fta.objects.Match;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
+@DisplayName("Match clock test")
 public class MatchClockTest {
     Team team1;
     Team team2;
@@ -23,6 +27,7 @@ public class MatchClockTest {
     }
 
     @Test
+    @DisplayName("The first minute of half gets counted correctly")
     public void firstMinuteIsCorrect() {
         Match match = new Match(team1, team2);
         match.start();
@@ -36,6 +41,7 @@ public class MatchClockTest {
     }
 
     @Test
+    @DisplayName("Match clock counts minutes")
     public void matchCountsMinutes() {
         Match match = new Match(team1, team2);
         match.setLengthOfHalf(2);
@@ -62,6 +68,7 @@ public class MatchClockTest {
     }
 
     @Test
+    @DisplayName("Match clock counts extra bonus")
     public void matchCountsExtraMinutes() {
         Match match = new Match(team1, team2);
         match.setLengthOfHalf(1);
