@@ -1,15 +1,13 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Match test")
 public class MatchTest {
     Team team1;
     Team team2;
@@ -33,8 +31,10 @@ public class MatchTest {
     }
 
     @Nested
+    @DisplayName("Constructor tests")
     class ConstructorTests {
         @Test
+        @DisplayName("Empty team throws exception")
         public void emptyTeamsThrowsException() {
             Team team1 = new Team("Odd");
             Team team2 = new Team("München");
@@ -42,16 +42,19 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Different teams does not throw exception")
         public void differentTeamsDoesNotThrowException() {
             assertDoesNotThrow(() -> new Match(team1, team2));
         }
 
         @Test
+        @DisplayName("Equal teams throws exception")
         public void equalTeamsThrowsException() {
             assertThrows(IllegalArgumentException.class, () -> new Match(team1, team1));
         }
 
         @Test
+        @DisplayName("Null team throws exception")
         public void nullTeamThrowsException() {
             assertThrows(NullPointerException.class, () -> new Match(null, team1));
             assertThrows(NullPointerException.class, () -> new Match(team1, null));
@@ -59,6 +62,7 @@ public class MatchTest {
 
         @Disabled
         @Test
+        @DisplayName("Too small team throws exception")
         public void tooSmallTeamThrowsException() {
             team1.removePlayer(1);
             assertThrows(IllegalArgumentException.class, () -> new Match(team1, team2));
@@ -66,14 +70,17 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Empty constructor does not throw exception")
         public void emptyConstructorDoesNotThrowException() {
             assertDoesNotThrow(()->new Match());
         }
     }
 
     @Nested
+    @DisplayName("Accessor tests")
     class AccessorTests {
         @Test
+        @DisplayName("Match.isStarted() test")
         public void matchIsStartedTest() {
             assertFalse(match.isStarted());
             match.start();
@@ -83,6 +90,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Match.isFinished() test")
         public void matchIsFinishedTest() {
             assertFalse(match.isFinished());
             match.start();
@@ -92,16 +100,19 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("getHomeTeam() returns correct team")
         public void getHomeTeamReturnsCorrectTeam() {
             assertEquals(team1, match.getHomeTeam());
         }
 
         @Test
+        @DisplayName("getAwayTeam() returns correct team")
         public void getAwayTeamReturnsCorrectTeam() {
             assertEquals(team2, match.getAwayTeam());
         }
 
         @Test
+        @DisplayName("Getting empty team returns null")
         public void emptyTeamReturnsNull() {
             Match match = new Match();
             assertNull(match.getHomeTeam());
@@ -109,6 +120,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("getGameEvent gets right event")
         public void getGameEventGetsRightEvent() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
@@ -123,6 +135,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("getLastGameEvent gets right event")
         public void getLastGameEventGetsRightEvent() {
 
             Player player1 = new Player("Gunnar", 30);
@@ -139,8 +152,10 @@ public class MatchTest {
     }
 
     @Nested
+    @DisplayName("Mutator tests")
     class MutatorTests {
         @Test
+        @DisplayName("Home team is set")
         public void homeTeamIsSet() {
             Match match = new Match();
             match.setHomeTeam(team1);
@@ -148,6 +163,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Away team is set")
         public void awayTeamIsSet() {
             Match match = new Match();
             match.setAwayTeam(team1);
@@ -155,6 +171,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Setting team after match start throws exception")
         public void settingTeamAfterStartThrowsException() {
             match.start();
             assertThrows(IllegalStateException.class, ()->match.setHomeTeam(team3));
@@ -162,6 +179,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Setter overrides existing team")
         public void setterOverridesExisting() {
             match.setHomeTeam(team3);
             match.setAwayTeam(team4);
@@ -171,12 +189,14 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Setting equal teams throws exception")
         public void settingEqualTeamsThrowsException() {
             assertThrows(IllegalArgumentException.class, ()->match.setAwayTeam(team1));
             assertThrows(IllegalArgumentException.class, ()->match.setHomeTeam(team2));
         }
 
         @Test
+        @DisplayName("Setting null team throws exception")
         public void settingNullTeamThrowsException() {
             assertThrows(NullPointerException.class, () -> new Match(null, team1));
             assertThrows(NullPointerException.class, () -> new Match(team1, null));
@@ -184,8 +204,10 @@ public class MatchTest {
     }
 
     @Nested
+    @DisplayName("Match result tests")
     class MatchResultTests {
         @Test
+        @DisplayName("Home team score is correct")
         public void getsRightHomeTeamScore() {
 
             Player player1 = new Player("Gunnar", 30);
@@ -204,6 +226,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Away team score is correct")
         public void getsRightAwayTeamScore() {
 
             Player player1 = new Player("Gunnar", 30);
@@ -222,6 +245,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Match winner is correct")
         public void getsRightWinner() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
@@ -250,8 +274,10 @@ public class MatchTest {
     }
 
     @Nested
+    @DisplayName("Match control tests")
     class MatchControlTests {
         @Test
+        @DisplayName("Match without teams does not start")
         public void emptyMatchDoesNotStart() {
             Match match = new Match();
             assertFalse(match.start());
@@ -268,11 +294,13 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Match with teams starts")
         public void filledMatchStarts() {
             assertTrue(match.start());
         }
 
         @Test
+        @DisplayName("Match does not end before start")
         public void matchDoesNotEndBeforeStart() {
             Match match = new Match();
             match.start();
@@ -280,6 +308,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("pause gives correct feedback")
         public void pauseGivesCorrectFeedback() {
             assertFalse(match.pause());
             match.start();
@@ -289,9 +318,11 @@ public class MatchTest {
     }
 
     @Nested
+    @DisplayName("Match history tests")
     class MatchHistoryTests {
 
         @Test
+        @DisplayName("Adding event before start throws exception")
         public void addingEventBeforeStartThrowsException() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
@@ -300,6 +331,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Adding event after start does not throw exception")
         public void addingEventAfterStartDoesNotThrowException() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
@@ -309,6 +341,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("Right event is removed")
         public void removesRightEvent() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
@@ -327,6 +360,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("No argument removeLastEvent removes very last")
         public void noArgumentRemoveLastRemovesVeryLast() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
@@ -341,6 +375,7 @@ public class MatchTest {
         }
 
         @Test
+        @DisplayName("remove returns right event")
         public void removeReturnsRightEvent() {
             Player player1 = new Player("Gunnar", 30);
             Player player2 = new Player("Nordstoga", 32);
@@ -357,8 +392,10 @@ public class MatchTest {
         }
 
         @Nested
+        @DisplayName("Goal tests")
         class GoalTests {
             @Test
+            @DisplayName("Goal is added")
             public void goalIsAdded () {
                 match.start();
                 match.addGoal(true, 2, 3, null);
@@ -369,6 +406,7 @@ public class MatchTest {
             }
 
             @Test
+            @DisplayName("Nonexistent scorer gives exception")
             public void nonexistentScorerGivesException () {
                 match.start();
                 assertThrows(NullPointerException.class,
@@ -376,12 +414,14 @@ public class MatchTest {
             }
 
             @Test
+            @DisplayName("Assisting player can be null")
             public void assistingPlayerCanBeNull () {
                 match.start();
                 assertDoesNotThrow(() -> match.addGoal(false, 2, -1, null));
             }
 
             @Test
+            @DisplayName("Self goal is added")
             public void selfGoalIsAdded () {
                 match.start();
                 match.addSelfGoal(true, 4, null);
@@ -391,12 +431,14 @@ public class MatchTest {
             }
 
             @Test
+            @DisplayName("Null team throws exception")
             public void nullTeamGivesException() {
                 match.start();
                 assertThrows(NullPointerException.class, () -> match.addGoal(null, team1.getPlayer(2), team1.getPlayer(3), null));
             }
 
             @Test
+            @DisplayName("Timestamp is added")
             public void timeStampIsAdded() {
                 match.start();
                 match.addSelfGoal(true, 4, "24");
@@ -404,6 +446,7 @@ public class MatchTest {
             }
 
             @Test
+            @DisplayName("Blank timestamp uses current match time")
             public void blankTimeStampUsesCurrent() {
                 match.start();
                 match.addSelfGoal(true, 4, null);
@@ -414,8 +457,10 @@ public class MatchTest {
         }
 
         @Nested
+        @DisplayName("Substitution tests")
         class SubstitutionTests {
             @Test
+            @DisplayName("Substitution is added")
             public void substitutionIsAdded() {
                 match.start();
                 match.addSubstitution(false, 4, 5, null);
@@ -425,6 +470,7 @@ public class MatchTest {
             }
 
             @Test
+            @DisplayName("Timestamp is added")
             public void timeStampIsAdded() {
                 match.start();
                 match.addSubstitution(false, 4, 5, "37");
@@ -432,6 +478,7 @@ public class MatchTest {
             }
 
             @Test
+            @DisplayName("Blank timestamp uses current match time")
             public void blankTimeStampUsesCurrent() {
                 match.start();
                 match.addSubstitution(false, 4, 5, null);
@@ -442,8 +489,10 @@ public class MatchTest {
         }
 
         @Nested
+        @DisplayName("Foul tests")
         class FoulTests {
             @Test
+            @DisplayName("Foul is added")
             public void foulIsAdded() {
                 match.start();
                 match.addFoul(true, 7, "", 2, null);
@@ -452,6 +501,7 @@ public class MatchTest {
             }
 
             @Test
+            @DisplayName("Time stamp is added")
             public void timeStampIsAdded() {
                 match.start();
                 match.addFoul(true, 7, "", 2, "30");
@@ -459,6 +509,7 @@ public class MatchTest {
             }
 
             @Test
+            @DisplayName("Blank timestamp uses current match time")
             public void blankTimeStampUsesCurrent() {
                 match.start();
                 match.addFoul(true, 7, "", 2, null);
@@ -470,6 +521,7 @@ public class MatchTest {
     }
 
     @Test
+    @DisplayName("Iterator returns right events")
     public void iteratorReturnsRightEvents() {
         Player player1 = new Player("Gunnar", 30);
         Player player2 = new Player("Nordstoga", 32);
@@ -493,6 +545,7 @@ public class MatchTest {
     }
 
     @Test
+    @DisplayName("Stream is not null")
     public void streamIsNotNull() {
         Player player1 = new Player("Gunnar", 30);
         Player player2 = new Player("Nordstoga", 32);
@@ -508,7 +561,4 @@ public class MatchTest {
 
         assertNotNull(match.eventStream());
     }
-
-    //TODO
-    // Add @Displayname
 }
