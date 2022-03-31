@@ -114,4 +114,21 @@ public class Team implements Iterable<Player> {
             }
         };
     }
+
+    @Override
+    public String toString() {
+        Iterator<Integer> it = players.keySet().iterator();
+        int nextNumber;
+        StringBuilder builder = new StringBuilder("(").append(getName()).append(": [");
+        if (it.hasNext()) {
+            nextNumber = it.next();
+            builder.append(nextNumber).append(' ').append(players.get(nextNumber).getName());
+        }
+        while (it.hasNext()) {
+            nextNumber = it.next();
+            builder.append(", ").append(nextNumber).append(' ').append(players.get(nextNumber).getName());
+        }
+        builder.append("])");
+        return builder.toString();
+    }
 }
