@@ -84,7 +84,7 @@ public class Match implements Iterable<GameEvent> {
      */
     public void setHomeTeam(Team homeTeam) throws IllegalArgumentException, NullPointerException {
         if (isStarted()) throw new RuntimeException("team change in ongoing match");
-        if (homeTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
+        if (homeTeam.size() < 1) throw new IllegalArgumentException("fewer than 1 players on team");
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.homeTeam = homeTeam;
     }
