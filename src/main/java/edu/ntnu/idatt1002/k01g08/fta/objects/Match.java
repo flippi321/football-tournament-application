@@ -498,4 +498,14 @@ public class Match implements Iterable<GameEvent> {
     public Stream<GameEvent> eventStream() {
         return matchHistory.stream();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("(").append(homeTeam.getName()).append(" vs. ").append(awayTeam.getName())
+                .append(":\n[").append(getGameEvent(0).toString());
+        for (int i = 1; i < matchHistory.size(); i++) {
+            builder.append(",\n").append(getGameEvent(i).toString());
+        }
+        return builder.append("])").toString();
+    }
 }
