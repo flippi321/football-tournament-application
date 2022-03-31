@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.KnockOut;
+import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +19,9 @@ public class KnockOutTest {
         public void initializingNewTournamentUsingConstructor(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<8; i++){
-                teams.add(new Team("Rosenborg " + i));
+                Team newTeam = new Team("Rosenborg " + i);
+                newTeam.addPlayer(new Player("Spiller", i));
+                teams.add(newTeam);
             }
             Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
             assertEquals(8, testTournament.getNumberOfTeams());
@@ -31,7 +34,9 @@ public class KnockOutTest {
         public void testingKnockoutThrowingIllegalException(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<5; i++){
-                teams.add(new Team("Rosenborg " + i));
+                Team newTeam = new Team("Rosenborg " + i);
+                newTeam.addPlayer(new Player("Spiller", i));
+                teams.add(newTeam);
             }
             try {
                 Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
@@ -71,7 +76,9 @@ public class KnockOutTest {
         public void testingKnockoutNotThrowingIllegalException(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<4; i++){
-                teams.add(new Team("Rosenborg " + i));
+                Team newTeam = new Team("Rosenborg " + i);
+                newTeam.addPlayer(new Player("Spiller", i));
+                teams.add(newTeam);
             }
             try {
                 new KnockOut("Tippeligaen2022", teams);
@@ -85,7 +92,9 @@ public class KnockOutTest {
         public void testSetUpcomingMatch(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<8; i++){
-                teams.add(new Team("Rosenborg " + i));
+                Team newTeam = new Team("Rosenborg " + i);
+                newTeam.addPlayer(new Player("Spiller", i));
+                teams.add(newTeam);
             }
             Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
             assertEquals(4, testTournament.getUpcomingMatches().size());
