@@ -32,6 +32,6 @@ public class TournamentOverviewController {
 
     @FXML
     public void startMatch(ActionEvent actionEvent) throws IOException {
-        SceneManager.setView("matchViewController");
+        SceneManager.setView("matchView");
     }
 }
