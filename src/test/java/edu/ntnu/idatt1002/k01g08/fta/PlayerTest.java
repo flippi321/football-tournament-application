@@ -68,4 +68,7 @@ public class PlayerTest {
         player.increaseAssists(4);
         assertEquals("(Ole Gunnar Solskjær 40: 2 red, 1 yellow, 3 goals, 4 assists)", player.toString());
     }
+
+    //TODO
+    // Add @Displayname
 }

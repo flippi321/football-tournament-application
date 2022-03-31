@@ -160,4 +160,8 @@ public class TournamentRegisterTest {
             assertEquals(0, testReg.getNumberOfTournaments());
         }
     }
+
+    //TODO
+    // Add @Displayname
+    // Remove nested from single tests
 }
