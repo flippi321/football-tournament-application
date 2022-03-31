@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -31,12 +32,12 @@
             </Label>
             <HBox>
                <children>
-                  <Button mnemonicParsing="false" onAction="#homeGoal" text="Hometeam goal">
+                  <Button fx:id="homeGoalButton" mnemonicParsing="false" onAction="#homeGoal" text="Hometeam goal">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#awayGoal" text="Awayteam goal">
+                  <Button fx:id="awayGoalButton" mnemonicParsing="false" onAction="#awayGoal" text="Awayteam goal">
                      <font>
                         <Font size="20.0" />
                      </font>
