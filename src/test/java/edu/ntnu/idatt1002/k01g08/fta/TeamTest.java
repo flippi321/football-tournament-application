@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k01g08.fta;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -9,15 +10,17 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO: add DISPLAY NAME for tests
+@DisplayName("Team test")
 public class TeamTest {
     @Test
+    @DisplayName("Team name is correct")
     public void teamNameIsCorrect() {
         Team team = new Team("Odd");
         assertEquals("Odd", team.getName());
     }
 
     @Test
+    @DisplayName("Player is added")
     public void playerIsAdded() {
         Team team = new Team("Odd");
         Player player = new Player("Odd Nordstoga", 1);
@@ -30,6 +33,7 @@ public class TeamTest {
     }
 
     @Test
+    @DisplayName("Get returns correct player")
     public void getReturnsCorrectPlayer() {
         Team team = new Team("Odd");
         Player player1 = new Player("Sondre Rossbach", 1);
@@ -45,6 +49,7 @@ public class TeamTest {
     }
 
     @Test
+    @DisplayName("Duplicate player is not added")
     public void duplicatePlayerIsNotAdded() {
         Team team = new Team("Odd");
         Player player1 = new Player("Odd Nordstoga", 1);
@@ -59,6 +64,7 @@ public class TeamTest {
     }
 
     @Test
+    @DisplayName("Add gives correct feedback")
     public void addGivesCorrectFeedback() {
         Team team = new Team("Odd");
         Player player1 = new Player("Odd Nordstoga", 2);
@@ -68,12 +74,14 @@ public class TeamTest {
     }
 
     @Test
+    @DisplayName("Null player is not added")
     public void nullPlayerIsNotAdded() {
         Team team = new Team("Odd");
         assertThrows(NullPointerException.class, () -> team.addPlayer(null));
     }
 
     @Test
+    @DisplayName("Player is removed")
     public void playerIsRemoved() {
         Team team = new Team("Odd");
         Player player1 = new Player("Odd Nerdrum", 1);
@@ -93,6 +101,7 @@ public class TeamTest {
     }
 
     @Test
+    @DisplayName("Nonexistent player is not removed")
     public void nonexistentPlayerIsNotRemoved() {
         Team team = new Team("Odd");
         Player player1 = new Player("Odd Nerdrum", 1);
@@ -106,6 +115,7 @@ public class TeamTest {
     }
 
     @Test
+    @DisplayName("Iterator returns all players")
     public void iteratorReturnsAllPlayers() {
         Team team = new Team("Odd");
         Set<Player> set = new HashSet<>();
@@ -124,7 +134,4 @@ public class TeamTest {
             assertTrue(set.remove(player));
         }
     }
-
-    //TODO
-    // Add @Displayname
 }
