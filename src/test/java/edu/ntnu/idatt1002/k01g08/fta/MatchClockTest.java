@@ -4,10 +4,12 @@ import edu.ntnu.idatt1002.k01g08.fta.objects.Match;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
 public class MatchClockTest {
     Team team1;
     Team team2;

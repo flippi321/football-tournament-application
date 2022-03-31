@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k01g08.fta;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -56,6 +57,7 @@ public class MatchTest {
             assertThrows(NullPointerException.class, () -> new Match(team1, null));
         }
 
+        @Disabled
         @Test
         public void tooSmallTeamThrowsException() {
             team1.removePlayer(1);
