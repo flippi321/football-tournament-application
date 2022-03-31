@@ -54,7 +54,7 @@ public class KnockOutTest {
                 Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
                 fail("Test 'testTournamentWithEmptyTeamsList' did not throw an exception to when expected to.");
             } catch (Exception e) {
-                assertEquals( "Must have a valid list of teams, yours was empty", e.getMessage());
+                assertEquals( "The number of teams is invalid.", e.getMessage());
             }
         }
 
@@ -62,7 +62,12 @@ public class KnockOutTest {
         @DisplayName("Making a tournament without a name")
         public void testTournamentWithoutName(){
             ArrayList<Team> teams = new ArrayList<>();
-            teams.add(new Team("Rosenborg"));
+            Team rosenborg = new Team("Rosenborg");
+            Team lsk = new Team("Lillestrøm");
+            rosenborg.addPlayer(new Player("Spiller2",2));
+            lsk.addPlayer(new Player("Spiller1",1));
+            teams.add(rosenborg);
+            teams.add(lsk);
             try {
                 Tournament testTournament = new KnockOut("", teams);
                 fail("Test 'testTournamentWithoutName' did not throw an exception to when expected to.");
