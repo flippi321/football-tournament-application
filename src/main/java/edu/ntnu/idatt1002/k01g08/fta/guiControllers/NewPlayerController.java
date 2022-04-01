@@ -34,6 +34,13 @@ public class NewPlayerController {
             return;
         }
 
+        try {
+            int num = Integer.parseInt(playerNumberInput.getText());
+        } catch (IllegalArgumentException e) {
+            errorLabel.setText("You must enter a number.");
+            return;
+        }
+
         for (int i = 1; i < 12; i++) {
             Main.addPlayer(new Player(playerNameInput.getText(), i));
         }
