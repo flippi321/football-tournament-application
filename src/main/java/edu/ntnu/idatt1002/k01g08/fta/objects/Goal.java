@@ -54,10 +54,11 @@ public class Goal extends GameEvent {
     @Override
     public String getEvent() {
         if(assistingPlayer != null){
-            return getPlayer().getName() + " scored for team: " + getTeam() +
+            return getPlayer().getName() + " scored for team: " + getTeam().getName() +
                     " with assist by: " + getAssistingPlayer() + "at time: " + getTimeStampOfMatchTime();
         }else{
-            return getPlayer().getName() + " scored for team: " + getTeam() + "at time: " + getTimeStampOfMatchTime();
+            return getPlayer().getName() +
+                    " scored for team: " + getTeam().getName() + "at time: " + getTimeStampOfMatchTime();
         }
     }
 
