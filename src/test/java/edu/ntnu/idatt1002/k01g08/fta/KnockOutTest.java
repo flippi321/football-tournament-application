@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class KnockOutTest {
     @Nested
+    @DisplayName("Tests for Constructor")
     public class TestingConstructor{
         @Test
         @DisplayName("Testing Constructor with correct parameters")

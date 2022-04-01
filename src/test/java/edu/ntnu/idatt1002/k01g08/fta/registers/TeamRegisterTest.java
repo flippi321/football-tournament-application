@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TeamRegisterTest {
 
     @Test
-    @DisplayName("Adding team already in the register should throw IllegalArgumentException")
+    @DisplayName("Throw Exception when trying to add already existing team")
     void addTeamAlreadyInTheRegisterShouldThrowIllegalArgumentException() {
         TeamRegister register = new TeamRegister();
         Team team = new Team("NTNUI");
@@ -43,6 +43,7 @@ class TeamRegisterTest {
     }
 
     @Test
+    @DisplayName("Removing non existent team returns false")
     void removeWrongTeamTest(){
         TeamRegister register = new TeamRegister();
         Team team = new Team("NTNUI");
@@ -61,6 +62,7 @@ class TeamRegisterTest {
     }
 
     @Test
+    @DisplayName("getTeam returns right team")
     void getTeamTest(){
         TeamRegister register = new TeamRegister();
         register.addTeam(new Team("NTNUI"));
@@ -69,7 +71,7 @@ class TeamRegisterTest {
     }
 
     @Test
-    @DisplayName("Getting team not in register should throw IllegalArgumentException")
+    @DisplayName("Throws Exception when trying to aquire non existent team")
     void getTeamNotInRegisterShouldThrowIllegalArgumenteException(){
         TeamRegister register = new TeamRegister();
         register.addTeam(new Team("NTNUI"));
