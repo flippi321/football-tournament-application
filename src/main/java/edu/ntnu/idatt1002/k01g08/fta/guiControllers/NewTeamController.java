@@ -41,8 +41,18 @@ public class NewTeamController {
 
     @FXML
     public void createTeam(ActionEvent actionEvent) throws IOException {
+        try {
+            Integer.parseInt(noOfPlayersInput.getText());
+        } catch (IllegalArgumentException e) {
+            errorLabel.setText("You must enter a number.");
+            return;
+        }
+        if(parseInt(noOfPlayersInput.getText()) < 11){
+            errorLabel.setText("The number of players on a " +
+                    "team must be equal to, or more than 11.");
+            return;
+        }
         Main.setNumOfPlayers(parseInt(noOfPlayersInput.getText()));
-
         Team team = new Team(teamNameInput.getText());
         Main.getTeamRegister().addTeam(team);
         Main.getTournamentRegister().getTournamentList().get(0).addTeam(team);
