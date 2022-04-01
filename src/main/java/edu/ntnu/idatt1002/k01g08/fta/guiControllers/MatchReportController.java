@@ -6,7 +6,10 @@ import edu.ntnu.idatt1002.k01g08.fta.objects.Match;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
 
 public class MatchReportController {
     @FXML
@@ -23,7 +26,13 @@ public class MatchReportController {
         teamTitleLabel.setText(match.getHomeTeam().getName() + " vs " + match.getAwayTeam().getName());
         resultLabel.setText(match.getHomeTeamScore() + " : " + match.getAwayTeamScore());
 
-        match.eventStream().forEach(gameEvent -> eventList.getChildren().add(new Label(gameEvent.getEvent())));
+        ArrayList<GameEvent> events = new ArrayList<>();
+        match.eventStream().forEach(events::add);
+        for (GameEvent event : events) {
+            Label label = new Label(event.getEvent());
+            label.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            eventList.getChildren().add(label);
+        }
     }
 
     @FXML

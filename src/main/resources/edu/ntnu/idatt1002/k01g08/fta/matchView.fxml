@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.MatchViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.MatchViewController">
    <top>
       <Label fx:id="titleLabel" text="TEAM1 vs TEAM2" BorderPane.alignment="CENTER">
          <font>
-            <Font size="20.0" />
+            <Font size="36.0" />
          </font>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
       </Label>
    </top>
    <center>
@@ -18,10 +22,10 @@
          <children>
             <Label fx:id="resultLabel" text="0:0">
                <font>
-                  <Font size="30.0" />
+                  <Font size="36.0" />
                </font>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets top="80.0" />
                </VBox.margin>
             </Label>
             <Label fx:id="timeLabel" text="TIME">
@@ -40,10 +44,13 @@
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </Button>
                </children>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets top="10.0" />
                </VBox.margin>
             </HBox>
          </children>
@@ -54,7 +61,7 @@
          <children>
             <Button fx:id="startButton" mnemonicParsing="false" onAction="#startMatch" text="Start">
                <font>
-                  <Font size="20.0" />
+                  <Font size="24.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="10.0" />
@@ -62,7 +69,7 @@
             </Button>
             <Button fx:id="endButton" mnemonicParsing="false" onAction="#endMatch" text="End">
                <font>
-                  <Font size="20.0" />
+                  <Font size="24.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />
