@@ -76,14 +76,4 @@ public class Main extends Application {
     public static void addPlayer(Player player) {playersUnderCreation.add(player);}
 
     public static ArrayList<Player> getPlayersMade() {return playersUnderCreation;}
-
-    //TODO
-    // Be Bjørn lage møtereinkalling
-    // Skrive "Rapport" for idag
-    // Fikse Nested og Display på testene
-    // Exception handling i MVP
-    // Sortere frontend på MVP
-    // Dele opp rapporten i biter
-    // Bestille pizza klokka 14:00
-
 }
