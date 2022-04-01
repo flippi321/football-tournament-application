@@ -22,6 +22,11 @@ public class NewTournamentController {
 
     @FXML
     public void createTournament(ActionEvent actionEvent) throws IOException {
+        if (Integer.parseInt(tournamentNumberTeamsInput.getText()) != 2) {
+            errorLabel.setText("The MVP can only construct tournaments with 2 teams.");
+            return;
+        }
+
         Tournament tournament = new KnockOut(tournamentNameInput.getText());
         Main.getTournamentRegister().addTournament(tournament);
         Main.setNumOfTeams(Integer.parseInt(tournamentNumberTeamsInput.getText()));
