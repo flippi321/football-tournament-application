@@ -32,7 +32,7 @@ public class MatchTest {
     }
 
     @Nested
-    class ConstructorTests {
+    public class ConstructorTests {
         @Test
         public void emptyTeamsThrowsException() {
             Team team1 = new Team("Odd");
@@ -70,7 +70,7 @@ public class MatchTest {
     }
 
     @Nested
-    class AccessorTests {
+    public class AccessorTests {
         @Test
         public void matchIsStartedTest() {
             assertFalse(match.isStarted());
@@ -137,7 +137,7 @@ public class MatchTest {
     }
 
     @Nested
-    class MutatorTests {
+    public class MutatorTests {
         @Test
         public void homeTeamIsSet() {
             Match match = new Match();
@@ -182,7 +182,7 @@ public class MatchTest {
     }
 
     @Nested
-    class MatchResultTests {
+    public class MatchResultTests {
         @Test
         public void getsRightHomeTeamScore() {
 
@@ -248,7 +248,7 @@ public class MatchTest {
     }
 
     @Nested
-    class MatchControlTests {
+    public class MatchControlTests {
         @Test
         public void emptyMatchDoesNotStart() {
             Match match = new Match();
@@ -287,7 +287,7 @@ public class MatchTest {
     }
 
     @Nested
-    class MatchHistoryTests {
+    public class MatchHistoryTests {
 
         @Test
         public void addingEventBeforeStartThrowsException() {
@@ -355,7 +355,7 @@ public class MatchTest {
         }
 
         @Nested
-        class GoalTests {
+        public class GoalTests {
             @Test
             public void goalIsAdded () {
                 match.start();
@@ -412,7 +412,7 @@ public class MatchTest {
         }
 
         @Nested
-        class SubstitutionTests {
+        public class SubstitutionTests {
             @Test
             public void substitutionIsAdded() {
                 match.start();
@@ -440,7 +440,7 @@ public class MatchTest {
         }
 
         @Nested
-        class FoulTests {
+        public class FoulTests {
             @Test
             public void foulIsAdded() {
                 match.start();
