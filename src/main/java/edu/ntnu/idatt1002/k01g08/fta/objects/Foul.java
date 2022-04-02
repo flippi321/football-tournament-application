@@ -63,7 +63,7 @@ public class Foul extends GameEvent{
      * Mutator method to alter the tag of this foul
      * @param foulTag is a String
      */
-    public void setFoulTag(String foulTag) {
+    public void setFoulTag(String foulTag) { //TODO: add null check
         this.foulTag = foulTag;
     }
 

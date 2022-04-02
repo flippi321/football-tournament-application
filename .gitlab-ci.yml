@@ -1,0 +1,37 @@
+image: maven:latest
+
+stages:
+  - build
+  - verify
+
+cache:
+  paths:
+    - /root/.m2/repository/
+
+build:
+  stage: build
+  only:
+    - main
+    - merge_requests
+  script:
+    - echo "Building project"
+    - mvn clean compile
+
+lint:
+  stage: verify
+  only:
+    - main
+    - merge_requests
+  script:
+    - echo "Checking formatting"
+    - mvn clean formatter:validate
+
+test:
+  stage: verify
+  only:
+    - main
+    - merge_requests
+  script:
+    - echo "Running tests"
+    - mvn clean test
+

@@ -11,4 +11,6 @@ module edu.ntnu.idatt1002.k01g08.fta {
     opens edu.ntnu.idatt1002.k01g08.fta.objects to javafx.fxml;
     exports edu.ntnu.idatt1002.k01g08.fta.controllers;
     opens edu.ntnu.idatt1002.k01g08.fta.controllers to javafx.fxml;
+    exports edu.ntnu.idatt1002.k01g08.fta.guiControllers;
+    opens edu.ntnu.idatt1002.k01g08.fta.guiControllers to javafx.fxml;
 }
