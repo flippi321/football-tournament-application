@@ -3,18 +3,17 @@ package edu.ntnu.idatt1002.k01g08.fta;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Match;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @Disabled
 @DisplayName("Match clock test")
 public class MatchClockTest {
     Team team1;
     Team team2;
+    Match match;
 
     @BeforeEach
     public void setUp() {
@@ -24,66 +23,87 @@ public class MatchClockTest {
             team1.addPlayer(new Player("Oddær nr. " + i, i));
             team2.addPlayer(new Player("Baron von " + i, i));
         }
+        match = new Match(team1, team2);
     }
 
     @Test
-    @DisplayName("The first minute of half gets counted correctly")
-    public void firstMinuteIsCorrect() {
-        Match match = new Match(team1, team2);
-        match.start();
-        assertEquals("1", match.currentMatchTime());
-        match.pause();
-        assertEquals("45", match.currentMatchTime());
-        match.start();
-        assertEquals("46", match.currentMatchTime());
-        match.pause();
-        assertEquals("90", match.currentMatchTime());
+    @DisplayName("Time starts at zero")
+    public void timeStartsAtZero() {
+        assertEquals("00:00", match.currentTime());
     }
 
     @Test
-    @DisplayName("Match clock counts minutes")
-    public void matchCountsMinutes() {
-        Match match = new Match(team1, team2);
-        match.setLengthOfHalf(2);
+    @DisplayName("Minutes start at one")
+    public void minutesStartAtOne() {
+        match.start();
+        assertEquals("01", match.currentMinute());
+    }
+
+    @Test
+    @DisplayName("currentTime() returns seconds")
+    public void currentTimeReturnsSeconds() {
         synchronized (this) {
-            for (int seconds = 0; seconds < 55; seconds++) {
-                match.start();
-                try {
-                    this.wait(1000);
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
-                }
-                assertEquals("1", match.currentMatchTime());
-                System.out.println(seconds);
-            }
-
+            match.start();
             try {
-                this.wait(10000);
+                for (int i = 1; i < 3; i++) {
+                    this.wait(1000);
+                    assertEquals("00:0" + i, match.currentTime());
+                }
+                match.pause();
+                match.start();
+                for (int i = 1; i < 3; i++) {
+                    this.wait(1000);
+                    assertEquals("45:0" + i, match.currentTime());
+                }
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
+                fail();
             }
-
-            assertEquals("2", match.currentMatchTime());
         }
     }
 
     @Test
-    @DisplayName("Match clock counts extra bonus")
+    @DisplayName("Halves start counting from the right minute")
+    public void halvesStartAtRightMinute() {
+        match.start();
+        assertEquals("01", match.currentMinute());
+        match.pause();
+        match.start();
+        assertEquals("46", match.currentMinute());
+        match.pause();
+        match.start();
+        assertEquals("91", match.currentMinute());
+    }
+
+    @Test
+    @DisplayName("Halves start counting from the right second")
+    public void halvesStartAtRightSecond() {
+        match.start();
+        assertEquals("00:00", match.currentTime());
+        match.pause();
+        match.start();
+        assertEquals("45:00", match.currentTime());
+        match.pause();
+        match.start();
+        assertEquals("90:00", match.currentTime());
+    }
+
+    @Test
+    @DisplayName("Match clock counts extra minutes")
     public void matchCountsExtraMinutes() {
-        Match match = new Match(team1, team2);
         match.setLengthOfHalf(1);
         synchronized (this) {
-            for (int seconds = 0; seconds < 65; seconds++) {
+            try {
                 match.start();
-                try {
+                for (int seconds = 0; seconds < 60; seconds++) {
                     this.wait(1000);
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    System.out.println(match.currentTime());
                 }
-                System.out.println(seconds);
+                assertEquals("01+1", match.currentMinute());
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+                fail();
             }
-
-            assertEquals("1+1", match.currentMatchTime());
         }
     }
 }
