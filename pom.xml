@@ -62,7 +62,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>edu.ntnu.idatt1002.k01g08.fta/edu.ntnu.idatt1002.k01g08.fta.Main
+                            <mainClass>edu.ntnu.idatt1002.k01g08.fta/edu.ntnu.idatt1002.k01g08.fta.App
                             </mainClass>
                         </configuration>
                     </execution>
@@ -73,6 +73,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
             </plugin>
+
         </plugins>
     </build>
 </project>

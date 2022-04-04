@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: edu.ntnu.idatt1002.k01g08.fta.App
+Class-Path: javafx-fxml-17.0.2-win.jar javafx-base-17.0.2.jar javafx-con
+ trols-17.0.2.jar javafx-graphics-17.0.2.jar javafx-base-17.0.2-win.jar 
+ javafx-graphics-17.0.2-win.jar javafx-controls-17.0.2-win.jar javafx-fx
+ ml-17.0.2.jar
+
