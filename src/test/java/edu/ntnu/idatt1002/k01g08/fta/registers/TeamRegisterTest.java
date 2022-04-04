@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TeamRegisterTest {
+public class TeamRegisterTest {
 
     @Test
     @DisplayName("Throw Exception when trying to add already existing team")
-    void addTeamAlreadyInTheRegisterShouldThrowIllegalArgumentException() {
+    public void addTeamAlreadyInTheRegisterShouldThrowIllegalArgumentException() {
         TeamRegister register = new TeamRegister();
         Team team = new Team("NTNUI");
         register.addTeam(team);
@@ -19,14 +19,14 @@ class TeamRegisterTest {
 
     @Test
     @DisplayName("Number of teams should be 0")
-    void numberOfTeamsShouldBeZero() {
+    public void numberOfTeamsShouldBeZero() {
         TeamRegister register = new TeamRegister();
         assertEquals(0, register.getNumberOfTeams());
     }
 
     @Test
     @DisplayName("Number of teams in register should be 1")
-    void numberOfTeamsShouldBeOne() {
+    public void numberOfTeamsShouldBeOne() {
         TeamRegister register = new TeamRegister();
         register.addTeam(new Team("NTNUI"));
         assertEquals(1, register.getNumberOfTeams());
@@ -34,7 +34,7 @@ class TeamRegisterTest {
 
     @Test
     @DisplayName("Register should be empty after removing a team")
-    void registerShouldBeEmptyAfterRemovingATeam() {
+    public void registerShouldBeEmptyAfterRemovingATeam() {
         TeamRegister register = new TeamRegister();
         Team team = new Team("NTNUI");
         register.addTeam(team);
@@ -44,7 +44,7 @@ class TeamRegisterTest {
 
     @Test
     @DisplayName("Removing non existent team returns false")
-    void removeWrongTeamTest(){
+    public void removeWrongTeamTest(){
         TeamRegister register = new TeamRegister();
         Team team = new Team("NTNUI");
         assertFalse(register.removeTeam(team));
@@ -52,7 +52,7 @@ class TeamRegisterTest {
 
     @Test
     @DisplayName("Register should be empty after clearing")
-    void registerShouldBeEmptyAfterClearing() {
+    public void registerShouldBeEmptyAfterClearing() {
         TeamRegister register = new TeamRegister();
         register.addTeam(new Team("NTNUI"));
         register.addTeam(new Team("Tihlde Pythons"));
@@ -63,7 +63,7 @@ class TeamRegisterTest {
 
     @Test
     @DisplayName("getTeam returns right team")
-    void getTeamTest(){
+    public void getTeamTest(){
         TeamRegister register = new TeamRegister();
         register.addTeam(new Team("NTNUI"));
         register.addTeam(new Team("Tihlde Pythons"));
@@ -72,7 +72,7 @@ class TeamRegisterTest {
 
     @Test
     @DisplayName("Throws Exception when trying to aquire non existent team")
-    void getTeamNotInRegisterShouldThrowIllegalArgumenteException(){
+    public void getTeamNotInRegisterShouldThrowIllegalArgumenteException(){
         TeamRegister register = new TeamRegister();
         register.addTeam(new Team("NTNUI"));
         register.addTeam(new Team("Tihlde Pythons"));

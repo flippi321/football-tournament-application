@@ -32,7 +32,7 @@ public class MatchTest {
 
     @Nested
     @DisplayName("Constructor tests")
-    class ConstructorTests {
+    public class ConstructorTests {
         @Test
         @DisplayName("Empty team throws exception")
         public void emptyTeamsThrowsException() {
@@ -59,7 +59,7 @@ public class MatchTest {
             assertThrows(NullPointerException.class, () -> new Match(null, team1));
             assertThrows(NullPointerException.class, () -> new Match(team1, null));
         }
-
+/*
         @Disabled
         @Test
         @DisplayName("Too small team throws exception")
@@ -67,7 +67,7 @@ public class MatchTest {
             team1.removePlayer(1);
             assertThrows(IllegalArgumentException.class, () -> new Match(team1, team2));
             assertThrows(IllegalArgumentException.class, () -> new Match(team2, team1));
-        }
+        }*/
 
         @Test
         @DisplayName("Empty constructor does not throw exception")
@@ -78,7 +78,7 @@ public class MatchTest {
 
     @Nested
     @DisplayName("Accessor tests")
-    class AccessorTests {
+    public class AccessorTests {
         @Test
         @DisplayName("Match.isStarted() test")
         public void matchIsStartedTest() {
@@ -153,7 +153,7 @@ public class MatchTest {
 
     @Nested
     @DisplayName("Mutator tests")
-    class MutatorTests {
+    public class MutatorTests {
         @Test
         @DisplayName("Home team is set")
         public void homeTeamIsSet() {
@@ -205,7 +205,7 @@ public class MatchTest {
 
     @Nested
     @DisplayName("Match result tests")
-    class MatchResultTests {
+    public class MatchResultTests {
         @Test
         @DisplayName("Home team score is correct")
         public void getsRightHomeTeamScore() {
@@ -275,7 +275,7 @@ public class MatchTest {
 
     @Nested
     @DisplayName("Match control tests")
-    class MatchControlTests {
+    public class MatchControlTests {
         @Test
         @DisplayName("Match without teams does not start")
         public void emptyMatchDoesNotStart() {
@@ -319,7 +319,7 @@ public class MatchTest {
 
     @Nested
     @DisplayName("Match history tests")
-    class MatchHistoryTests {
+    public class MatchHistoryTests {
 
         @Test
         @DisplayName("Adding event before start throws exception")
@@ -393,7 +393,7 @@ public class MatchTest {
 
         @Nested
         @DisplayName("Goal tests")
-        class GoalTests {
+        public class GoalTests {
             @Test
             @DisplayName("Goal is added")
             public void goalIsAdded () {
@@ -458,7 +458,7 @@ public class MatchTest {
 
         @Nested
         @DisplayName("Substitution tests")
-        class SubstitutionTests {
+        public class SubstitutionTests {
             @Test
             @DisplayName("Substitution is added")
             public void substitutionIsAdded() {
@@ -490,7 +490,7 @@ public class MatchTest {
 
         @Nested
         @DisplayName("Foul tests")
-        class FoulTests {
+        public class FoulTests {
             @Test
             @DisplayName("Foul is added")
             public void foulIsAdded() {
