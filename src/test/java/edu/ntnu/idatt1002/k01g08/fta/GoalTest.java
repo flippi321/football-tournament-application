@@ -48,9 +48,9 @@ public class GoalTest {
                 Player testScorer = new Player("Johan Footman", 10);
                 Team testTeam = new Team("TestTeam");
                 new Goal(testScorer, testTeam, null);
-            } catch (IllegalArgumentException e) {
-                assertEquals("The value of the timestamp of " +
-                        "substitution was 'null', please try again.", e.getMessage());
+            } catch (NullPointerException n) {
+                assertEquals("The value of the timestamp of substitution was 'null', which is not valid.",
+                        n.getMessage());
             }
         }
         @Test
@@ -61,8 +61,27 @@ public class GoalTest {
                 Team testTeam = new Team("TestTeam");
                 new Goal(testScorer, testTeam, "");
             } catch (IllegalArgumentException e) {
-                assertEquals("The timestamp was inputted " +
-                        "as an empty string, please try again.", e.getMessage());
+                assertEquals("The timestamp was inputted as an empty string.", e.getMessage());
+            }
+        }
+        @Test
+        @DisplayName("Exception thrown when player is 'null'")
+        public void initializeAGoalWithNullValueForPlayer() {
+            try {
+                Team testTeam = new Team("TestTeam");
+                new Goal(null, testTeam, "20:20");
+            } catch (NullPointerException n) {
+                assertEquals("A player was inputted with a 'null'- value.", n.getMessage());
+            }
+        }
+        @Test
+        @DisplayName("Exception thrown when team is 'null'")
+        public void initializeAGoalWithNullValueForTeam() {
+            try {
+                Player testScorer = new Player("Johan Footman", 10);
+                new Goal(testScorer, null, "20:22");
+            } catch (NullPointerException n) {
+                assertEquals("A team was inputted with a 'null'- value.", n.getMessage());
             }
         }
     }
