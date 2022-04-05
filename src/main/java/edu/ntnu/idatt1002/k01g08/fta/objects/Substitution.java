@@ -69,7 +69,6 @@ public class Substitution extends GameEvent {
      * GetEvent method to get a string description of the event
      * @return String substitution description
      */
-    //TODO: Add test
     @Override
     public String getEvent() {
         return "Team: " + getTeam() + " substituted player: "+ getPlayerOut() + " for: " + getPlayerIn() +
@@ -83,3 +82,6 @@ public class Substitution extends GameEvent {
     }
 }
 
+//TODO
+// Add test
+// Missing text in top javadoc?
