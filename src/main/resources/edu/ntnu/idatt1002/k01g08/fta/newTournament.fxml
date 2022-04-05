@@ -1,33 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.NewTournamentController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.NewTournamentController">
    <top>
       <Label text="Create new tournament" BorderPane.alignment="CENTER">
          <font>
-            <Font size="20.0" />
+            <Font size="36.0" />
          </font>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
       </Label>
    </top>
    <center>
       <VBox alignment="CENTER" fillWidth="false" minHeight="200.0" prefHeight="300.0" BorderPane.alignment="CENTER">
          <children>
+            <Label text="Tournament name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
             <TextField fx:id="tournamentNameInput" alignment="CENTER" promptText="Tournament name">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <font>
+                  <Font size="24.0" />
+               </font>
             </TextField>
-            <TextField fx:id="tournamentNumberTeamsInput" alignment="CENTER" promptText="Number of teams">
+            <Label layoutX="337.0" layoutY="163.0" text="Number of teams">
+               <font>
+                  <Font size="18.0" />
+               </font>
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+            </Label>
+            <TextField fx:id="tournamentNumberTeamsInput" alignment="CENTER" promptText="Number of teams">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <font>
+                  <Font size="24.0" />
+               </font>
             </TextField>
             <Label fx:id="errorLabel" textFill="RED" />
          </children>
@@ -36,8 +56,11 @@
    <bottom>
       <Button mnemonicParsing="false" onAction="#createTournament" text="Create tournament" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="20.0" />
          </BorderPane.margin>
+         <font>
+            <Font size="24.0" />
+         </font>
       </Button>
    </bottom>
 </BorderPane>

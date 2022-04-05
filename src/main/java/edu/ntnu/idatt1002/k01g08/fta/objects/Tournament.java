@@ -3,6 +3,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class representing a Tournament
+ * The Tournament's main function is to add, remove and modify matches which take place during the tournament.
+ *
+ * It contains information about all teams and matches in the tournament in ArrayLists, as well as it's name and
+ * start date as strings, the winning prize as an integer, the winning team and the expected match length as an
+ * int representing minutes.
+ *
+ * @author chribrev
+ * @version 1.0
+ */
 public abstract class Tournament {
     private ArrayList<Team> teams;
     private ArrayList<Match> matches;

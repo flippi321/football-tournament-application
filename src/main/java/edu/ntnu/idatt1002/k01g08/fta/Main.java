@@ -1,14 +1,11 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.Match;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +23,7 @@ public class Main extends Application {
         try{
             //SceneManager.setView("hello-view");
 
-            FXMLLoader loader = SceneManager.getLoader("hello-view");
+            FXMLLoader loader = SceneManager.getLoader("main");
             SceneManager.setScene(new Scene(loader.load()));
             stage.setScene(SceneManager.getScene());
 

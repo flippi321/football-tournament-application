@@ -29,8 +29,20 @@ public class NewPlayerController {
 
     @FXML
     public void createPlayer(ActionEvent actionEvent) throws IOException {
-        for (int i = 0; i < 12; i++) {
-            Main.addPlayer(new Player(playerNameInput.getText(), Integer.parseInt(playerNumberInput.getText()) + i));
+        if (playerNameInput.getText().isBlank() || playerNumberInput.getText().isBlank()) {
+            errorLabel.setText("You must fill both values.");
+            return;
+        }
+
+        try {
+            int num = Integer.parseInt(playerNumberInput.getText());
+        } catch (IllegalArgumentException e) {
+            errorLabel.setText("You must enter a number.");
+            return;
+        }
+
+        for (int i = 1; i < 12; i++) {
+            Main.addPlayer(new Player(playerNameInput.getText(), i));
         }
 
         playerIdLabel.setText("Player: " + (1 + Main.getPlayersMade().size()));
