@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a register of football teams
+ * Represents a register of football teams. The register uses a HashMap for storing the teams and has methods for
+ * adding and removing teams and for retrieving teams in the register
  * @author teodorbi
- * @version 2022-03-21
+ * @version 2022-04-05
  */
 public class TeamRegister {
     private final Map<String,Team> teams;
