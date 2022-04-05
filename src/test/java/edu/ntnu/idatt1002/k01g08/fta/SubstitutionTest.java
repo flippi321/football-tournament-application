@@ -13,36 +13,30 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SubstitutionTest {
 
     @Nested
-    @DisplayName("Positive tests for the subclass ´Substitution´")
+    @DisplayName("Positive Tests")
     public class PositiveTests {
+        @Test
+        @DisplayName("Constructor Works")
+        public void initializeASubstitutionWithAllCorrectParameters() {
+            Player testPlayerOne = new Player("Bat Man", 10);
+            Player testPlayerTwo = new Player("Cat Man", 11);
+            Team team = new Team("Team1");
 
-        @Nested
-        @DisplayName("Tests for valid input in the constructor")
-        public class constructorTests {
-
-            @Test
-            @DisplayName("Valid parameter-input in constructor")
-            public void initializeASubstitutionWithAllCorrectParameters() {
-                Player testPlayerOne = new Player("Bat Man", 10);
-                Player testPlayerTwo = new Player("Cat Man", 11);
-                Team team = new Team("Team1");
-
-                try {
-                    Substitution substitution = new Substitution("10:20", team, testPlayerOne,
-                            testPlayerTwo);
-                } catch (IllegalArgumentException e) {
-                    fail("The test 'initializeASubstitutionWithAllCorrectParameters' failed");
-                }
+            try {
+                Substitution substitution = new Substitution("10:20", team, testPlayerOne,
+                        testPlayerTwo);
+            } catch (IllegalArgumentException e) {
+                fail("The test 'initializeASubstitutionWithAllCorrectParameters' failed");
             }
         }
     }
 
     @Nested
-    @DisplayName("Negative tests for the subclass ´Substitution´")
+    @DisplayName("Negative Tests")
     public class NegativeTests {
 
         @Test
-        @DisplayName("Invalid (null) input for parameter in constructor")
+        @DisplayName("Exception is thrown when 'null' is used as parameter")
         public void initializeASubstitutionWithNullInputForTimeStamp() {
             Player testPlayerOne = new Player("Bat Man", 10);
             Player testPlayerTwo = new Player("Cat Man", 11);
@@ -58,7 +52,7 @@ public class SubstitutionTest {
         }
 
         @Test
-        @DisplayName("Invalid (empty string) input for parameter in constructor")
+        @DisplayName("Exception is thrown when an empty string is used as parameter")
         public void initializeASubstitutionWithBlankInputForTimeStamp() {
             Player testPlayerOne = new Player("Bat Man", 10);
             Player testPlayerTwo = new Player("Cat Man", 11);

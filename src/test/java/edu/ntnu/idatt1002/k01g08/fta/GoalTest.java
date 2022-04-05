@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Goal tests")
+@DisplayName("Goal Tests")
 public class GoalTest {
     @Nested
-    @DisplayName("Positive tests for the subclass ´Goal´")
+    @DisplayName("Positive Tests")
     public class PositiveTests {
         @Test
-        @DisplayName("Initializing a goal with all constructor parameters given correctly")
+        @DisplayName("Constructor Works")
         public void initializeAGoalWithAllCorrectParameters() {
             try {
                 Player testScorer = new Player("Johan Footman", 10);
@@ -26,7 +26,7 @@ public class GoalTest {
             }
         }
         @Test
-        @DisplayName("Initializing a goal with constructor parameters except assisting player")
+        @DisplayName("Constructor without player works")
         public void initializeAGoalWithParametersExceptAssistingPlayer() {
             try {
                 Player testScorer = new Player("Johan Footman", 10);
@@ -39,23 +39,22 @@ public class GoalTest {
         }
     }
     @Nested
-    @DisplayName("Negative tests for the subclass ´Goal´")
+    @DisplayName("Negative Tests")
     public class NegativeTests {
         @Test
-        @DisplayName("Initializing a goal with constructor and timestamp having null as value")
+        @DisplayName("Exception thrown when timestamp is 'null'")
         public void initializeAGoalWithNullValueForTimestamp() {
             try {
                 Player testScorer = new Player("Johan Footman", 10);
                 Team testTeam = new Team("TestTeam");
-                String nullVal = null;
-                new Goal(testScorer, testTeam, nullVal);
+                new Goal(testScorer, testTeam, null);
             } catch (IllegalArgumentException e) {
                 assertEquals("The value of the timestamp of " +
                         "substitution was 'null', please try again.", e.getMessage());
             }
         }
         @Test
-        @DisplayName("Initializing a goal with constructor and timestamp as blank")
+        @DisplayName("Exception thrown when timestamp is an empty String")
         public void initializeAGoalWithBlankStringForTimestamp() {
             try {
                 Player testScorer = new Player("Johan Footman", 10);
