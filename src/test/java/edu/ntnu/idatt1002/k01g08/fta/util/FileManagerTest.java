@@ -35,6 +35,16 @@ public class FileManagerTest {
     }
 
     @Test
+    public void playerToJsonTest() {
+        Player player = new Player("Martin Ødegaard", 8);
+        player.increaseGoals();
+        player.increaseAssists(2);
+        player.increaseRedCards(4);
+        player.increaseYellowCards(3);
+        System.out.println(toJson(player));
+    }
+
+    @Test
     public void readTeamTest() {
         String string =
                 "{" +
@@ -50,5 +60,14 @@ public class FileManagerTest {
         reader.close();
         Team team = readTeam(json);
         assertEquals("(Rosenborg: [3 Bjarne Brøndbo, 5 Ole Gunnar Solskjær, 11 Petter Northug])", team.toString());
+    }
+
+    @Test
+    public void teamToJsonTest() {
+        Team team = new Team("Brann");
+        team.addPlayer(new Player("Bjarne", 4));
+        team.addPlayer(new Player("Bjørn-Johnny", 17));
+        team.addPlayer(new Player("Bernhard", 12));
+        System.out.println(toJson(team));
     }
 }

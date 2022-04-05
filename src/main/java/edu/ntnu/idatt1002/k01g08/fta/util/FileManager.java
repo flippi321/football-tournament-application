@@ -4,10 +4,7 @@ import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import java.util.List;
 
 public class FileManager {
@@ -68,5 +65,16 @@ public class FileManager {
         builder.add(PLAYER_YELLOW_CARDS_KEY, player.getYellowCards());
         builder.add(PLAYER_RED_CARDS_KEY, player.getRedCards());
         return builder.build();
+    }
+
+    static JsonObject toJson(Team team) {
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        for (Player player : team) {
+            arrayBuilder.add(toJson(player));
+        }
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        objectBuilder.add(TEAM_NAME_KEY, team.getName());
+        objectBuilder.add(TEAM_PLAYERS_KEY, arrayBuilder.build());
+        return objectBuilder.build();
     }
 }
