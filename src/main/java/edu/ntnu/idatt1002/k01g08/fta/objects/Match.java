@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
+import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -26,6 +27,10 @@ public class Match implements Iterable<GameEvent> {
                                 -1: Finished
     */
     final private List<GameEvent> matchHistory;
+    final private static NumberFormat format = NumberFormat.getIntegerInstance();
+    static {
+        format.setMinimumIntegerDigits(2);
+    }
 
     /*
     --------------------------------------------
@@ -310,15 +315,53 @@ public class Match implements Iterable<GameEvent> {
 
     /**
      * Returns the current match time as a string.
-     * If the time is over half of maximum length of half, the time will be returned on the form ("[max length]+[difference]".
+     * If the time is over the maximum length of a half, the time will be returned on the form ("[max length]+[difference]".
      * @return the current match time as a string.
+     * @deprecated use currentMinute() instead
      */
     public String currentMatchTime() {
         if (onPause()) return Integer.toString(timeOffset);
-        long minutes = Duration.between(startTime, Instant.now()).toMinutes()+1;
+        long minutes = currentDuration().toMinutes()+1;
         if (minutes > lengthOfHalf) {
             return lengthOfHalf+timeOffset + "+" + (minutes-lengthOfHalf);
         } else return Long.toString(minutes+timeOffset);
+    }
+
+    /**
+     * Returns the current duration av the half being played.
+     * @return the current duration av the half being played
+     */
+    private Duration currentDuration() {
+        return Duration.between(startTime, Instant.now());
+    }
+
+    /**
+     * Returns the current minute of the match as a string.
+     * The first minute of the match is "01", the second "02", and so on.
+     * Extra minutes get returned on the form "45+1".
+     * @return the current minute of the match as a string
+     */
+    public String currentMinute() {
+        if (onPause()) return format.format(timeOffset);
+        long minutes = currentDuration().toMinutes()+1;
+        if (minutes > lengthOfHalf) {
+            return format.format(lengthOfHalf+timeOffset) + "+" + (minutes-lengthOfHalf);
+        } else return format.format(minutes+timeOffset);
+    }
+
+    /**
+     * The current timestamp of the match as a string.
+     * The time is always returned on the form "MM:SS".
+     * Each half starts counting without regard for extra minutes in the previous half
+     * (so the second half in a default match always starts at "45:00").
+     * @return the current timestamp of the match as a string
+     */
+    public String currentTime() {
+        if (onPause()) return format.format(timeOffset) + ":00";
+        Duration duration = currentDuration();
+        long minutes =  duration.toMinutes() + timeOffset;
+        int seconds = duration.toSecondsPart();
+        return format.format(minutes) + ":" + format.format(seconds);
     }
 
     /*
@@ -378,7 +421,7 @@ public class Match implements Iterable<GameEvent> {
             throws IllegalStateException, NullPointerException {
         if (scoringPlayer == null) throw new NullPointerException("player is null");
         if (team == null) throw new NullPointerException("team is null");
-        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMatchTime();
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
         addGameEvent(new Goal(scoringPlayer, team, timeStamp, assistingPlayer));
     }
 
@@ -425,7 +468,7 @@ public class Match implements Iterable<GameEvent> {
             throws IllegalStateException, NullPointerException {
         if (playerIn == null || playerOut == null) throw new NullPointerException("player is null");
         if (team == null) throw new NullPointerException("team is null");
-        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMatchTime();
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
         addGameEvent(new Substitution(timeStamp, team, playerIn, playerOut));
     }
 
@@ -457,7 +500,7 @@ public class Match implements Iterable<GameEvent> {
             throws IllegalStateException, NullPointerException {
         if (player == null) throw new NullPointerException("player is null");
         if (team == null) throw new NullPointerException("team is null");
-        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMatchTime();
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
         addGameEvent(new Foul(foulTag, timeStamp, player, team, giveCard));
     }
 

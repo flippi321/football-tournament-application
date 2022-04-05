@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k01g08.fta;
+package edu.ntnu.idatt1002.k01g08.fta.registers;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;

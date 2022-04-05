@@ -126,7 +126,6 @@ public class KnockOut extends Tournament {
     /**
      * Finds what matches are going to be played,
      * then places them in the upcomingMatches-list.
-     * TODO: maybe add tests for this method
      */
     @Override
     public void findUpcomingMatches() {
