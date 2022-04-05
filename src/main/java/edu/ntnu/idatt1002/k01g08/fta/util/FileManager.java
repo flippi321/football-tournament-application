@@ -5,6 +5,9 @@ import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 
 import javax.json.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 
 public class FileManager {
@@ -17,6 +20,15 @@ public class FileManager {
 
     private static final String TEAM_NAME_KEY = "name";
     private static final String TEAM_PLAYERS_KEY = "players";
+
+    static JsonStructure loadJson(File file) throws FileNotFoundException {
+        JsonReader reader = Json.createReader(new FileReader(file));
+        return reader.read();
+    }
+
+    static JsonArray loadJsonArray(File file) throws FileNotFoundException {
+        return (JsonArray) loadJson(file);
+    }
 
     static Player readPlayer(JsonObject json) {
         Player player = new Player(json.getString(PLAYER_NAME_KEY), json.getInt(PLAYER_NUMBER_KEY));
@@ -43,7 +55,7 @@ public class FileManager {
         Team team = new Team(json.getString(TEAM_NAME_KEY));
         List<JsonObject> players = json.getJsonArray(TEAM_PLAYERS_KEY).getValuesAs(JsonObject.class);
         for (JsonObject player : players)
-        team.addPlayer(readPlayer(player));
+        if (!team.addPlayer(readPlayer(player))) throw new RuntimeException("player number already registered");
         return team;
     }
 
@@ -54,6 +66,10 @@ public class FileManager {
             teamRegister.addTeam(readTeam(team));
         }
         return teamRegister;
+    }
+
+    static TeamRegister loadTeamRegister(File file) throws FileNotFoundException {
+        return readTeamRegister(loadJsonArray(file));
     }
 
     static JsonObject toJson(Player player) {

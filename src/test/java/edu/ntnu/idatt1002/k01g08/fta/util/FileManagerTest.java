@@ -2,12 +2,16 @@ package edu.ntnu.idatt1002.k01g08.fta.util;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.StringReader;
 import static edu.ntnu.idatt1002.k01g08.fta.util.FileManager.*;
 
@@ -41,7 +45,10 @@ public class FileManagerTest {
         player.increaseAssists(2);
         player.increaseRedCards(4);
         player.increaseYellowCards(3);
-        System.out.println(toJson(player));
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("name", "Martin Ødegaard").add("number", 8);
+        builder.add("goals", 1).add("assists", 2).add("redCards", 4).add("yellowCards", 3);
+        assertEquals(builder.build(),toJson(player));
     }
 
     @Test
@@ -69,5 +76,18 @@ public class FileManagerTest {
         team.addPlayer(new Player("Bjørn-Johnny", 17));
         team.addPlayer(new Player("Bernhard", 12));
         System.out.println(toJson(team));
+    }
+
+    @Test
+    public void loadTeamRegisterTest() {
+        File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json");
+        try {
+            TeamRegister register = loadTeamRegister(file);
+            for (Team team : register.getTeams().values()) {
+                System.out.println(team);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

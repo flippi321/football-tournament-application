@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Rosenborg",
+    "players": [
+      {
+        "name": "Andre Hansen",
+        "number": 3
+      }
+    ]
+  },
+  {
+    "name": "Manchester",
+    "players": [
+      {
+        "name": "Oddbjørn",
+        "number": 3
+      }
+    ]
+  },
+  {
+    "name": "Liverpool",
+    "players": [
+      {
+        "name": "Oddbjørn",
+        "number": 3
+      }
+    ]
+  },
+  {
+    "name": "Computer Boys",
+    "players": [
+      {
+        "name": "Bendik",
+        "number": 19
+      },
+      {
+        "name": "Bjørn-Johnny",
+        "number": 1
+      },
+      {
+        "name": "Christoffer",
+        "number": 83
+      },
+      {
+        "name": "John-Fredrik",
+        "number": 44
+      },
+      {
+        "name": "Magnus",
+        "number": 15
+      },
+      {
+        "name": "Teodor",
+        "number": 37
+      }
+    ]
+  }
+]
