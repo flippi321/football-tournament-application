@@ -11,7 +11,6 @@ import java.util.Map;
  * @author teodorbi
  * @version 2022-04-05
  */
-
 public class TeamRegister {
     private final Map<String,Team> teams;
 
@@ -59,7 +58,7 @@ public class TeamRegister {
     /**
      * Method for retrieving a specific team from the register
      * @param teamName is the name of the team
-     * @return the Team
+     * @return the team which should be retrieved
      * @throws IllegalArgumentException if the team isn't in the register
      */
     public Team getTeam(String teamName) throws IllegalArgumentException{
@@ -90,3 +89,6 @@ public class TeamRegister {
         return sb.toString();
     }
 }
+
+//TODO
+// Legge til mer info på øverste javadoc?
