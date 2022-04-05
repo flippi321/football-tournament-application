@@ -8,18 +8,30 @@ import javax.json.JsonObject;
 import java.util.List;
 
 public class FileManager {
-    static Player readPlayer(JsonObject jsonObject) {
-        Player player = new Player(jsonObject.getString("name"), jsonObject.getInt("number"));
-        player.increaseGoals(jsonObject.getInt("goals"));
-        player.increaseAssists(jsonObject.getInt("assists"));
-        player.increaseRedCards(jsonObject.getInt("red-cards"));
-        player.increaseYellowCards(jsonObject.getInt("yellow-cards"));
+    static Player readPlayer(JsonObject json) {
+        Player player = new Player(json.getString("name"), json.getInt("number"));
+        for (String key : json.keySet()) {
+            switch (key) {
+                case "goals":
+                    player.increaseGoals(json.getInt(key));
+                    break;
+                case "assists":
+                    player.increaseAssists(json.getInt(key));
+                    break;
+                case "red-cards":
+                    player.increaseRedCards(json.getInt(key));
+                    break;
+                case "yellow-cards":
+                    player.increaseYellowCards(json.getInt(key));
+                    break;
+            }
+        }
         return player;
     }
 
-    static Team loadTeam(JsonObject jsonObject) {
-        Team team = new Team(jsonObject.getString("name"));
-        List<JsonObject> players = jsonObject.getJsonArray("players").getValuesAs(JsonObject.class);
+    static Team readTeam(JsonObject json) {
+        Team team = new Team(json.getString("name"));
+        List<JsonObject> players = json.getJsonArray("players").getValuesAs(JsonObject.class);
         for (JsonObject player : players)
         team.addPlayer(readPlayer(player));
         return team;
