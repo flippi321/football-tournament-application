@@ -6,8 +6,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
+import java.net.URI;
 
 public class ErrorFormController {
     @FXML
@@ -26,7 +26,7 @@ public class ErrorFormController {
             return;
         }
         errorLabel.setText("");
-
+        // TODO: Add functionality
     }
 
     @FXML

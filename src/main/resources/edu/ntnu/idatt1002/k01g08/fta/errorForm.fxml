@@ -31,7 +31,7 @@
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="170.0" layoutY="35.0" onMouseClicked="#backButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/arrow-left.png" />
+                        <Image url="@img/backArrow.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="20.0" />
