@@ -90,5 +90,3 @@ public class TeamRegister {
     }
 }
 
-//TODO
-// Legge til mer info på øverste javadoc?
