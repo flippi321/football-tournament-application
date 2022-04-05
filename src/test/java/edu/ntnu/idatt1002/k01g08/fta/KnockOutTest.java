@@ -55,7 +55,7 @@ public class KnockOutTest {
                 Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
                 fail("Test 'testTournamentWithEmptyTeamsList' did not throw an exception to when expected to.");
             } catch (Exception e) {
-                assertEquals( "Must have a valid list of teams, yours was empty", e.getMessage());
+                assertEquals( "The number of teams is invalid.", e.getMessage());
             }
         }
 

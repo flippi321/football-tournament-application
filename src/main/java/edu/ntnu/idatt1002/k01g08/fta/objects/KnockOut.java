@@ -81,7 +81,7 @@ public class KnockOut extends Tournament {
      */
     public KnockOut(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength)
             throws IllegalArgumentException {
-        super(teams, tournamentName, firstPrize, startDate, matchLength);
+        super(teams, tournamentName, firstPrize, startDate);
 
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
