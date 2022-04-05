@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k01g08.fta.util;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -35,5 +36,14 @@ public class FileManager {
         for (JsonObject player : players)
         team.addPlayer(readPlayer(player));
         return team;
+    }
+
+    static TeamRegister readTeamRegister(JsonArray json) {
+        TeamRegister teamRegister = new TeamRegister();
+        List<JsonObject> teams = json.getValuesAs(JsonObject.class);
+        for (JsonObject team : teams) {
+            teamRegister.addTeam(readTeam(team));
+        }
+        return teamRegister;
     }
 }
