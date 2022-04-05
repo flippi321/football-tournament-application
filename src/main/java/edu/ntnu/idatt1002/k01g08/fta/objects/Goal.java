@@ -1,14 +1,12 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
 /**
- * Class representing a goal scored in a match. This is a specific game event and
- * is therefore represented as being a subclass of the abstract class 'GameEvent'
- * Additional information associated with a Goal is another player, which is the player
- * that assisted the goal
- * This player does not have to be specified as some Goals happen without any given
- * player assisting the player who scores
- * To circumvent this, the class has two constructors, with and without a parameter for
- * assistingPlayer
+ * Class representing a goal scored in a match. This is a specific game event and is therefore represented as being a
+ * subclass of the abstract class 'GameEvent'.
+ * Additional information associated with a Goal is 'assistingPlayer', another player, which is the player who
+ * assisted the goal. This player does not have to be specified as some Goals happen without any given player assisting
+ * the player who scores To circumvent this, the class has two constructors, with and without a parameter for
+ * assistingPlayer.
  */
 public class Goal extends GameEvent {
     private Player assistingPlayer;
@@ -21,7 +19,8 @@ public class Goal extends GameEvent {
      * @param assistingPlayer is the player assisting the goal
      * @throws IllegalArgumentException specified in the GameEvent class
      */
-    public Goal(Player goalScorer, Team team, String timeStamp, Player assistingPlayer) throws IllegalArgumentException {
+    public Goal(Player goalScorer, Team team, String timeStamp, Player assistingPlayer)
+            throws IllegalArgumentException {
         super(goalScorer, team, timeStamp);
         this.assistingPlayer = assistingPlayer;
     }
@@ -50,21 +49,19 @@ public class Goal extends GameEvent {
      * @return String goal description
      */
 
-    //TODO: Add test
     @Override
     public String getEvent() {
         if(assistingPlayer != null){
-            return "The player: " + getPlayer().getName() + " scored a goal for team: " + getTeam() +
-                    " with assist from player: " + getAssistingPlayer() + "at time: " + getTimeStampOfMatchTime();
+            return getPlayer().getName() + " scored for team: " + getTeam().getName() +
+                    " with assist by: " + getAssistingPlayer().getName() + " at time: " + getTimeStampOfMatchTime();
         }else{
-            return "The player: " + getPlayer().getName() +
-                    " scored a goal for team: " + getTeam() + "at time: " + getTimeStampOfMatchTime();
+            return getPlayer().getName() +
+                    " scored for team: " + getTeam().getName() + " at time: " + getTimeStampOfMatchTime();
         }
     }
 
     @Override
     public String toString() {
-        return "Goal by: "+getPlayer().getName()+""  +
-                "\nAssisted by: " + getAssistingPlayer();
+        return getEvent();
     }
 }
