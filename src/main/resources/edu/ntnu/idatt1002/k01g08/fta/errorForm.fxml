@@ -29,9 +29,9 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="270.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="170.0" layoutY="35.0" onMouseClicked="#reportButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="170.0" layoutY="35.0" onMouseClicked="#backButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/circle-exclamation-solid.png" />
+                        <Image url="@img/arrow-left.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="20.0" />
@@ -101,6 +101,11 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
+                  <Label fx:id="errorLabel" textFill="RED">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
          </children>
