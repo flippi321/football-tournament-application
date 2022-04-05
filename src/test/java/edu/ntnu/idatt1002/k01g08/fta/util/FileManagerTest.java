@@ -20,7 +20,7 @@ public class FileManagerTest {
                         "\"number\": 5," +
                         "\"goals\": 6," +
                         "\"assists\": 4," +
-                        "\"yellow-cards\": 1" +
+                        "\"yellowCards\": 1" +
                     "}"
         ));
         JsonObject jsonObject = reader.readObject();

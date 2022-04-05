@@ -4,25 +4,37 @@ import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 
+import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import java.util.List;
 
 public class FileManager {
+    private static final String PLAYER_NAME_KEY = "name";
+    private static final String PLAYER_NUMBER_KEY = "number";
+    private static final String PLAYER_GOALS_KEY = "goals";
+    private static final String PLAYER_ASSISTS_KEY = "assists";
+    private static final String PLAYER_RED_CARDS_KEY = "redCards";
+    private static final String PLAYER_YELLOW_CARDS_KEY = "yellowCards";
+
+    private static final String TEAM_NAME_KEY = "name";
+    private static final String TEAM_PLAYERS_KEY = "players";
+
     static Player readPlayer(JsonObject json) {
-        Player player = new Player(json.getString("name"), json.getInt("number"));
+        Player player = new Player(json.getString(PLAYER_NAME_KEY), json.getInt(PLAYER_NUMBER_KEY));
         for (String key : json.keySet()) {
             switch (key) {
-                case "goals":
+                case PLAYER_GOALS_KEY:
                     player.increaseGoals(json.getInt(key));
                     break;
-                case "assists":
+                case PLAYER_ASSISTS_KEY:
                     player.increaseAssists(json.getInt(key));
                     break;
-                case "red-cards":
+                case PLAYER_RED_CARDS_KEY:
                     player.increaseRedCards(json.getInt(key));
                     break;
-                case "yellow-cards":
+                case PLAYER_YELLOW_CARDS_KEY:
                     player.increaseYellowCards(json.getInt(key));
                     break;
             }
@@ -31,8 +43,8 @@ public class FileManager {
     }
 
     static Team readTeam(JsonObject json) {
-        Team team = new Team(json.getString("name"));
-        List<JsonObject> players = json.getJsonArray("players").getValuesAs(JsonObject.class);
+        Team team = new Team(json.getString(TEAM_NAME_KEY));
+        List<JsonObject> players = json.getJsonArray(TEAM_PLAYERS_KEY).getValuesAs(JsonObject.class);
         for (JsonObject player : players)
         team.addPlayer(readPlayer(player));
         return team;
@@ -45,5 +57,16 @@ public class FileManager {
             teamRegister.addTeam(readTeam(team));
         }
         return teamRegister;
+    }
+
+    static JsonObject toJson(Player player) {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add(PLAYER_NAME_KEY, player.getName());
+        builder.add(PLAYER_NUMBER_KEY, player.getNumber());
+        builder.add(PLAYER_GOALS_KEY, player.getGoals());
+        builder.add(PLAYER_ASSISTS_KEY, player.getAssists());
+        builder.add(PLAYER_YELLOW_CARDS_KEY, player.getYellowCards());
+        builder.add(PLAYER_RED_CARDS_KEY, player.getRedCards());
+        return builder.build();
     }
 }
