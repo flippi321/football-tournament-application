@@ -43,7 +43,7 @@ public class SubstitutionTest {
             Team team = new Team("Team1");
 
             try {
-                Substitution substitution = new Substitution(null, team, testPlayerOne,
+                Substitution substitution = new Substitution("02:30", team, testPlayerOne,
                         testPlayerTwo);
             } catch (NullPointerException n) {
                 assertEquals("A player was inputted with a 'null'- value.",
@@ -59,12 +59,23 @@ public class SubstitutionTest {
             Team team = new Team("Team1");
 
             try {
-                Substitution substitution = new Substitution("", team, testPlayerOne,
+                Substitution substitution = new Substitution("02:30", team, testPlayerOne,
                         testPlayerTwo);
             } catch (IllegalArgumentException e) {
                 assertEquals("The timestamp was inputted as an empty string, please try again.",
                             e.getMessage());
             }
+        }
+
+        @Test
+        @DisplayName("toString Works")
+        public void checkingThatToStringIsCorrect() {
+            Player testPlayerOne = new Player("Bat Man", 10);
+            Player testPlayerTwo = new Player("Cat Man", 11);
+            Team team = new Team("Team1");
+            Substitution substitution = new Substitution("02:30", team, testPlayerOne, testPlayerTwo);
+            assertEquals("Team: Team1 substituted player: Bat Man for: Cat Man at: 02:30 of the match.",
+                    substitution.toString());
         }
     }
 }
