@@ -21,7 +21,8 @@ public abstract class Tournament {
      * @param firstPrize what you get for achieving first place
      * @param startDate when the tournament starts
      */
-    public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate) {
+    public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate)
+            throws IllegalArgumentException, NullPointerException {
         checkNameInput(tournamentName);
         checkFirstPriceInput(firstPrize);
         checkStartDateInput(startDate);
@@ -41,7 +42,8 @@ public abstract class Tournament {
      * @param startDate when the tournament starts
      * @param matchLength the length which the match should be
      */
-    public Tournament(ArrayList<Team> teams, String tournamentName, String startDate, int matchLength) {
+    public Tournament(ArrayList<Team> teams, String tournamentName, String startDate, int matchLength)
+            throws IllegalArgumentException, NullPointerException{
         checkNameInput(tournamentName);
         checkStartDateInput(startDate);
 
@@ -58,7 +60,8 @@ public abstract class Tournament {
      * @param teams a list of all teams in the tournament
      * @param tournamentName the name of the tournament
      */
-    public Tournament(ArrayList<Team> teams, String tournamentName) {
+    public Tournament(ArrayList<Team> teams, String tournamentName)
+            throws IllegalArgumentException, NullPointerException {
         checkNameInput(tournamentName);
 
         this.teams = teams;
@@ -74,7 +77,7 @@ public abstract class Tournament {
      * mainly used for testing purposes
      * @param tournamentName the name of the tournament
      */
-    public Tournament(String tournamentName) {
+    public Tournament(String tournamentName) throws IllegalArgumentException, NullPointerException {
         checkNameInput(tournamentName);
 
         this.tournamentName = tournamentName;
@@ -231,9 +234,9 @@ public abstract class Tournament {
      * Method for checking if Input name is null or blank
      * @param name is the name of the tournament
      */
-    private void checkNameInput(String name) {
+    private void checkNameInput(String name) throws IllegalArgumentException, NullPointerException {
         if (name == null) {
-            throw new IllegalArgumentException("The tournament must have a name, you gave none");
+            throw new NullPointerException("The tournament must have a name, you gave none");
         } else if (name.isBlank()) {
             throw new IllegalArgumentException("The tournament must have a name, you gave none");
         }
@@ -243,7 +246,7 @@ public abstract class Tournament {
      * Method which throws an IllegalArgumentException if the tournament prize is below 0
      * @param firstPrize is the reward for winning the tournament
      */
-    private void checkFirstPriceInput(int firstPrize) {
+    private void checkFirstPriceInput(int firstPrize) throws IllegalArgumentException {
         if (firstPrize < 0) {
             throw new IllegalArgumentException("First price must be a positive number");
         }
@@ -253,14 +256,14 @@ public abstract class Tournament {
      * Method which throws an IllegalArgumentException if the start date is empty is not on the valid format
      * @param startDate is the date when the tournament starts
      */
-    private void checkStartDateInput(String startDate){
-        if(!startDate.isBlank() | startDate.length() != 5){
+    private void checkStartDateInput(String startDate) throws IllegalArgumentException {
+        if(startDate.contains(":") && startDate.length() == 5) {
             try {
                 String[] startDateValues = startDate.split(":");
                 Integer.parseInt(startDateValues[0]);
                 Integer.parseInt(startDateValues[1]);
-            } catch (NumberFormatException e){
-                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e.getMessage());
             }
         }
         throw new IllegalArgumentException("Your date is empty or is using the wrong format. " +
