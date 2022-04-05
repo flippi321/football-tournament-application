@@ -49,7 +49,6 @@ public class Goal extends GameEvent {
      * @return String goal description
      */
 
-    //TODO: Add test
     @Override
     public String getEvent() {
         if(assistingPlayer != null){
