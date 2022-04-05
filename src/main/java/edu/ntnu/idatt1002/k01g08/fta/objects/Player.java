@@ -17,8 +17,11 @@ public class Player {
      * Creates a player instance.
      * @param name the name of the player
      * @param number the squad number of the player
+     * @throws IllegalArgumentException if inputted name is null or blank or if inputted number is  negative.
      */
-    public Player(String name, int number) {
+    public Player(String name, int number) throws IllegalArgumentException, NullPointerException {
+        checkNameInputForNullAndBlank(name);
+        checkNumberInputForNegativeValue(number);
         this.name = name;
         this.number = number;
     }
@@ -129,6 +132,28 @@ public class Player {
      */
     public void increaseAssists(int number) {
         assists += number;
+    }
+
+    /**
+     * A method which throws an IllegalArgumentException if inputted name is null or blank.
+     * @param name the name of a player.
+     */
+    private void checkNameInputForNullAndBlank(String name) throws IllegalArgumentException, NullPointerException {
+        if (name == null) {
+            throw new NullPointerException("Name cannot be null");
+        } else if (name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be blank");
+        }
+    }
+
+    /**
+     * A method which throws an IllegalArgumentException if inputted squad number is negative.
+     * @param number is the squad number of the player.
+     */
+    private void checkNumberInputForNegativeValue(int number) throws IllegalArgumentException {
+        if (number < 0 || number > 99) {
+            throw new IllegalArgumentException("The squad number must be between 1 and 99");
+        }
     }
 
     @Override
