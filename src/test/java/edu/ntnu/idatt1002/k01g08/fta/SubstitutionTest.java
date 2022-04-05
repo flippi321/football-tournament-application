@@ -45,9 +45,9 @@ public class SubstitutionTest {
             try {
                 Substitution substitution = new Substitution(null, team, testPlayerOne,
                         testPlayerTwo);
-            } catch (IllegalArgumentException e) {
-                assertEquals("The value of the timestamp of substitution was 'null', please try again.",
-                            e.getMessage());
+            } catch (NullPointerException n) {
+                assertEquals("A player was inputted with a 'null'- value.",
+                            n.getMessage());
             }
         }
 
