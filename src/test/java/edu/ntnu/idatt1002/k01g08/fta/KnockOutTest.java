@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.KnockOut;
+import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
 import org.junit.jupiter.api.DisplayName;
@@ -12,13 +13,16 @@ import java.util.ArrayList;
 
 public class KnockOutTest {
     @Nested
+    @DisplayName("Tests for Constructor")
     public class TestingConstructor{
         @Test
         @DisplayName("Testing Constructor with correct parameters")
         public void initializingNewTournamentUsingConstructor(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<8; i++){
-                teams.add(new Team("Rosenborg " + i));
+                Team newTeam = new Team("Rosenborg " + i);
+                newTeam.addPlayer(new Player("Spiller", i));
+                teams.add(newTeam);
             }
             Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
             assertEquals(8, testTournament.getNumberOfTeams());
@@ -31,7 +35,9 @@ public class KnockOutTest {
         public void testingKnockoutThrowingIllegalException(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<5; i++){
-                teams.add(new Team("Rosenborg " + i));
+                Team newTeam = new Team("Rosenborg " + i);
+                newTeam.addPlayer(new Player("Spiller", i));
+                teams.add(newTeam);
             }
             try {
                 Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
@@ -49,7 +55,7 @@ public class KnockOutTest {
                 Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
                 fail("Test 'testTournamentWithEmptyTeamsList' did not throw an exception to when expected to.");
             } catch (Exception e) {
-                assertEquals( "Must have a valid list of teams, yours was empty", e.getMessage());
+                assertEquals( "The number of teams is invalid.", e.getMessage());
             }
         }
 
@@ -57,7 +63,12 @@ public class KnockOutTest {
         @DisplayName("Making a tournament without a name")
         public void testTournamentWithoutName(){
             ArrayList<Team> teams = new ArrayList<>();
-            teams.add(new Team("Rosenborg"));
+            Team rosenborg = new Team("Rosenborg");
+            Team lsk = new Team("Lillestrøm");
+            rosenborg.addPlayer(new Player("Spiller2",2));
+            lsk.addPlayer(new Player("Spiller1",1));
+            teams.add(rosenborg);
+            teams.add(lsk);
             try {
                 Tournament testTournament = new KnockOut("", teams);
                 fail("Test 'testTournamentWithoutName' did not throw an exception to when expected to.");
@@ -71,7 +82,9 @@ public class KnockOutTest {
         public void testingKnockoutNotThrowingIllegalException(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<4; i++){
-                teams.add(new Team("Rosenborg " + i));
+                Team newTeam = new Team("Rosenborg " + i);
+                newTeam.addPlayer(new Player("Spiller", i));
+                teams.add(newTeam);
             }
             try {
                 new KnockOut("Tippeligaen2022", teams);
@@ -85,7 +98,9 @@ public class KnockOutTest {
         public void testSetUpcomingMatch(){
             ArrayList<Team> teams = new ArrayList<>();
             for(int i = 0; i<8; i++){
-                teams.add(new Team("Rosenborg " + i));
+                Team newTeam = new Team("Rosenborg " + i);
+                newTeam.addPlayer(new Player("Spiller", i));
+                teams.add(newTeam);
             }
             Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
             assertEquals(4, testTournament.getUpcomingMatches().size());

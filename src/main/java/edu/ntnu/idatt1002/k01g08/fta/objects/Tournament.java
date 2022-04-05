@@ -1,57 +1,43 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class representing a Tournament
+ * The Tournament's main function is to add, remove and modify matches which take place during the tournament.
+ *
+ * It contains information about all teams and matches in the tournament in ArrayLists, as well as it's name and
+ * start date as strings, the winning prize as an integer, the winning team and the expected match length as an
+ * int representing minutes.
+ *
+ * @author chribrev
+ * @version 1.0
+ */
 public abstract class Tournament {
-    protected ArrayList<Team> teams;
-    protected ArrayList<Match> matches;
-    protected ArrayList<Match> upcomingMatches;
+    private ArrayList<Team> teams;
+    private ArrayList<Match> matches;
+    private ArrayList<Match> upcomingMatches;
     private Match currentMatch;
     private final String tournamentName;
     private final int firstPrize;
     private final String startDate;
     private Team winner;
-    private int matchLength;
+    private final int matchLength;
 
     /**
-     * Constructor for object which represents an abstract tournament
-     * @param teams a list of all teams in the tournament
-     * @param tournamentName the name of the tournament
-     * @param firstPrize what you get for achieving first place
-     * @param startDate when the tournament starts
-     * @param matchLength the length which the match should be
-     *
-     */
-    public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength) {
-        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
-                "you gave none");
-        if(firstPrize<0) throw new IllegalArgumentException("First price must be a positive number");
-        if(startDate.isBlank() | startDate.length()>5) throw new IllegalArgumentException("Must be a valid date " +
-                "on the format: mm:ss, (ex: 12:05 or 90:00)");
-        if(matchLength<10 | matchLength > 120 | matchLength%2 != 0) {
-            throw new IllegalArgumentException("The match length must be an even number between 10 and 120");
-        }
-        this.teams = teams;
-        this.tournamentName = tournamentName;
-        this.firstPrize = firstPrize;
-        this.startDate = startDate;
-        this.matchLength = matchLength;
-        upcomingMatches = new ArrayList<>();
-    }
-
-    /**
-     * Constructor for object which represents an abstract tournament, without matchLength
+     * Constructor for object which represents an abstract tournament with all inputs
      * @param teams a list of all teams in the tournament
      * @param tournamentName the name of the tournament
      * @param firstPrize what you get for achieving first place
      * @param startDate when the tournament starts
      */
-    public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate) {
-        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
-                "you gave none");
-        if(firstPrize<0) throw new IllegalArgumentException("First price must be a positive number");
-        if(startDate.isBlank() | startDate.length()>5) throw new IllegalArgumentException("Must be a valid date " +
-                "on the format: mm:ss, (ex: 12:05 or 90:00)");
+    public Tournament(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate)
+            throws IllegalArgumentException, NullPointerException {
+        checkNameInput(tournamentName);
+        checkFirstPriceInput(firstPrize);
+        checkStartDateInput(startDate);
+
         this.teams = teams;
         this.tournamentName = tournamentName;
         this.firstPrize = firstPrize;
@@ -67,15 +53,11 @@ public abstract class Tournament {
      * @param startDate when the tournament starts
      * @param matchLength the length which the match should be
      */
-    public Tournament(ArrayList<Team> teams, String tournamentName, String startDate, int matchLength) {
-        if (teams.isEmpty()) throw new IllegalArgumentException("Must have a valid list of teams, yours was empty");
-        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
-                "you gave none");
-        if(startDate.isBlank() | startDate.length()>5) throw new IllegalArgumentException("Must be a valid date " +
-                "on the format: mm:ss, (ex: 12:05 or 90:00)");
-        if(matchLength<10 | matchLength > 120 | matchLength%2 != 0) {
-            throw new IllegalArgumentException("The match length must be an even number between 10 and 120");
-        }
+    public Tournament(ArrayList<Team> teams, String tournamentName, String startDate, int matchLength)
+            throws IllegalArgumentException, NullPointerException{
+        checkNameInput(tournamentName);
+        checkStartDateInput(startDate);
+
         this.teams = teams;
         this.tournamentName = tournamentName;
         this.startDate = startDate;
@@ -85,14 +67,14 @@ public abstract class Tournament {
     }
 
     /**
-     * Constructor for object which represents an abstract tournament, without a winning prize, match length or date
+     * Constructor for object which represents an abstract tournament, without a winning prize or date
      * @param teams a list of all teams in the tournament
      * @param tournamentName the name of the tournament
      */
-    public Tournament(ArrayList<Team> teams, String tournamentName) {
-        if (teams.isEmpty()) throw new IllegalArgumentException("Must have a valid list of teams, yours was empty");
-        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
-                "you gave none");
+    public Tournament(ArrayList<Team> teams, String tournamentName)
+            throws IllegalArgumentException, NullPointerException {
+        checkNameInput(tournamentName);
+
         this.teams = teams;
         this.tournamentName = tournamentName;
         this.startDate = "[NO DATE]";
@@ -102,13 +84,13 @@ public abstract class Tournament {
     }
 
     /**
-     * @param tournamentName the name of the tournament
      * Constructor for object which represents an abstract tournament,
      * mainly used for testing purposes
+     * @param tournamentName the name of the tournament
      */
-    public Tournament(String tournamentName) {
-        if(tournamentName.isBlank()) throw new IllegalArgumentException("The tournament must have a name, " +
-                "you gave none");
+    public Tournament(String tournamentName) throws IllegalArgumentException, NullPointerException {
+        checkNameInput(tournamentName);
+
         this.tournamentName = tournamentName;
         this.firstPrize = 0;
         this.startDate = "[NO DATE]";
@@ -241,6 +223,62 @@ public abstract class Tournament {
      */
     public int getNumberOfTeams(){
         return teams.size();
+    }
+
+    /**
+     * Method for adding a team into the tournament
+     * @param team to add
+     */
+    public void addTeam(Team team){
+        this.teams.add(team);
+    }
+
+    /**
+     * Method for adding all teams in a list
+     * @param newTeams to add
+     */
+    public void addAllTeams(List<Team> newTeams){
+        this.teams.addAll(newTeams);
+    }
+
+    /**
+     * Method for checking if Input name is null or blank
+     * @param name is the name of the tournament
+     */
+    private void checkNameInput(String name) throws IllegalArgumentException, NullPointerException {
+        if (name == null) {
+            throw new NullPointerException("The tournament must have a name, you gave none");
+        } else if (name.isBlank()) {
+            throw new IllegalArgumentException("The tournament must have a name, you gave none");
+        }
+    }
+
+    /**
+     * Method which throws an IllegalArgumentException if the tournament prize is below 0
+     * @param firstPrize is the reward for winning the tournament
+     */
+    private void checkFirstPriceInput(int firstPrize) throws IllegalArgumentException {
+        if (firstPrize < 0) {
+            throw new IllegalArgumentException("First price must be a positive number");
+        }
+    }
+
+    /**
+     * Method which throws an IllegalArgumentException if the start date is empty is not on the valid format
+     * @param startDate is the date when the tournament starts
+     */
+    private void checkStartDateInput(String startDate) throws IllegalArgumentException {
+        if(startDate.contains(":") && startDate.length() == 5) {
+            try {
+                String[] startDateValues = startDate.split(":");
+                Integer.parseInt(startDateValues[0]);
+                Integer.parseInt(startDateValues[1]);
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e.getMessage());
+            }
+        }
+        throw new IllegalArgumentException("Your date is empty or is using the wrong format. " +
+                "The date must be on the format mm:ss (ex 09:45 or 65:55)");
     }
 
     /**

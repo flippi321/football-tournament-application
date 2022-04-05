@@ -1,8 +1,9 @@
-package edu.ntnu.idatt1002.k01g08.fta;
+package edu.ntnu.idatt1002.k01g08.fta.registers;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -39,23 +40,29 @@ public class TournamentRegisterTest {
         };
     }
     @Nested
+    @DisplayName("Tests for Constructor")
     public class TestForConstructor {
         @Test
+        @DisplayName("Constructor works")
         public void initializingANewRegisterUsingConstructor(){
             TournamentRegister testTournamentRegister = new TournamentRegister();
             assertNotNull(testTournamentRegister.getTournamentList());
         }
     }
     @Nested
+    @DisplayName("Tests for Add Method")
     public class TestsForAddMethod {
         @Nested
+        @DisplayName("Positive Tests")
         public class PositiveTestsForAddMethod {
             @Test
+            @DisplayName("Add method works")
             public void addMethodOnEmptyRegister(){
                 testReg.addTournament(testTournament);
                 assertEquals(1, testReg.getNumberOfTournaments());
             }
             @Test
+            @DisplayName("Add method works with multiple variables")
             public void addMethodOnRegisterWithAnElement(){
                 testReg.addTournament(testTournament);
                 testReg.addTournament(testTournament2);
@@ -63,8 +70,10 @@ public class TournamentRegisterTest {
             }
         }
         @Nested
+        @DisplayName("Negative Tests")
         public class NegativeTestsForAddMethod {
             @Test
+            @DisplayName("It is not possible to add a 'null' tournament to the register")
             public void addingATournamentWithValueNull(){
                 try{
                     Tournament testTournament = null; //TODO: must be updated
@@ -75,6 +84,7 @@ public class TournamentRegisterTest {
                 }
             }
             @Test
+            @DisplayName("It is not possible to add an already existing Tournament")
             public void addingATournamentThatIsAlreadyRegistered(){
                 try{
                     testReg.addTournament(testTournament);
@@ -87,10 +97,13 @@ public class TournamentRegisterTest {
         }
     }
     @Nested
+    @DisplayName("Tests for Remove Method")
     public class TestsForRemoveMethod {
         @Nested
+        @DisplayName("Positive Tests")
         public class PositiveTestsForRemoveMethod {
             @Test
+            @DisplayName("Removing a Tournament Works")
             public void removeARegisteredTournament(){
                 testReg.addTournament(testTournament);
                 testReg.removeTournament(testTournament);
@@ -98,8 +111,10 @@ public class TournamentRegisterTest {
             }
         }
         @Nested
+        @DisplayName("Negative Tests")
         public class NegativeTestsForRemoveMethod {
             @Test
+            @DisplayName("Exception is thrown when trying to remove a non-existent Tournament")
             public void removeAnUnregisteredTournamentExpectingException(){
                 try{
                     testReg.addTournament(testTournament);
@@ -111,11 +126,15 @@ public class TournamentRegisterTest {
             }
         }
     }
+
     @Nested
+    @DisplayName("Tests for addAll method")
     public class TestsForAddAllMethod{
         @Nested
+        @DisplayName("Positive Tests")
         public class PositiveTestsForAddAllMethod {
             @Test
+            @DisplayName("Adding a list of tournaments is possible")
             public void addAllInAListToTheRegister(){
                 ArrayList<Tournament> testList = new ArrayList<>();
                 testList.add(testTournament);
@@ -125,6 +144,7 @@ public class TournamentRegisterTest {
                 assertEquals(3, testReg.getNumberOfTournaments());
             }
             @Test
+            @DisplayName("Two Identical Tournaments cannot be Saved")
             public void addOnlyTournamentsWhichAreNotAlreadyRegisteredToTheRegister(){ //TODO: must be updated after equals
                 ArrayList<Tournament> testList = new ArrayList<>();
                 testList.add(testTournament);
@@ -136,9 +156,12 @@ public class TournamentRegisterTest {
                 assertEquals(3, testReg.getNumberOfTournaments());
             }
         }
+
         @Nested
+        @DisplayName("Negative Tests")
         public class NegativeTestsForAddAllMethod {
             @Test
+            @DisplayName("Exception when adding an empty list")
             public void addingAnEmptyArrayListExpectingException(){
                 try{
                     ArrayList<Tournament> testList = new ArrayList<>();
@@ -151,8 +174,10 @@ public class TournamentRegisterTest {
         }
     }
     @Nested
+    @DisplayName("Test for Clearing Register")
     public class TestForClearRegisterMethod {
         @Test
+        @DisplayName("Clearing a Register works")
         public void clearingARegister(){
             testReg.addTournament(testTournament);
             testReg.addTournament(testTournament2);

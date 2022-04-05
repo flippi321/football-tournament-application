@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
@@ -17,6 +18,16 @@ public class NewTeamController {
 
     public NewTeamController() {
         currentTeams = Main.getTournamentRegister().getTournamentList().get(0).getNumberOfTeams();
+    }
+
+    @FXML
+    public void initialize() {
+        teamIdLabel.setText("Team: " + (Main.getTeamRegister().getTeams().size() + 1));
+
+        ArrayList<Team> teams = Main.getTournamentRegister().getTournamentList().get(0).getTeams();
+        for (Team team : teams) {
+            System.out.println(team.size());
+        }
     }
 
     @FXML
@@ -30,10 +41,22 @@ public class NewTeamController {
 
     @FXML
     public void createTeam(ActionEvent actionEvent) throws IOException {
-        if (currentTeams==2) {
-            SceneManager.setView("newPlayer.fxml");
+        try {
+            Integer.parseInt(noOfPlayersInput.getText());
+        } catch (IllegalArgumentException e) {
+            errorLabel.setText("You must enter a number.");
+            return;
+        }
+        if(parseInt(noOfPlayersInput.getText()) < 11){
+            errorLabel.setText("The number of players on a " +
+                    "team must be equal to, or more than 11.");
+            return;
         }
         Main.setNumOfPlayers(parseInt(noOfPlayersInput.getText()));
-        Main.getTeamRegister().addTeam(new Team(teamNameInput.getText()));
+        Team team = new Team(teamNameInput.getText());
+        Main.getTeamRegister().addTeam(team);
+        Main.getTournamentRegister().getTournamentList().get(0).addTeam(team);
+        Main.initializePlayerCreation();
+        SceneManager.setView("newPlayer");
     }
 }

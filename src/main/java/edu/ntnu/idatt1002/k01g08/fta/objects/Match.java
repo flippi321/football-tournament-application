@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
+import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * Represents a football match.
  * @author bendikme
- * @version 2022-03-23
+ * @version 2022-03-31
  */
 public class Match implements Iterable<GameEvent> {
     private Team homeTeam;
@@ -26,6 +27,10 @@ public class Match implements Iterable<GameEvent> {
                                 -1: Finished
     */
     final private List<GameEvent> matchHistory;
+    final private static NumberFormat format = NumberFormat.getIntegerInstance();
+    static {
+        format.setMinimumIntegerDigits(2);
+    }
 
     /*
     --------------------------------------------
@@ -68,7 +73,7 @@ public class Match implements Iterable<GameEvent> {
     }
 
     /**
-     * Returns the away team  for this match
+     * Returns the away team for this match
      * @return away team for this match
      */
     public Team getAwayTeam() {
@@ -76,15 +81,25 @@ public class Match implements Iterable<GameEvent> {
     }
 
     /**
+     * Returns the team correspending to the entered boolean. True returns the home team, and false the away team.
+     * @param homeTeam whether to return the home team
+     * @return the home team if true, the away team if false
+     */
+    public Team getTeam(boolean homeTeam) {
+        if (homeTeam) return this.homeTeam;
+        else return awayTeam;
+    }
+
+    /**
      * Sets the specified team as the home team.
      * @param homeTeam the team to set as the home team
      * @throws IllegalArgumentException if the specified team equals the away team
      * @throws NullPointerException if the specified team is null
-     * @throws RuntimeException if the match has started
+     * @throws IllegalStateException if the match has started
      */
-    public void setHomeTeam(Team homeTeam) throws IllegalArgumentException, NullPointerException {
-        if (isStarted()) throw new RuntimeException("team change in ongoing match");
-        if (homeTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
+    public void setHomeTeam(Team homeTeam) throws IllegalArgumentException, NullPointerException, IllegalStateException {
+        if (isStarted()) throw new IllegalStateException("team change in ongoing match");
+        if (homeTeam.size() < 1) throw new IllegalArgumentException("must be players on the team");
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.homeTeam = homeTeam;
     }
@@ -94,11 +109,11 @@ public class Match implements Iterable<GameEvent> {
      * @param awayTeam the team to set as the away team
      * @throws IllegalArgumentException if the specified team equals the home team
      * @throws NullPointerException if the specified team is null
-     * @throws RuntimeException if the match has started
+     * @throws IllegalStateException if the match has started
      */
-    public void setAwayTeam(Team awayTeam) throws IllegalArgumentException, RuntimeException, NullPointerException {
-        if (isStarted()) throw new RuntimeException("team change in ongoing match");
-        if (awayTeam.size() < 11) throw new IllegalArgumentException("fewer than 11 players on team");
+    public void setAwayTeam(Team awayTeam) throws IllegalArgumentException, IllegalStateException, NullPointerException {
+        if (isStarted()) throw new IllegalStateException("team change in ongoing match");
+        if (awayTeam.size() < 1) throw new IllegalArgumentException("Must be players on the team");
         if (Objects.equals(homeTeam, awayTeam)) throw new IllegalArgumentException("home team same as away team");
         this.awayTeam = awayTeam;
     }
@@ -121,6 +136,27 @@ public class Match implements Iterable<GameEvent> {
         return matchHistory.get(matchHistory.size()-++index);
     }
 
+    /**
+     * Returns the very last game event from the match history.
+     * @return the very last game event in the match history
+     */
+    public GameEvent getLastGameEvent() {
+        return getLastGameEvent(0);
+    }
+
+    /**
+     * Returns the length of one half match.
+     * @return the length of one half match
+     */
+    public int getLengthOfHalf() {
+        return lengthOfHalf;
+    }
+
+    /**
+     * Sets the length of one half match. This does not impact halves that have already been played,
+     * but can be used to set the length of one in progress.
+     * @param minutes number of minutes to set half length to
+     */
     public void setLengthOfHalf(int minutes) {
         if (minutes < 1) throw new IllegalArgumentException("match length too low");
         lengthOfHalf = minutes;
@@ -229,10 +265,10 @@ public class Match implements Iterable<GameEvent> {
     /**
      * Ends the match and returns the winning team.
      * @return winning team of this match
-     * @throws RuntimeException if the match has not started
+     * @throws IllegalStateException if the match has not started
      */
-    public Team end() throws RuntimeException{
-        if (!isStarted()) throw new RuntimeException("match not started");
+    public Team end() throws IllegalStateException{
+        if (!isStarted()) throw new IllegalStateException("match not started");
         stage = -1;
         return getWinner();
     }
@@ -269,21 +305,63 @@ public class Match implements Iterable<GameEvent> {
         return !isFinished()&&!onPause();
     }
 
+    /**
+     * Returns the number of the match half currently being played. If on pause, returns the previous one.
+     * @return the half currently being played
+     */
     public int currentHalf() {
         return (stage+1)/2;
     }
 
     /**
      * Returns the current match time as a string.
-     * If the time is over half of maximum length of half, the time will be returned on the form ("[max length]+[difference]".
+     * If the time is over the maximum length of a half, the time will be returned on the form ("[max length]+[difference]".
      * @return the current match time as a string.
+     * @deprecated use currentMinute() instead
      */
     public String currentMatchTime() {
         if (onPause()) return Integer.toString(timeOffset);
-        long minutes = Duration.between(startTime, Instant.now()).toMinutes()+1;
+        long minutes = currentDuration().toMinutes()+1;
         if (minutes > lengthOfHalf) {
             return lengthOfHalf+timeOffset + "+" + (minutes-lengthOfHalf);
         } else return Long.toString(minutes+timeOffset);
+    }
+
+    /**
+     * Returns the current duration av the half being played.
+     * @return the current duration av the half being played
+     */
+    private Duration currentDuration() {
+        return Duration.between(startTime, Instant.now());
+    }
+
+    /**
+     * Returns the current minute of the match as a string.
+     * The first minute of the match is "01", the second "02", and so on.
+     * Extra minutes get returned on the form "45+1".
+     * @return the current minute of the match as a string
+     */
+    public String currentMinute() {
+        if (onPause()) return format.format(timeOffset);
+        long minutes = currentDuration().toMinutes()+1;
+        if (minutes > lengthOfHalf) {
+            return format.format(lengthOfHalf+timeOffset) + "+" + (minutes-lengthOfHalf);
+        } else return format.format(minutes+timeOffset);
+    }
+
+    /**
+     * The current timestamp of the match as a string.
+     * The time is always returned on the form "MM:SS".
+     * Each half starts counting without regard for extra minutes in the previous half
+     * (so the second half in a default match always starts at "45:00").
+     * @return the current timestamp of the match as a string
+     */
+    public String currentTime() {
+        if (onPause()) return format.format(timeOffset) + ":00";
+        Duration duration = currentDuration();
+        long minutes =  duration.toMinutes() + timeOffset;
+        int seconds = duration.toSecondsPart();
+        return format.format(minutes) + ":" + format.format(seconds);
     }
 
     /*
@@ -295,10 +373,10 @@ public class Match implements Iterable<GameEvent> {
     /**
      * Adds a game event to the match history, if the match has started.
      * @param gameEvent game event to add to the match history.
-     * @throws RuntimeException if match has not started yet
+     * @throws IllegalStateException if match has not started yet
      */
-    public void addGameEvent(GameEvent gameEvent) throws RuntimeException {
-        if (!isStarted()) throw new RuntimeException("add game event before match start");
+    public void addGameEvent(GameEvent gameEvent) throws IllegalStateException {
+        if (!isStarted()) throw new IllegalStateException("add game event before match start");
         matchHistory.add(gameEvent);
     }
 
@@ -330,6 +408,117 @@ public class Match implements Iterable<GameEvent> {
         return removeLastGameEvent(0);
     }
 
+    /**
+     * Adds a new goal to the match history. If time stamp is null or blank, uses current match time.
+     * @param team the scoring team
+     * @param scoringPlayer the scoring player
+     * @param assistingPlayer the assisting player
+     * @param timeStamp the time stamp of the goal
+     * @throws IllegalStateException if the match has not started yet
+     * @throws NullPointerException if the team or scoring player is null
+     */
+    public void addGoal(Team team, Player scoringPlayer, Player assistingPlayer, String timeStamp)
+            throws IllegalStateException, NullPointerException {
+        if (scoringPlayer == null) throw new NullPointerException("player is null");
+        if (team == null) throw new NullPointerException("team is null");
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
+        addGameEvent(new Goal(scoringPlayer, team, timeStamp, assistingPlayer));
+    }
+
+    /**
+     * Adds a new goal to the match history. If time stamp is null or blank, uses current match time.
+     * @param homeTeam whether to add the goal to the home team
+     * @param scoringPlayerNumber the squad number of the scoring player on the scoring team
+     * @param assistingPlayerNumber the squad number of the assisting player on the scoring team
+     * @param timeStamp the time stamp of the goal, or null or blank to use current match time
+     * @throws IllegalStateException if the match has not started yet
+     * @throws NullPointerException if the scoring player does not exist on the team
+     */
+    public void addGoal(boolean homeTeam, int scoringPlayerNumber, int assistingPlayerNumber, String timeStamp)
+            throws IllegalStateException, NullPointerException {
+        Team team = getTeam(homeTeam);
+        addGoal(team, team.getPlayer(scoringPlayerNumber), team.getPlayer(assistingPlayerNumber), timeStamp);
+    }
+
+    /**
+     * Adds a new goal to the match history. If time stamp is null or blank, uses current match time.
+     * @param scoringPlayerIsHomeTeam whether to add the goal to the away team
+     * @param scoringPlayerNumber the squad number of the scoring player
+     * @param timeStamp the time stamp of the goal, or null or blank to use current match time
+     * @throws IllegalStateException if the match has not started yet
+     * @throws NullPointerException if the scoring player does not exist on the team
+     */
+    public void addSelfGoal(boolean scoringPlayerIsHomeTeam, int scoringPlayerNumber, String timeStamp)
+            throws IllegalStateException, NullPointerException {
+        Team team = getTeam(!scoringPlayerIsHomeTeam);
+        Player player = getTeam(scoringPlayerIsHomeTeam).getPlayer(scoringPlayerNumber);
+        addGoal(team, player, null, timeStamp);
+    }
+
+    /**
+     * Adds a new substitution to the match history. If time stamp is null or blank, uses current match time.
+     * @param team the scoring team
+     * @param playerIn the player that is subbed in
+     * @param playerOut the player that is subbed out
+     * @param timeStamp the time stamp of the substitution
+     * @throws IllegalStateException if the match has not started yet
+     * @throws NullPointerException if the team or one of the players is null
+     */
+    public void addSubstitution(Team team, Player playerIn, Player playerOut, String timeStamp)
+            throws IllegalStateException, NullPointerException {
+        if (playerIn == null || playerOut == null) throw new NullPointerException("player is null");
+        if (team == null) throw new NullPointerException("team is null");
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
+        addGameEvent(new Substitution(timeStamp, team, playerIn, playerOut));
+    }
+
+    /**
+     * Adds a new substitution to the match history. If time stamp is null or blank, uses current match time.
+     * @param homeTeam whether to add the goal to the home team
+     * @param playerInNumber the squad number of the player that is subbed in
+     * @param playerOutNumber the squad number of the player that is subbed out
+     * @param timeStamp the time stamp of the substitution
+     * @throws IllegalStateException if the match has not started yet
+     * @throws NullPointerException if one of the players is not on the team
+     */
+    public void addSubstitution(boolean homeTeam, int playerInNumber, int playerOutNumber, String timeStamp)
+            throws IllegalStateException, NullPointerException {
+        Team team = getTeam(homeTeam);
+        addSubstitution(team, team.getPlayer(playerInNumber), team.getPlayer(playerOutNumber), timeStamp);
+    }
+
+    /**
+     * Adds a new foul to the match history. If time stamp is null or blank, uses current match time.
+     * @param team the team of the offending player
+     * @param player the offending player
+     * @param foulTag the tag of the foul
+     * @param timeStamp the time stamp of the substitution
+     * @throws IllegalStateException if the match has not started yet
+     * @throws NullPointerException if the team or the player is null
+     */
+    public void addFoul(Team team, Player player, String foulTag, int giveCard, String timeStamp)
+            throws IllegalStateException, NullPointerException {
+        if (player == null) throw new NullPointerException("player is null");
+        if (team == null) throw new NullPointerException("team is null");
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
+        addGameEvent(new Foul(foulTag, timeStamp, player, team, giveCard));
+    }
+
+    /**
+     * Adds a new foul to the match history. If time stamp is null or blank, uses current match time.
+     * @param homeTeam whether the offending player is on the home team
+     * @param playerNumber the squad number of the offending player
+     * @param foulTag the tag of the foul
+     * @param timeStamp the time stamp of the substitution
+     * @throws IllegalStateException if the match has not started yet
+     * @throws NullPointerException if a player with the squad number does not exist on the team
+     */
+    public void addFoul(boolean homeTeam, int playerNumber, String foulTag, int giveCard, String timeStamp)
+            throws IllegalStateException, NullPointerException {
+        Team team = getTeam(homeTeam);
+        addFoul(team, team.getPlayer(playerNumber), foulTag, giveCard, timeStamp);
+    }
+
     /*
     --------------------------------------------
     -- Utility methods
@@ -351,5 +540,15 @@ public class Match implements Iterable<GameEvent> {
      */
     public Stream<GameEvent> eventStream() {
         return matchHistory.stream();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("(").append(homeTeam.getName()).append(" vs. ").append(awayTeam.getName())
+                .append(":\n[").append(getGameEvent(0).toString());
+        for (int i = 1; i < matchHistory.size(); i++) {
+            builder.append(",\n").append(getGameEvent(i).toString());
+        }
+        return builder.append("])").toString();
     }
 }

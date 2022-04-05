@@ -67,7 +67,6 @@ public class KnockOut extends Tournament {
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
         }
-
         calculateStages();
         findUpcomingMatches();
     }
@@ -82,7 +81,7 @@ public class KnockOut extends Tournament {
      */
     public KnockOut(ArrayList<Team> teams, String tournamentName, int firstPrize, String startDate, int matchLength)
             throws IllegalArgumentException {
-        super(teams, tournamentName, firstPrize, startDate, matchLength);
+        super(teams, tournamentName, firstPrize, startDate);
 
         if (numberOfTeamsInvalid(teams.size())) {
             throw new IllegalArgumentException("The number of teams is invalid.");
@@ -127,14 +126,13 @@ public class KnockOut extends Tournament {
     /**
      * Finds what matches are going to be played,
      * then places them in the upcomingMatches-list.
-     * TODO: maybe add tests for this method
      */
     @Override
     public void findUpcomingMatches() {
         Random random = new Random();
 
         if (previousRoundMatches.isEmpty()) { //If previousRound == null, then it's the first round.
-            ArrayList<Team> teamsRemaining = new ArrayList<>(super.getTeams());
+            ArrayList<Team> teamsRemaining = new ArrayList<>(getTeams());
 
             while (!teamsRemaining.isEmpty()) {
                 //Get two random numbers within the teamsRemaining-size
@@ -153,6 +151,8 @@ public class KnockOut extends Tournament {
                 teamsRemaining.remove(homeTeam);
                 teamsRemaining.remove(awayTeam);
             }
+
+            return;
         }
         else { //If a previous round has been played, get winners from the matches.
             while (!previousRoundMatches.isEmpty()) {
@@ -171,7 +171,6 @@ public class KnockOut extends Tournament {
                 previousRoundMatches.remove(previousRoundMatches.get(awayTeamNum));
             }
         }
-
         previousRoundMatches.addAll(getUpcomingMatches());
     }
 }
