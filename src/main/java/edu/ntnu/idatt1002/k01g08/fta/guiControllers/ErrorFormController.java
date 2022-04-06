@@ -20,7 +20,8 @@ public class ErrorFormController {
     private Label errorLabel;
 
     @FXML
-    public void settingsButtonClick(Event event) {
+    public void settingsButtonClick(Event event) throws IOException {
+        SceneManager.setView("settings");
     }
 
     @FXML
@@ -34,12 +35,12 @@ public class ErrorFormController {
     }
 
     @FXML
-    public void exitButtonClick(Event event) {
-        System.exit(0);
+    public void exitButtonClick(Event event) throws IOException {
+        SceneManager.setView("main");
     }
 
     @FXML
     public void backButtonClick(Event event) throws IOException {
-        SceneManager.setView("main");
+        SceneManager.goToLastScene();
     }
 }

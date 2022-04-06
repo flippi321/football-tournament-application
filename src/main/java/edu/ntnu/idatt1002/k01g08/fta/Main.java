@@ -25,6 +25,7 @@ public class Main extends Application {
 
             FXMLLoader loader = SceneManager.getLoader("main");
             SceneManager.setScene(new Scene(loader.load()));
+            SceneManager.setCurrentScene("main");
             stage.setScene(SceneManager.getScene());
             stage.setTitle("Football Tournament Application");
             stage.show();

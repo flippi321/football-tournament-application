@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
@@ -39,6 +40,17 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
+                  <ImageView disable="true" fitHeight="60.0" fitWidth="60.0" layoutX="280.0" layoutY="30.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <image>
+                        <Image url="@img/circle-exclamation-solid.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
                   <ImageView fitHeight="60.0" fitWidth="60.0" onMouseClicked="#settingsButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/gear-solid.png" />
@@ -52,7 +64,7 @@
                   </ImageView>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="230.0" layoutY="35.0" onMouseClicked="#exitButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/circle-xmark.png" />
+                        <Image url="@img/house.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
