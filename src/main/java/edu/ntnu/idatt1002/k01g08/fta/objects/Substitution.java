@@ -29,7 +29,7 @@ public class Substitution extends GameEvent {
      */
     public Substitution(String timeStampOfMatchTime, Team teamSwitchingPlayers, Player playerIn, Player playerOut)
             throws IllegalArgumentException {
-        super(null, teamSwitchingPlayers, timeStampOfMatchTime);
+        super(playerIn, teamSwitchingPlayers, timeStampOfMatchTime);
         this.playerIn = playerIn;
         this.playerOut = playerOut;
     }
@@ -77,11 +77,7 @@ public class Substitution extends GameEvent {
     @Override
     public String toString() {
         return "Substitution:\n" +
-                "Player in: " + getPlayerIn() +
-                "\nPlayer out: " + getPlayerOut();
+                "Player in: " + getPlayerIn().getName() +
+                "\nPlayer out: " + getPlayerOut().getName();
     }
 }
-
-//TODO
-// Add test
-// Missing text in top javadoc?
