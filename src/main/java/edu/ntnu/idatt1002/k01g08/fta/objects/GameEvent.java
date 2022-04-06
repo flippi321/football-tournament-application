@@ -83,7 +83,8 @@ public abstract class GameEvent {
     }
 
     /**
-     * Help method to check if the parameter string is of illegal input
+     * Check if the parameter string is of illegal input. Is used in the constructor and the setter method for
+     * timeStamp
      * @param string is an input string which is checked for being null or blank
      * @throws IllegalArgumentException if the parameter string is either 'null' or .isBlank. Then the parameter
      * is considered an illegal argument
@@ -98,7 +99,7 @@ public abstract class GameEvent {
     }
 
     /**
-     * Help method to check if the parameters player or team have a value of 'null'
+     * Check if the parameters player or team have a value of 'null'. Is a help method used by the constructor
      * @param player is a player of class 'Player'
      * @param team is a team of class 'Team'
      * @throws NullPointerException if either of the parameters are 'null'
@@ -109,7 +110,8 @@ public abstract class GameEvent {
     }
 
     /**
-     * Method which throws an IllegalArgumentException if the time stamp is not on the valid format
+     * Throws an IllegalArgumentException if the time stamp is not on the valid format. Is a help method
+     * used in the constructor and the setter method for timestamp
      * @param timeStamp is the time of which the game event occurred during match time
      */
     private void checkTimeStampFormat(String timeStamp) throws IllegalArgumentException {
