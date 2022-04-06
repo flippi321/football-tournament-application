@@ -1,15 +1,18 @@
 package edu.ntnu.idatt1002.k01g08.fta.util;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.*;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 
 import javax.json.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Contains static methods for reading and writing teams and tournaments to JSON files.
+ */
 public class FileManager {
     private static final String PLAYER_NAME_KEY = "name";
     private static final String PLAYER_NUMBER_KEY = "number";
@@ -20,6 +23,37 @@ public class FileManager {
 
     private static final String TEAM_NAME_KEY = "name";
     private static final String TEAM_PLAYERS_KEY = "players";
+
+    private static final String TOURNAMENT_NAME_KEY = "name";
+    private static final String TOURNAMENT_PRIZE_KEY = "prize";
+    private static final String TOURNAMENT_FORMAT_KEY = "format";
+    private static final String TOURNAMENT_START_DATE_KEY = "startDate";
+    private static final String TOURNAMENT_MATCH_LENGTH_KEY = "matchLength";
+    private static final String TOURNAMENT_UPCOMING_MATCHES_KEY = "upcomingMatches";
+    private static final String TOURNAMENT_PREVIOUS_MATCHES_KEY = "upcomingMatches";
+    private static final String TOURNAMENT_TEAMS_KEY = "teams";
+
+    private static final String MATCH_HOME_TEAM_KEY = "homeTeam";
+    private static final String MATCH_AWAY_TEAM_KEY = "awayTeam";
+    private static final String MATCH_EVENTS_KEY = "events";
+
+    private static final String GAME_EVENT_HOME_TEAM_KEY = "homeTeam";
+    private static final String GAME_EVENT_PLAYER_NUMBER_KEY = "playerNumber";
+    private static final String GAME_EVENT_TIMESTAMP_KEY = "timestamp";
+    private static final String GAME_EVENT_TYPE_KEY = "type";
+
+    private static final String GAME_EVENT_SUBSTITUTION_TYPE = "substitution";
+    private static final String GAME_EVENT_GOAL_TYPE = "goal";
+    private static final String GAME_EVENT_SELF_GOAL_TYPE = "selfGoal";
+    private static final String GAME_EVENT_FOUL_TYPE = "foul";
+
+    private static final String FOUL_TAG_KEY = "foulTag";
+    private static final String FOUL_GIVE_CARD_KEY = "giveCard";
+
+    private static final String SUBSTITUTION_PLAYER_IN_KEY = "playerIn";
+    private static final String SUBSTITUTION_PLAYER_OUT_KEY = "playerOut";
+
+    private static final String GOAL_ASSISTING_KEY = "assisting";
 
     static JsonStructure loadJson(File file) throws FileNotFoundException {
         JsonReader reader = Json.createReader(new FileReader(file));
@@ -91,6 +125,93 @@ public class FileManager {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         objectBuilder.add(TEAM_NAME_KEY, team.getName());
         objectBuilder.add(TEAM_PLAYERS_KEY, arrayBuilder.build());
+        return objectBuilder.build();
+    }
+
+    static JsonObject toJson(GameEvent event, Team homeTeam) {
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        objectBuilder.add(GAME_EVENT_HOME_TEAM_KEY, event.getTeam() == homeTeam);
+        objectBuilder.add(GAME_EVENT_TIMESTAMP_KEY, event.getTimeStampOfMatchTime());
+        Player player = event.getPlayer();
+        if (player != null) {
+            objectBuilder.add(GAME_EVENT_PLAYER_NUMBER_KEY, player.getNumber());
+        }
+        if (event.getClass() == Foul.class) objectBuilder.addAll(toJson((Foul) event));
+        else if (event.getClass() == Goal.class) objectBuilder.addAll(toJson((Goal) event));
+        else if (event.getClass() == Substitution.class) objectBuilder.addAll(toJson((Substitution) event));
+        return objectBuilder.build();
+    }
+
+    static JsonObjectBuilder toJson(Foul foul) {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add(GAME_EVENT_TYPE_KEY, GAME_EVENT_FOUL_TYPE);
+        String foulTag = foul.getFoulTag();
+        if (foulTag != null) builder.add(FOUL_TAG_KEY, foulTag);
+        if (foul.getRedCard() > 0) builder.add(FOUL_GIVE_CARD_KEY, 2);
+        else if (foul.getYellowCard() > 0) builder.add(FOUL_GIVE_CARD_KEY, 1);
+        return builder;
+    }
+
+    static JsonObjectBuilder toJson(Goal goal) {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        Player player = goal.getPlayer();
+        if (goal.getTeam().getPlayer(player.getNumber()) == player) {
+            builder.add(GAME_EVENT_TYPE_KEY, GAME_EVENT_GOAL_TYPE);
+        } else {
+            builder.add(GAME_EVENT_TYPE_KEY, GAME_EVENT_SELF_GOAL_TYPE);
+        }
+        if (goal.getAssistingPlayer() != null) builder.add(GOAL_ASSISTING_KEY, goal.getAssistingPlayer().getNumber());
+        return builder;
+    }
+
+    static JsonObjectBuilder toJson(Substitution substitution) {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add(GAME_EVENT_TYPE_KEY, GAME_EVENT_SUBSTITUTION_TYPE);
+        builder.add(SUBSTITUTION_PLAYER_IN_KEY, substitution.getPlayerIn().getNumber());
+        builder.add(SUBSTITUTION_PLAYER_OUT_KEY, substitution.getPlayerOut().getNumber());
+        return builder;
+    }
+
+    static JsonObject toJson(Match match) {
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        objectBuilder.add(MATCH_HOME_TEAM_KEY, match.getHomeTeam().getName());
+        objectBuilder.add(MATCH_AWAY_TEAM_KEY, match.getAwayTeam().getName());
+
+        Iterator<GameEvent> eventIterator = match.iterator();
+
+        if (eventIterator.hasNext()) {
+            JsonArrayBuilder eventArrayBuilder = Json.createArrayBuilder();
+            for (GameEvent event : match) {
+                eventArrayBuilder.add(toJson(event, match.getHomeTeam()));
+            }
+            objectBuilder.add(MATCH_EVENTS_KEY, eventArrayBuilder.build());
+        }
+
+        return objectBuilder.build();
+    }
+
+    static JsonObject toJson(Tournament tournament) {
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        objectBuilder.add(TOURNAMENT_FORMAT_KEY, tournament.getClass().getName());
+        objectBuilder.add(TOURNAMENT_NAME_KEY, tournament.getTournamentName());
+        objectBuilder.add(TOURNAMENT_PRIZE_KEY, tournament.getFirstPrize());
+        objectBuilder.add(TOURNAMENT_START_DATE_KEY, tournament.getStartDate());
+        objectBuilder.add(TOURNAMENT_MATCH_LENGTH_KEY, tournament.getMatchLength());
+        JsonArrayBuilder teamsBuilder = Json.createArrayBuilder();
+        for (Team team : tournament.getTeams()) {
+            teamsBuilder.add(team.getName());
+        }
+        objectBuilder.add(TOURNAMENT_TEAMS_KEY, teamsBuilder.build());
+        JsonArrayBuilder upcomingBuilder = Json.createArrayBuilder();
+        for (Match match : tournament.getUpcomingMatches()) {
+            upcomingBuilder.add(toJson(match));
+        }
+        objectBuilder.add(TOURNAMENT_UPCOMING_MATCHES_KEY, upcomingBuilder.build());
+        JsonArrayBuilder previousBuilder = Json.createArrayBuilder();
+        for (Match match : tournament.getMatches()) {
+            previousBuilder.add(toJson(match));
+        }
+        objectBuilder.add(TOURNAMENT_PREVIOUS_MATCHES_KEY, previousBuilder.build());
         return objectBuilder.build();
     }
 }
