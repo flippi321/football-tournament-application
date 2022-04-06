@@ -7,6 +7,11 @@ import javafx.fxml.FXML;
 
 import java.io.IOException;
 
+/**
+ * Controller for the main page
+ *
+ * @author jfben
+ */
 public class MainController{
 
     @FXML

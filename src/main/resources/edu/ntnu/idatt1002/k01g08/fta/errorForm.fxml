@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
@@ -78,32 +77,16 @@
           <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="210.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#sendMail" text="Click here to report with email" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </Button>
             <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Label text="Enter topic:">
+                  <Label text="Send a mail with a describtion of your problem to:">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="inputTopic" promptText="Problem">
+                  <Label text="stud@ntnu.no">
                      <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="errorLabel" textFill="RED">
-                     <font>
-                        <Font size="14.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
                </children>
