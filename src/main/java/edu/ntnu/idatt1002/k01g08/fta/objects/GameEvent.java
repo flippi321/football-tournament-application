@@ -23,21 +23,23 @@ public abstract class GameEvent {
     public GameEvent(Player player, Team team, String timeStamp) throws IllegalArgumentException,
             NullPointerException {
         checkInputsForNull(player, team);
+        checkStringInputForNullAndBlank(timeStamp);
+        checkTimeStampFormat(timeStamp);
         this.player = player;
         this.team = team;
         this.setTimeStampOfMatchTime(timeStamp);
     }
 
     /**
-     * Method to get the string of the timestamp when the game event occurred in the match
-     * @return string timeStamp
+     * Returns the string of a timestamp referring to when the game event occurred during a match
+     * @return string timeStamp which
      */
     public String getTimeStampOfMatchTime() {
         return timeStamp;
     }
 
     /**
-     * Mutator method to alter the timestamp of this event
+     * Setter to alter the timestamp associated with this event
      * @param timeStampOfMatchTime is a string representation of the time of which
      * @throws IllegalArgumentException if the timeStamp string .isBlank()
      * @throws NullPointerException if the timeStamp string has the value 'null'
@@ -45,18 +47,19 @@ public abstract class GameEvent {
     public void setTimeStampOfMatchTime(String timeStampOfMatchTime) throws IllegalArgumentException,
             NullPointerException {
         checkStringInputForNullAndBlank(timeStampOfMatchTime);
+        checkTimeStampFormat(timeStampOfMatchTime);
         this.timeStamp = timeStampOfMatchTime;
     }
 
     /**
-     * Abstract method to force subclasses to define an implementation of a string describing the
+     * Forces subclasses to define an implementation of a string describing the
      * event
      * @return GameEvent value
      */
     public abstract String getEvent();
 
     /**
-     * Accessor method to get the player who is associated with this game event
+     * Returns the player who is associated with this game event
      * @return Player player
      */
     public Player getPlayer() {
@@ -64,7 +67,7 @@ public abstract class GameEvent {
     }
 
     /**
-     * Mutator method to alter the player who is associated with this game event
+     * Setter to alter the player who is associated with this game event
      * @param player is a Player
      */
     public void setPlayer(Player player) {
@@ -72,7 +75,7 @@ public abstract class GameEvent {
     }
 
     /**
-     * Accessor method to get the team that is associated with this game event
+     * Returns the team that is associated with this game event
      * @return an object of the Team class
      */
     public Team getTeam() {
@@ -106,7 +109,34 @@ public abstract class GameEvent {
     }
 
     /**
-     * Mutator method to alter which team that is associated with this game event
+     * Method which throws an IllegalArgumentException if the time stamp is not on the valid format
+     * @param timeStamp is the time of which the game event occurred during match time
+     */
+    private void checkTimeStampFormat(String timeStamp) throws IllegalArgumentException {
+        if(timeStamp.contains(":") && (timeStamp.length() == 5 || timeStamp.length() == 6)) {
+            String[] timeStampParts = timeStamp.split(":");
+            int[] timeStampValues = {-1,-1};
+            try {
+                timeStampValues[0] = Integer.parseInt(timeStampParts[0]);
+                timeStampValues[1] = Integer.parseInt(timeStampParts[1]);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("The time stamp was not able to be parsed to integers, " +
+                        "only time stamps on the format: mm:ss (ex 09:45, 65:55 or 102:05) are allowed.");
+            }
+            if(timeStampValues[0] < 0) throw new
+                    IllegalArgumentException("The first number of the time stamp was outside the valid integer" +
+                    " range [0,999].");
+            if(timeStampValues[1] < 0 || timeStampValues[1] > 60) throw new
+                    IllegalArgumentException("The second number of the time stamp was outside the valid integer" +
+                    " range [0,60].");
+        }else{
+            throw new IllegalArgumentException("The time stamp is using the wrong format. " +
+                    "The time must be on the format mm:ss (ex 09:45, 65:55 or 102:05)");
+        }
+    }
+
+    /**
+     * Setter to alter which team that is associated with this game event
      * @param team is a team
      */
     public void setTeam(Team team) {
@@ -114,7 +144,7 @@ public abstract class GameEvent {
     }
 
     /**
-     * Get string version of a GameEvent object.
+     * Returns a string representation of a GameEvent object
      * @return a string representing an object of the class GameEvent.
      */
     @Override

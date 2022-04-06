@@ -45,9 +45,14 @@ public class Foul extends GameEvent{
         this.foulTag = foulTag;
         if(giveCard == 1) {
             player.increaseYellowCards();
-            if(yellowCard == 2) player.increaseRedCards();
+            yellowCard++;
+            if(yellowCard == 2){
+                player.increaseRedCards();
+                redCard++;
+            }
         } else if (giveCard == 2) {
             player.increaseRedCards();
+            redCard++;
         }
     }
 
