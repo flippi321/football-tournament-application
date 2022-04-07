@@ -4,9 +4,7 @@ import edu.ntnu.idatt1002.k01g08.fta.objects.*;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 
 import javax.json.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 
@@ -55,13 +53,24 @@ public class FileManager {
 
     private static final String GOAL_ASSISTING_KEY = "assisting";
 
-    static JsonStructure loadJson(File file) throws FileNotFoundException {
-        JsonReader reader = Json.createReader(new FileReader(file));
-        return reader.read();
+    static JsonStructure loadJson(File file) throws IOException {
+        try (FileReader fileReader = new FileReader(file)) {
+            try (JsonReader jsonReader = Json.createReader(fileReader)) {
+                return jsonReader.read();
+            }
+        }
     }
 
-    static JsonArray loadJsonArray(File file) throws FileNotFoundException {
+    static JsonArray loadJsonArray(File file) throws IOException {
         return (JsonArray) loadJson(file);
+    }
+
+    static void saveJson(JsonStructure json, File file) throws IOException {
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            try (JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
+                jsonWriter.write(json);
+            }
+        }
     }
 
     static Player readPlayer(JsonObject json) {
@@ -102,7 +111,7 @@ public class FileManager {
         return teamRegister;
     }
 
-    static TeamRegister loadTeamRegister(File file) throws FileNotFoundException {
+    static TeamRegister loadTeamRegister(File file) throws IOException {
         return readTeamRegister(loadJsonArray(file));
     }
 
@@ -194,24 +203,38 @@ public class FileManager {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         objectBuilder.add(TOURNAMENT_FORMAT_KEY, tournament.getClass().getName());
         objectBuilder.add(TOURNAMENT_NAME_KEY, tournament.getTournamentName());
-        objectBuilder.add(TOURNAMENT_PRIZE_KEY, tournament.getFirstPrize());
-        objectBuilder.add(TOURNAMENT_START_DATE_KEY, tournament.getStartDate());
+
+        if (tournament.getFirstPrize() > 0) {
+            objectBuilder.add(TOURNAMENT_PRIZE_KEY, tournament.getFirstPrize());
+        }
+
+        if (tournament.getStartDate() != null) {
+            objectBuilder.add(TOURNAMENT_START_DATE_KEY, tournament.getStartDate());
+        }
         objectBuilder.add(TOURNAMENT_MATCH_LENGTH_KEY, tournament.getMatchLength());
+
         JsonArrayBuilder teamsBuilder = Json.createArrayBuilder();
         for (Team team : tournament.getTeams()) {
             teamsBuilder.add(team.getName());
         }
         objectBuilder.add(TOURNAMENT_TEAMS_KEY, teamsBuilder.build());
+
         JsonArrayBuilder upcomingBuilder = Json.createArrayBuilder();
-        for (Match match : tournament.getUpcomingMatches()) {
-            upcomingBuilder.add(toJson(match));
+        if (tournament.getUpcomingMatches() != null && !tournament.getUpcomingMatches().isEmpty()) {
+            for (Match match : tournament.getUpcomingMatches()) {
+                upcomingBuilder.add(toJson(match));
+            }
         }
         objectBuilder.add(TOURNAMENT_UPCOMING_MATCHES_KEY, upcomingBuilder.build());
+
         JsonArrayBuilder previousBuilder = Json.createArrayBuilder();
-        for (Match match : tournament.getMatches()) {
-            previousBuilder.add(toJson(match));
+        if (tournament.getMatches() != null && !tournament.getMatches().isEmpty()) {
+            for (Match match : tournament.getMatches()) {
+                previousBuilder.add(toJson(match));
+            }
         }
         objectBuilder.add(TOURNAMENT_PREVIOUS_MATCHES_KEY, previousBuilder.build());
+
         return objectBuilder.build();
     }
 }

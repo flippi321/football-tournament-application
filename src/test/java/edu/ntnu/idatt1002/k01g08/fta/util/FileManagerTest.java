@@ -1,24 +1,79 @@
 package edu.ntnu.idatt1002.k01g08.fta.util;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.Match;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.*;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
+import javax.json.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import static edu.ntnu.idatt1002.k01g08.fta.util.FileManager.*;
 
 public class FileManagerTest {
+    static String[] teamNames = {"München", "Odd", "Brann", "Rosenborg", "Liverpool", "Manchester", "Pythons", "Sexy Computer Boys"};
+
+    Team randomTeam(int size, String teamName) {
+        Team team = new Team(teamName);
+        Random rnd = new Random();
+        String[] playerNames =
+                {"Bjørn-Johnny", "Bendik", "John-Fredrik", "Magnus", "Teodor", "Christoffer", "Gunnar", "Ståle",
+                        "Heinrich", "Ole-Gunnar", "Brage", "Elise", "Frida", "Lev", "Live", "Zlatan", "Martin"};
+        int maxNumber = Math.max(size, 100);
+        while (team.size() < size) {
+            team.addPlayer(new Player(playerNames[rnd.nextInt(playerNames.length)], rnd.nextInt(maxNumber)));
+        }
+        return team;
+    }
+
+    Team randomTeam(int size) {
+        Random rnd = new Random();
+        return randomTeam(size, teamNames[rnd.nextInt(teamNames.length)]);
+    }
+
+    int randomPlayerNumber(Team team, Random random) {
+        int player = random.nextInt(team.size());
+        Iterator<Player> iterator = team.iterator();
+        for (int i = 1; i < player; i++) {
+            iterator.next();
+        }
+        return iterator.next().getNumber();
+    }
+
+    void addRandomMatchHistory(Match match) {
+        match.start();
+        String[] foulTags = {"hands", "bad language", "racism", "assaulting the referee"};
+        Random rnd = new Random();
+        for (int i = 1; i <= 45; i += 5) {
+            boolean homeTeam = rnd.nextBoolean();
+            Team team;
+            if (homeTeam) team = match.getHomeTeam();
+            else team = match.getAwayTeam();
+
+            switch (rnd.nextInt(4)) {
+                case 0:
+                    match.addGoal(homeTeam, randomPlayerNumber(team, rnd), rnd.nextInt(4), ""+i);
+                    break;
+                case 1:
+                    match.addSelfGoal(homeTeam, randomPlayerNumber(team, rnd), ""+i);
+                    break;
+                case 2:
+                    match.addSubstitution(homeTeam, randomPlayerNumber(team, rnd), randomPlayerNumber(team, rnd), ""+i);
+                    break;
+                case 3:
+                    match.addFoul(homeTeam, randomPlayerNumber(team, rnd), foulTags[rnd.nextInt(foulTags.length)], rnd.nextInt(3), ""+i);
+                    break;
+            }
+        }
+        match.end();
+    }
+
     @Test
     public void readPlayerTest() {
         JsonReader reader = Json.createReader(new StringReader(
@@ -83,34 +138,31 @@ public class FileManagerTest {
 
     @Test
     public void matchToJsonTest() {
-        Team odd = new Team("Odd");
-        Team munchen = new Team("München");
-        odd.addPlayer(new Player("Kristoffær", 1));
-        odd.addPlayer(new Player("Pettær", 2));
-        odd.addPlayer(new Player("Gunnær", 3));
-        munchen.addPlayer(new Player("Günther", 1));
-        munchen.addPlayer(new Player("Pieter", 2));
-        munchen.addPlayer(new Player("Adolf", 3));
-        Match match = new Match(odd, munchen);
-        match.start();
-        Random rnd = new Random();
-        for (int i = 0; i < 10; i++) {
-            switch (rnd.nextInt(4)) {
-                case 0:
-                    match.addGoal(rnd.nextBoolean(), rnd.nextInt(3)+1, rnd.nextInt(4), "0"+i);
-                    break;
-                case 1:
-                    match.addSelfGoal(rnd.nextBoolean(), rnd.nextInt(3)+1, "0"+i);
-                    break;
-                case 2:
-                    match.addSubstitution(rnd.nextBoolean(), rnd.nextInt(3)+1, rnd.nextInt(3)+1, "0"+i);
-                    break;
-                case 3:
-                    match.addFoul(rnd.nextBoolean(), rnd.nextInt(3)+1, "tag", rnd.nextInt(3), "0"+i);
-            }
+        Team team1 = randomTeam(5);
+        Team team2 = randomTeam(5);
+        Match match = new Match(team1, team2);
+        addRandomMatchHistory(match);
+        JsonStructure matchJson = toJson(match);
+        File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_match_save.json");
+        try {
+            saveJson(matchJson, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
         }
-        match.end();
-        System.out.println(toJson(match));
+    }
+
+    @Test
+    public void saveTournamentTest() {
+        File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_tournament_save.json");
+        ArrayList<Team> teams = new ArrayList<>();
+        for (String name : teamNames) {
+            Team rndTeam = randomTeam(5, name);
+            System.out.println(rndTeam);
+            teams.add(rndTeam);
+        }
+        Tournament tournament = new KnockOut("Power cup", teams);
+        System.out.println(toJson(tournament));
     }
 
     @Test
@@ -121,8 +173,9 @@ public class FileManagerTest {
             for (Team team : register.getTeams().values()) {
                 System.out.println(team);
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            fail();
         }
     }
 }
