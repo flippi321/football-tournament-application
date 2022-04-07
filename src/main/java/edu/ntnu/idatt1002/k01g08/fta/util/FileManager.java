@@ -7,6 +7,7 @@ import javax.json.*;
 import java.io.*;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Contains static methods for reading and writing teams and tournaments to JSON files.
@@ -65,6 +66,10 @@ public class FileManager {
         return (JsonArray) loadJson(file);
     }
 
+    static JsonObject loadJsonObject(File file) throws IOException {
+        return (JsonObject) loadJson(file);
+    }
+
     static void saveJson(JsonStructure json, File file) throws IOException {
         try (FileWriter fileWriter = new FileWriter(file)) {
             try (JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
@@ -111,6 +116,50 @@ public class FileManager {
         return teamRegister;
     }
 
+    static Match parseMatch(JsonObject json, TeamRegister register) {
+        Team homeTeam = register.getTeam(json.getString(MATCH_HOME_TEAM_KEY));
+        Team awayTeam = register.getTeam(json.getString(MATCH_AWAY_TEAM_KEY));
+        Match match = new Match(homeTeam, awayTeam);
+
+        if (json.containsKey(MATCH_EVENTS_KEY)) {
+            match.end();
+            for (JsonObject eventJson : json.getJsonArray(MATCH_EVENTS_KEY).getValuesAs(JsonObject.class)) {
+                System.out.println(eventJson);
+                boolean isHomeTeam = eventJson.getBoolean(GAME_EVENT_HOME_TEAM_KEY);
+                String timestamp = eventJson.getString(GAME_EVENT_TIMESTAMP_KEY);
+                int player;
+
+                switch (eventJson.getString(GAME_EVENT_TYPE_KEY)) {
+                    case GAME_EVENT_GOAL_TYPE:
+                        player = eventJson.getInt(GAME_EVENT_PLAYER_NUMBER_KEY);
+                        JsonNumber assistingValue = eventJson.getJsonNumber(GOAL_ASSISTING_KEY);
+                        int assisting = 0;
+                        if (assistingValue != null) assisting = assistingValue.intValue();
+                        match.addGoal(isHomeTeam, player, assisting, timestamp);
+                        break;
+                    case GAME_EVENT_SELF_GOAL_TYPE:
+                        player = eventJson.getInt(GAME_EVENT_PLAYER_NUMBER_KEY);
+                        match.addSelfGoal(isHomeTeam, player, timestamp);
+                        break;
+                    case GAME_EVENT_FOUL_TYPE:
+                        player = eventJson.getInt(GAME_EVENT_PLAYER_NUMBER_KEY);
+                        int giveCard = 0;
+                        String foulTag = null;
+                        if (eventJson.containsKey(FOUL_GIVE_CARD_KEY)) giveCard = eventJson.getInt(FOUL_GIVE_CARD_KEY);
+                        if (eventJson.containsKey(FOUL_TAG_KEY)) foulTag = eventJson.getString(FOUL_TAG_KEY);
+                        match.addFoul(isHomeTeam, player, foulTag, giveCard, timestamp);
+                        break;
+                    case GAME_EVENT_SUBSTITUTION_TYPE:
+                        int playerIn = eventJson.getInt(SUBSTITUTION_PLAYER_IN_KEY);
+                        int playerOut = eventJson.getInt(SUBSTITUTION_PLAYER_OUT_KEY);
+                        match.addSubstitution(isHomeTeam, playerIn, playerOut, timestamp);
+                        break;
+                }
+            }
+        }
+        return match;
+    }
+
     static TeamRegister loadTeamRegister(File file) throws IOException {
         return parseTeamRegister(loadJsonArray(file));
     }
@@ -146,7 +195,7 @@ public class FileManager {
             objectBuilder.add(GAME_EVENT_PLAYER_NUMBER_KEY, player.getNumber());
         }
         if (event.getClass() == Foul.class) objectBuilder.addAll(toJson((Foul) event));
-        else if (event.getClass() == Goal.class) objectBuilder.addAll(toJson((Goal) event));
+        else if (event.getClass() == Goal.class) objectBuilder.addAll(toJson((Goal) event, homeTeam));
         else if (event.getClass() == Substitution.class) objectBuilder.addAll(toJson((Substitution) event));
         return objectBuilder.build();
     }
@@ -161,13 +210,14 @@ public class FileManager {
         return builder;
     }
 
-    static JsonObjectBuilder toJson(Goal goal) {
+    static JsonObjectBuilder toJson(Goal goal, Team homeTeam) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         Player player = goal.getPlayer();
         if (goal.getTeam().getPlayer(player.getNumber()) == player) {
             builder.add(GAME_EVENT_TYPE_KEY, GAME_EVENT_GOAL_TYPE);
         } else {
             builder.add(GAME_EVENT_TYPE_KEY, GAME_EVENT_SELF_GOAL_TYPE);
+            builder.add(GAME_EVENT_HOME_TEAM_KEY, goal.getTeam() != homeTeam);
         }
         if (goal.getAssistingPlayer() != null) builder.add(GOAL_ASSISTING_KEY, goal.getAssistingPlayer().getNumber());
         return builder;

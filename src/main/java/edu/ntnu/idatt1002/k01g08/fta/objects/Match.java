@@ -268,7 +268,7 @@ public class Match implements Iterable<GameEvent> {
      * @throws IllegalStateException if the match has not started
      */
     public Team end() throws IllegalStateException{
-        if (!isStarted()) throw new IllegalStateException("match not started");
+        //if (!isStarted()) throw new IllegalStateException("match not started");
         stage = -1;
         return getWinner();
     }

@@ -17,6 +17,7 @@ import static edu.ntnu.idatt1002.k01g08.fta.util.FileManager.*;
 
 public class FileManagerTest {
     static String[] teamNames = {"München", "Odd", "Brann", "Rosenborg", "Liverpool", "Manchester", "Pythons", "Sexy Computer Boys"};
+    TeamRegister teamRegister;
 
     Team randomTeam(int size, String teamName) {
         Team team = new Team(teamName);
@@ -139,6 +140,10 @@ public class FileManagerTest {
     public void matchToJsonTest() {
         Team team1 = randomTeam(5);
         Team team2 = randomTeam(5);
+        teamRegister = new TeamRegister();
+        teamRegister.addTeam(team1);
+        teamRegister.addTeam(team2);
+
         Match match = new Match(team1, team2);
         addRandomMatchHistory(match);
         JsonStructure matchJson = toJson(match);
@@ -148,6 +153,35 @@ public class FileManagerTest {
         } catch (IOException e) {
             e.printStackTrace();
             fail();
+        }
+    }
+
+    @Test
+    void parseMatchTest() {
+        Team team1 = randomTeam(5);
+        Team team2;
+        do {
+            team2 = randomTeam(5);
+        } while (team2.getName().equals(team1.getName()));
+        teamRegister = new TeamRegister();
+        teamRegister.addTeam(team1);
+        teamRegister.addTeam(team2);
+
+        Match match0 = new Match(team1, team2);
+        addRandomMatchHistory(match0);
+        JsonStructure matchJson = toJson(match0);
+        File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_match_save.json");
+        try {
+            saveJson(matchJson, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        }
+        try {
+            Match match1 = parseMatch(loadJsonObject(new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_match_save.json")), teamRegister);
+            System.out.println(match1);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
