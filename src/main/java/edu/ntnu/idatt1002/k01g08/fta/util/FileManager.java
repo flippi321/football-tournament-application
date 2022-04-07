@@ -73,7 +73,7 @@ public class FileManager {
         }
     }
 
-    static Player readPlayer(JsonObject json) {
+    static Player parsePlayer(JsonObject json) {
         Player player = new Player(json.getString(PLAYER_NAME_KEY), json.getInt(PLAYER_NUMBER_KEY));
         for (String key : json.keySet()) {
             switch (key) {
@@ -94,25 +94,25 @@ public class FileManager {
         return player;
     }
 
-    static Team readTeam(JsonObject json) {
+    static Team parseTeam(JsonObject json) {
         Team team = new Team(json.getString(TEAM_NAME_KEY));
         List<JsonObject> players = json.getJsonArray(TEAM_PLAYERS_KEY).getValuesAs(JsonObject.class);
         for (JsonObject player : players)
-        if (!team.addPlayer(readPlayer(player))) throw new RuntimeException("player number already registered");
+        if (!team.addPlayer(parsePlayer(player))) throw new RuntimeException("player number already registered");
         return team;
     }
 
-    static TeamRegister readTeamRegister(JsonArray json) {
+    static TeamRegister parseTeamRegister(JsonArray json) {
         TeamRegister teamRegister = new TeamRegister();
         List<JsonObject> teams = json.getValuesAs(JsonObject.class);
         for (JsonObject team : teams) {
-            teamRegister.addTeam(readTeam(team));
+            teamRegister.addTeam(parseTeam(team));
         }
         return teamRegister;
     }
 
     static TeamRegister loadTeamRegister(File file) throws IOException {
-        return readTeamRegister(loadJsonArray(file));
+        return parseTeamRegister(loadJsonArray(file));
     }
 
     static JsonObject toJson(Player player) {

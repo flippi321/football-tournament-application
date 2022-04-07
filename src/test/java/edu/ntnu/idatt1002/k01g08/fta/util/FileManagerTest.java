@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import javax.json.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -86,7 +85,7 @@ public class FileManagerTest {
                     "}"
         ));
         JsonObject jsonObject = reader.readObject();
-        Player player = readPlayer(jsonObject);
+        Player player = parsePlayer(jsonObject);
         reader.close();
         assertEquals("Ole Gunnar Solskjær", player.getName());
         assertEquals(5, player.getNumber());
@@ -123,7 +122,7 @@ public class FileManagerTest {
         JsonReader reader = Json.createReader(new StringReader(string));
         JsonObject json = reader.readObject();
         reader.close();
-        Team team = readTeam(json);
+        Team team = parseTeam(json);
         assertEquals("(Rosenborg: [3 Bjarne Brøndbo, 5 Ole Gunnar Solskjær, 11 Petter Northug])", team.toString());
     }
 
