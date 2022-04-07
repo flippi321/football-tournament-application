@@ -78,4 +78,14 @@ public class TeamRegisterTest {
         register.addTeam(new Team("Tihlde Pythons"));
         assertThrows(IllegalArgumentException.class, () -> register.getTeam("test"));
     }
+
+    @Test
+    @DisplayName("Checks the hasTeams-function")
+    public void checkHasTeams() {
+        TeamRegister register = new TeamRegister();
+        assertFalse(register.hasTeams());
+        register.addTeam(new Team("NTNUI"));
+        register.addTeam(new Team("Tihlde Pythons"));
+        assertTrue(register.hasTeams());
+    }
 }

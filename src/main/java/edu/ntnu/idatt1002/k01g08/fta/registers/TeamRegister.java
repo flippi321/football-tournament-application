@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Represents a register of football teams
  * @author teodorbi
- * @version 2022-03-21
+ * @version 2022-04-07
  */
 
 public class TeamRegister {
@@ -74,6 +74,14 @@ public class TeamRegister {
      */
     public int getNumberOfTeams(){
         return this.teams.size();
+    }
+
+    /**
+     * Checks if the team-register has any teams registered
+     * @return true if it contains any teams
+     */
+    public boolean hasTeams() {
+        return !teams.isEmpty();
     }
 
     /**
