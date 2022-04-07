@@ -24,8 +24,8 @@ public class MainController{
     }
 
     @FXML
-    public void teamManagement(ActionEvent actionEvent) {
-
+    public void teamManagement(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("teamManagement");
     }
 
     @FXML
