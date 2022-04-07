@@ -450,7 +450,8 @@ public class MatchTest {
 
             @Test
             @DisplayName("Blank timestamp uses current match time")
-            public void blankTimeStampUsesCurrent() { //TODO fix
+            public void blankTimeStampUsesCurrent() { //TODO: add a check for null-value and blank string of timeStamp in
+                //TODO.addSubstitution method and set time stamp of the added substitution to current match time instead
                 match.start();
                 match.addSelfGoal(true, 4, null);
                 match.addSelfGoal(true, 4, "");
@@ -482,7 +483,8 @@ public class MatchTest {
 
             @Test
             @DisplayName("Blank timestamp uses current match time")
-            public void blankTimeStampUsesCurrent() {
+            public void blankTimeStampUsesCurrent() { //TODO: add a check for null-value and blank string of timeStamp in
+                //TODO.addSubstitution method and set time stamp of the added substitution to current match time instead
                 match.start();
                 match.addSubstitution(false, 4, 5, null);
                 match.addSubstitution(false, 4, 5, "");
@@ -514,7 +516,8 @@ public class MatchTest {
 
             @Test
             @DisplayName("Blank timestamp uses current match time")
-            public void blankTimeStampUsesCurrent() {
+            public void blankTimeStampUsesCurrent() { //TODO: add a check for null-value and blank string of timeStamp in
+                //TODO.addFoul method and set time stamp of the added foul to current match time instead
                 match.start();
                 match.addFoul(true, 7, "", 2, null);
                 match.addFoul(true, 7, "", 2, "");
