@@ -37,6 +37,7 @@ public abstract class Tournament {
         this.firstPrize = firstPrize;
         this.startDate = startDate;
         this.matchLength = matchLength;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 
@@ -58,6 +59,7 @@ public abstract class Tournament {
         this.firstPrize = firstPrize;
         this.startDate = startDate;
         this.matchLength = 90;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 
@@ -82,6 +84,7 @@ public abstract class Tournament {
         this.startDate = startDate;
         this.firstPrize = 0;
         this.matchLength = matchLength;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 
@@ -99,6 +102,7 @@ public abstract class Tournament {
         this.startDate = "[NO DATE]";
         this.firstPrize = 0;
         this.matchLength = 90;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 
@@ -114,6 +118,7 @@ public abstract class Tournament {
         this.firstPrize = 0;
         this.startDate = "[NO DATE]";
         this.matchLength = 90;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 

@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import javax.json.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -170,6 +169,15 @@ public class FileManagerTest {
 
             assertEquals("Rosenborg", match.getWinner().getName());
         }
+
+        @Test
+        void parseKnockOutTest() throws IOException {
+            TeamRegister teamRegister = loadTeamRegister(
+                    new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
+            File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_knockout.json");
+            Tournament tournament = parseTournament(loadJsonObject(file), teamRegister);
+            System.out.println(tournament);
+        }
     }
 
     @Nested
@@ -275,13 +283,15 @@ public class FileManagerTest {
 
         @Test
         public void tournamentToJsonTest() {
-            File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_tournament_save.json");
             ArrayList<Team> teams = new ArrayList<>();
             for (String name : teamNames) {
                 Team rndTeam = randomTeam(5, name);
                 teams.add(rndTeam);
             }
             Tournament tournament = new KnockOut("Power cup", teams);
+            tournament.findUpcomingMatches();
+            JsonObject json = toJson(tournament);
+            System.out.println(json);
         }
     }
 }

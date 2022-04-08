@@ -5,9 +5,7 @@ import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 
 import javax.json.*;
 import java.io.*;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Contains static methods for reading and writing teams and tournaments to JSON files.
@@ -29,7 +27,7 @@ public class FileManager {
     private static final String TOURNAMENT_START_DATE_KEY = "startDate";
     private static final String TOURNAMENT_MATCH_LENGTH_KEY = "matchLength";
     private static final String TOURNAMENT_UPCOMING_MATCHES_KEY = "upcomingMatches";
-    private static final String TOURNAMENT_PREVIOUS_MATCHES_KEY = "upcomingMatches";
+    private static final String TOURNAMENT_PREVIOUS_MATCHES_KEY = "previousMatches";
     private static final String TOURNAMENT_TEAMS_KEY = "teams";
 
     private static final String TOURNAMENT_KNOCKOUT_FORMAT = "knockout";
@@ -227,6 +225,67 @@ public class FileManager {
             }
         }
         return match;
+    }
+
+    static Tournament parseTournament(JsonObject json, TeamRegister register) {
+        String name = "";
+        String format = "";
+        int matchLength = 90;
+        int prize = 0;
+        String startDate = "";
+        ArrayList<Team> teams = new ArrayList<>();
+        List<Match> upcoming = new ArrayList<>();
+        List<Match> previous = new ArrayList<>();
+
+        for (String key : json.keySet()) {
+            switch (key) {
+                case TOURNAMENT_FORMAT_KEY:
+                    format = json.getString(key);
+                    break;
+                case TOURNAMENT_NAME_KEY:
+                    name = json.getString(key);
+                    break;
+                case TOURNAMENT_MATCH_LENGTH_KEY:
+                    matchLength = json.getInt(key);
+                    break;
+                case TOURNAMENT_PRIZE_KEY:
+                    prize = json.getInt(key);
+                    break;
+                case TOURNAMENT_START_DATE_KEY:
+                    startDate = json.getString(key);
+                    break;
+                case TOURNAMENT_TEAMS_KEY:
+                    for (JsonString team : json.getJsonArray(key).getValuesAs(JsonString.class)) {
+                        teams.add(register.getTeam(team.getString()));
+                    }
+                    break;
+                case TOURNAMENT_UPCOMING_MATCHES_KEY:
+                    for (JsonObject match : json.getJsonArray(key).getValuesAs(JsonObject.class)) {
+                        upcoming.add(parseMatch(match, register));
+                    }
+                    break;
+                case TOURNAMENT_PREVIOUS_MATCHES_KEY:
+                    for (JsonObject match : json.getJsonArray(key).getValuesAs(JsonObject.class)) {
+                        previous.add(parseMatch(match, register));
+                    }
+                    break;
+            }
+        }
+
+        Tournament tournament;
+
+        switch (format) {
+            case TOURNAMENT_KNOCKOUT_FORMAT:
+                tournament = new KnockOut(teams, name, prize, startDate, matchLength);
+                break;
+            default:
+                throw new RuntimeException("format type not recognised");
+        }
+
+        tournament.getUpcomingMatches().addAll(upcoming);
+        tournament.getMatches().addAll(previous);
+
+        return tournament;
     }
 
     /**

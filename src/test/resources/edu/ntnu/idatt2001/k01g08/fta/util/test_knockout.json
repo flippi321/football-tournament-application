@@ -1,0 +1,51 @@
+{
+  "format": "knockout",
+  "name": "Power Cup",
+  "prize": 200,
+  "startDate": "12:05",
+  "matchLength": 90,
+  "teams": [
+    "Manchester",
+    "Sexy Computer Boys",
+    "Liverpool",
+    "Rosenborg"
+  ],
+  "upcomingMatches": [
+    {
+      "homeTeam": "Rosenborg",
+      "awayTeam": "Sexy Computer Boys"
+    }
+  ],
+  "previousMatches": [
+    {
+      "homeTeam": "Manchester",
+      "awayTeam": "Sexy Computer Boys",
+      "events": [
+        {
+          "type": "goal",
+          "homeTeam": false,
+          "player": 19,
+          "timestamp": "42"
+        }
+      ]
+    },
+    {
+      "homeTeam": "Rosenborg",
+      "awayTeam": "Liverpool",
+      "events": [
+        {
+          "type": "goal",
+          "homeTeam": true,
+          "player": 7,
+          "timestamp": "34"
+        },
+        {
+          "type": "goal",
+          "homeTeam": true,
+          "player": 3,
+          "timestamp": "79"
+        }
+      ]
+    }
+  ]
+}
