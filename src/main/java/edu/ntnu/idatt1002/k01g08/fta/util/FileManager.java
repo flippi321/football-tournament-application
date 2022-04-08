@@ -178,9 +178,17 @@ public class FileManager {
      * @return a match parsed from the specified JSON object
      */
     static Match parseMatch(JsonObject json, TeamRegister register) {
-        Team homeTeam = register.getTeam(json.getString(MATCH_HOME_TEAM_KEY));
-        Team awayTeam = register.getTeam(json.getString(MATCH_AWAY_TEAM_KEY));
-        Match match = new Match(homeTeam, awayTeam);
+        JsonValue homeTeamName = json.get(MATCH_HOME_TEAM_KEY);
+        JsonValue awayTeamName = json.get(MATCH_AWAY_TEAM_KEY);
+        Match match = new Match();
+        if (homeTeamName instanceof JsonString) {
+            Team homeTeam = register.getTeam(((JsonString) homeTeamName).getString());
+            match.setHomeTeam(homeTeam);
+        }
+        if (awayTeamName instanceof JsonString) {
+            Team awayTeam = register.getTeam(((JsonString) awayTeamName).getString());
+            match.setAwayTeam(awayTeam);
+        }
 
         if (json.containsKey(MATCH_EVENTS_KEY)) {
             match.end();
@@ -336,15 +344,21 @@ public class FileManager {
      */
     static JsonObject toJson(Match match) {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-        objectBuilder.add(MATCH_HOME_TEAM_KEY, match.getHomeTeam().getName());
-        objectBuilder.add(MATCH_AWAY_TEAM_KEY, match.getAwayTeam().getName());
+        Team homeTeam = match.getHomeTeam();
+        Team awayTeam = match.getAwayTeam();
+        if (homeTeam != null) {
+            objectBuilder.add(MATCH_HOME_TEAM_KEY, homeTeam.getName());
+        }
+        if (awayTeam != null) {
+            objectBuilder.add(MATCH_AWAY_TEAM_KEY, awayTeam.getName());
+        }
 
         Iterator<GameEvent> eventIterator = match.iterator();
 
         if (eventIterator.hasNext()) {
             JsonArrayBuilder eventArrayBuilder = Json.createArrayBuilder();
             for (GameEvent event : match) {
-                eventArrayBuilder.add(toJson(event, match.getHomeTeam()));
+                eventArrayBuilder.add(toJson(event, homeTeam));
             }
             objectBuilder.add(MATCH_EVENTS_KEY, eventArrayBuilder.build());
         }

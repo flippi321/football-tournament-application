@@ -122,17 +122,13 @@ public class FileManagerTest {
         }
 
         @Test
-        public void loadTeamRegisterTest() {
+        public void loadTeamRegisterTest() throws IOException {
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json");
-            try {
-                TeamRegister register = loadTeamRegister(file);
-                for (Team team : register.getTeams().values()) {
-                    System.out.println(team);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                fail();
-            }
+            TeamRegister register = loadTeamRegister(file);
+            assertEquals(6, register.getTeam("Rosenborg").size());
+            assertEquals(6, register.getTeam("Sexy Computer Boys").size());
+            assertEquals(1, register.getTeam("Manchester").size());
+            assertEquals(4, register.getNumberOfTeams());
         }
 
         @Test
@@ -197,26 +193,83 @@ public class FileManagerTest {
             team.addPlayer(new Player("Bjarne", 4));
             team.addPlayer(new Player("Bjørn-Johnny", 17));
             team.addPlayer(new Player("Bernhard", 12));
-            System.out.println(toJson(team));
+            JsonObject json = toJson(team);
+            Team parsedTeam = parseTeam(json);
+            assertEquals("Brann", parsedTeam.getName());
+            assertEquals("Bjarne", parsedTeam.getPlayer(4).getName());
+            assertEquals("Bjørn-Johnny", parsedTeam.getPlayer(17).getName());
+            assertEquals("Bernhard", parsedTeam.getPlayer(12).getName());
         }
 
         @Test
-        public void matchToJsonTest() {
+        public void upcomingMatchToJsonTest() {
+            Team team1 = randomTeam(5, "Odd");
+            Team team2 = randomTeam(5, "Sexy Computer Boys");
+            Team team3 = randomTeam(5, "Rosenborg");
+            teamRegister = new TeamRegister();
+            teamRegister.addTeam(team1);
+            teamRegister.addTeam(team2);
+            teamRegister.addTeam(team3);
+
+            Match match = new Match(team1, team2);
+            JsonObject matchJson = toJson(match);
+            Match parsedMatch = parseMatch(matchJson, teamRegister);
+
+            assertEquals(match.getHomeTeam(), parsedMatch.getHomeTeam());
+            assertEquals(match.getAwayTeam(), parsedMatch.getAwayTeam());
+            assertFalse(parsedMatch.isStarted());
+        }
+
+        @Test
+        public void partiallySetUpMatchToJsonTest() {
             Team team1 = randomTeam(5);
-            Team team2 = randomTeam(5);
+            Team team2;
+            do {team2 = randomTeam(5);}
+            while (team1.getName().equals(team2.getName()));
+            teamRegister = new TeamRegister();
+            teamRegister.addTeam(team1);
+            teamRegister.addTeam(team2);
+
+            Match match = new Match();
+            match.setHomeTeam(team1);
+            JsonObject matchJson = toJson(match);
+            Match parsedMatch = parseMatch(matchJson, teamRegister);
+
+            assertEquals(match.getHomeTeam(), parsedMatch.getHomeTeam());
+            assertEquals(match.getAwayTeam(), parsedMatch.getAwayTeam());
+            assertFalse(parsedMatch.isStarted());
+
+            match = new Match();
+            match.setAwayTeam(team1);
+            matchJson = toJson(match);
+            parsedMatch = parseMatch(matchJson, teamRegister);
+
+            assertEquals(match.getHomeTeam(), parsedMatch.getHomeTeam());
+            assertEquals(match.getAwayTeam(), parsedMatch.getAwayTeam());
+            assertFalse(parsedMatch.isStarted());
+        }
+
+        @Test
+        public void finishedMatchToJsonTest() {
+            Team team1 = randomTeam(5);
+            Team team2;
+            do {team2 = randomTeam(5);}
+            while (team1.getName().equals(team2.getName()));
             teamRegister = new TeamRegister();
             teamRegister.addTeam(team1);
             teamRegister.addTeam(team2);
 
             Match match = new Match(team1, team2);
             addRandomMatchHistory(match);
-            JsonStructure matchJson = toJson(match);
-            File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_match_save.json");
-            try {
-                saveJson(matchJson, file);
-            } catch (IOException e) {
-                e.printStackTrace();
-                fail();
+            JsonObject matchJson = toJson(match);
+            Match parsedMatch = parseMatch(matchJson, teamRegister);
+
+            assertEquals(match.getHomeTeam(), parsedMatch.getHomeTeam());
+            assertEquals(match.getAwayTeam(), parsedMatch.getAwayTeam());
+            assertTrue(parsedMatch.isFinished());
+
+            for (int i = 0; i < 9; i++) {
+                assertEquals(match.getGameEvent(i).getEvent(), parsedMatch.getGameEvent(i).getEvent());
             }
         }
 
@@ -226,11 +279,9 @@ public class FileManagerTest {
             ArrayList<Team> teams = new ArrayList<>();
             for (String name : teamNames) {
                 Team rndTeam = randomTeam(5, name);
-                System.out.println(rndTeam);
                 teams.add(rndTeam);
             }
             Tournament tournament = new KnockOut("Power cup", teams);
-            System.out.println(toJson(tournament));
         }
     }
 }
