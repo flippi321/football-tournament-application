@@ -114,11 +114,8 @@ public class FileManager {
      */
     static boolean saveIfAbsent(JsonObject json, File file) throws IOException {
         if (file.exists()) return false;
-        try (FileWriter fileWriter = new FileWriter(file);
-             JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
-            jsonWriter.write(json);
-            return true;
-        }
+        saveJson(json, file);
+        return true;
     }
 
     static Player parsePlayer(JsonObject json) {
