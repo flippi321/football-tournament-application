@@ -282,6 +282,7 @@ public class FileManager {
                 throw new RuntimeException("format type not recognised");
         }
 
+        tournament.getUpcomingMatches().clear();
         tournament.getUpcomingMatches().addAll(upcoming);
         tournament.getMatches().addAll(previous);
 
