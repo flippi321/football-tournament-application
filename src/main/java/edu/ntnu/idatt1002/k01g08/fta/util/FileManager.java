@@ -32,6 +32,8 @@ public class FileManager {
     private static final String TOURNAMENT_PREVIOUS_MATCHES_KEY = "upcomingMatches";
     private static final String TOURNAMENT_TEAMS_KEY = "teams";
 
+    private static final String TOURNAMENT_KNOCKOUT_FORMAT = "knockout";
+
     private static final String MATCH_HOME_TEAM_KEY = "homeTeam";
     private static final String MATCH_AWAY_TEAM_KEY = "awayTeam";
     private static final String MATCH_EVENTS_KEY = "events";
@@ -54,27 +56,68 @@ public class FileManager {
 
     private static final String GOAL_ASSISTING_KEY = "assisting";
 
+    /**
+     * Reads and returns a JSON structure from a file.
+     * @param file a file to read from
+     * @return a JSON structure read from the file
+     * @throws IOException if the file for some reason could not be opened for reading
+     * @throws JsonException if a JSON object or array cannot be created due to incorrect representation
+     */
     static JsonStructure loadJson(File file) throws IOException {
-        try (FileReader fileReader = new FileReader(file)) {
-            try (JsonReader jsonReader = Json.createReader(fileReader)) {
+        try (FileReader fileReader = new FileReader(file);
+             JsonReader jsonReader = Json.createReader(fileReader)) {
                 return jsonReader.read();
-            }
         }
     }
 
+    /**
+     * Reads and returns a JSON array from a file.
+     * @param file a file to read from
+     * @return a JSON structure read from the file
+     * @throws IOException if the file for some reason could not be opened for reading
+     * @throws JsonException if a JSON array cannot be created due to incorrect representation
+     */
     static JsonArray loadJsonArray(File file) throws IOException {
         return (JsonArray) loadJson(file);
     }
 
+    /**
+     * Reads and returns a JSON object from a file.
+     * @param file a file to read from
+     * @return a JSON structure read from the file
+     * @throws IOException if the file for some reason could not be opened for reading
+     * @throws JsonException if a JSON object cannot be created due to incorrect representation
+     */
     static JsonObject loadJsonObject(File file) throws IOException {
         return (JsonObject) loadJson(file);
     }
 
+    /**
+     * Saves a JSON structure to a file.
+     * @param json A JSON structure to save to a file
+     * @param file the file to save the JSON object to
+     * @throws IOException if file for some reason could not be saved
+     */
     static void saveJson(JsonStructure json, File file) throws IOException {
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            try (JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
+        try (FileWriter fileWriter = new FileWriter(file);
+             JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
                 jsonWriter.write(json);
-            }
+        }
+    }
+
+    /**
+     * Saves a JSON structure to a file, if the file does not already exist. Returns true if successful.
+     * @param json A JSON structure to save to a file
+     * @param file the file to save the JSON object to
+     * @return true if the file was created
+     * @throws IOException if file for some reason could not be saved
+     */
+    static boolean saveIfAbsent(JsonObject json, File file) throws IOException {
+        if (file.exists()) return false;
+        try (FileWriter fileWriter = new FileWriter(file);
+             JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
+            jsonWriter.write(json);
+            return true;
         }
     }
 
@@ -123,6 +166,7 @@ public class FileManager {
 
         if (json.containsKey(MATCH_EVENTS_KEY)) {
             match.end();
+
             for (JsonObject eventJson : json.getJsonArray(MATCH_EVENTS_KEY).getValuesAs(JsonObject.class)) {
                 System.out.println(eventJson);
                 boolean isHomeTeam = eventJson.getBoolean(GAME_EVENT_HOME_TEAM_KEY);
