@@ -39,7 +39,7 @@ public class FileManager {
     private static final String MATCH_EVENTS_KEY = "events";
 
     private static final String GAME_EVENT_HOME_TEAM_KEY = "homeTeam";
-    private static final String GAME_EVENT_PLAYER_NUMBER_KEY = "playerNumber";
+    private static final String GAME_EVENT_PLAYER_NUMBER_KEY = "player";
     private static final String GAME_EVENT_TIMESTAMP_KEY = "timestamp";
     private static final String GAME_EVENT_TYPE_KEY = "type";
 
@@ -186,7 +186,6 @@ public class FileManager {
             match.end();
 
             for (JsonObject eventJson : json.getJsonArray(MATCH_EVENTS_KEY).getValuesAs(JsonObject.class)) {
-                System.out.println(eventJson);
                 boolean isHomeTeam = eventJson.getBoolean(GAME_EVENT_HOME_TEAM_KEY);
                 String timestamp = eventJson.getString(GAME_EVENT_TIMESTAMP_KEY);
                 int player;

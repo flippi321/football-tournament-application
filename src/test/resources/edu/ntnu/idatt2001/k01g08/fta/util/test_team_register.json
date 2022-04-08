@@ -4,7 +4,27 @@
     "players": [
       {
         "name": "Andre Hansen",
+        "number": 1
+      },
+      {
+        "name": "Erland Dahl Reitan",
+        "number": 2
+      },
+      {
+        "name": "Jonathan Augustinsson",
         "number": 3
+      },
+      {
+        "name": "Markus Henriksen",
+        "number": 7
+      },
+      {
+        "name": "Carlo Holse",
+        "number": 10
+      },
+      {
+        "name": "Pavle Vagić",
+        "number": 23
       }
     ]
   },
@@ -27,7 +47,7 @@
     ]
   },
   {
-    "name": "Computer Boys",
+    "name": "Sexy Computer Boys",
     "players": [
       {
         "name": "Bendik",

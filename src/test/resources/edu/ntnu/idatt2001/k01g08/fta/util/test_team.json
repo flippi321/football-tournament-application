@@ -1,0 +1,14 @@
+{
+  "name": "Rosenborg",
+  "players": [
+  {
+    "name": "Ole Gunnar Solskjær", "number": 5, "goals": 3
+  },
+  {
+    "name": "Bjarne Brøndbo", "number": 3, "goals": 1
+  },
+  {
+    "name": "Petter Northug", "number": 11, "goals": 5
+  }
+  ]
+}
