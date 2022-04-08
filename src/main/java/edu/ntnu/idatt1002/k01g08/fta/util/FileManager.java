@@ -118,6 +118,11 @@ public class FileManager {
         return true;
     }
 
+    /**
+     * Returns a player parsed from a JSON object.
+     * @param json a JSON object to parse
+     * @return a player parsed from the specified JSON object
+     */
     static Player parsePlayer(JsonObject json) {
         Player player = new Player(json.getString(PLAYER_NAME_KEY), json.getInt(PLAYER_NUMBER_KEY));
         for (String key : json.keySet()) {
@@ -139,6 +144,11 @@ public class FileManager {
         return player;
     }
 
+    /**
+     * Returns a team parsed from a JSON object.
+     * @param json a JSON object to parse
+     * @return a team parsed from the specified JSON object
+     */
     static Team parseTeam(JsonObject json) {
         Team team = new Team(json.getString(TEAM_NAME_KEY));
         List<JsonObject> players = json.getJsonArray(TEAM_PLAYERS_KEY).getValuesAs(JsonObject.class);
@@ -147,6 +157,11 @@ public class FileManager {
         return team;
     }
 
+    /**
+     * Returns a team register parsed from a JSON array.
+     * @param json a JSON array to parse
+     * @return a team register parsed from the specified JSON array
+     */
     static TeamRegister parseTeamRegister(JsonArray json) {
         TeamRegister teamRegister = new TeamRegister();
         List<JsonObject> teams = json.getValuesAs(JsonObject.class);
@@ -156,6 +171,12 @@ public class FileManager {
         return teamRegister;
     }
 
+    /**
+     * Returns a match parsed from a JSON object, using teams pulled from the given team register.
+     * @param json a JSON object to parse
+     * @param register a register to pull teams from
+     * @return a match parsed from the specified JSON object
+     */
     static Match parseMatch(JsonObject json, TeamRegister register) {
         Team homeTeam = register.getTeam(json.getString(MATCH_HOME_TEAM_KEY));
         Team awayTeam = register.getTeam(json.getString(MATCH_AWAY_TEAM_KEY));
@@ -201,10 +222,21 @@ public class FileManager {
         return match;
     }
 
+    /**
+     * Loads a team register from a file. Convenience method for parseTeamRegister(loadJsonArray(file)).
+     * @param file a file to load a team register from
+     * @return a team register parsed from the contents of the file
+     * @throws IOException if the file for some reason could not be opened for reading
+     */
     static TeamRegister loadTeamRegister(File file) throws IOException {
         return parseTeamRegister(loadJsonArray(file));
     }
 
+    /**
+     * Returns a JSON object representation of the specified player.
+     * @param player a player to get the JSON representation of
+     * @return a JSON object representation of the player
+     */
     static JsonObject toJson(Player player) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add(PLAYER_NAME_KEY, player.getName());
@@ -216,6 +248,11 @@ public class FileManager {
         return builder.build();
     }
 
+    /**
+     * Returns a JSON object representation of the specified team.
+     * @param team a team to get the JSON representation of
+     * @return a JSON object representation of the team
+     */
     static JsonObject toJson(Team team) {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         for (Player player : team) {
@@ -227,6 +264,12 @@ public class FileManager {
         return objectBuilder.build();
     }
 
+    /**
+     * Returns a JSON object representation of the specified game event.
+     * @param event a game event to get the JSON representation of
+     * @param homeTeam the home team of the match
+     * @return a JSON object representation of the game event
+     */
     static JsonObject toJson(GameEvent event, Team homeTeam) {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         objectBuilder.add(GAME_EVENT_HOME_TEAM_KEY, event.getTeam() == homeTeam);
@@ -241,6 +284,11 @@ public class FileManager {
         return objectBuilder.build();
     }
 
+    /**
+     * Returns a JSON object builder containing fields specific to the Foul subclass.
+     * @param foul a foul the convert to JSON
+     * @return a JSON object builder containing fields specific to the Foul subclass
+     */
     static JsonObjectBuilder toJson(Foul foul) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add(GAME_EVENT_TYPE_KEY, GAME_EVENT_FOUL_TYPE);
@@ -251,6 +299,11 @@ public class FileManager {
         return builder;
     }
 
+    /**
+     * Returns a JSON object builder containing fields specific to the Goal subclass.
+     * @param goal a goal the convert to JSON
+     * @return a JSON object builder containing fields specific to the Goal subclass
+     */
     static JsonObjectBuilder toJson(Goal goal, Team homeTeam) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         Player player = goal.getPlayer();
@@ -264,6 +317,11 @@ public class FileManager {
         return builder;
     }
 
+    /**
+     * Returns a JSON object builder containing fields specific to the Substitution subclass.
+     * @param substitution a foul the convert to JSON
+     * @return a JSON object builder containing fields specific to the Substitution subclass
+     */
     static JsonObjectBuilder toJson(Substitution substitution) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add(GAME_EVENT_TYPE_KEY, GAME_EVENT_SUBSTITUTION_TYPE);
@@ -272,6 +330,11 @@ public class FileManager {
         return builder;
     }
 
+    /**
+     * Returns a JSON object representation of the specified match.
+     * @param match a match to get the JSON representation of
+     * @return a JSON object representing the specified match
+     */
     static JsonObject toJson(Match match) {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         objectBuilder.add(MATCH_HOME_TEAM_KEY, match.getHomeTeam().getName());
@@ -290,6 +353,11 @@ public class FileManager {
         return objectBuilder.build();
     }
 
+    /**
+     * Returns a JSON object representation of the specified tournament.
+     * @param tournament a match to get the JSON representation of
+     * @return a JSON object representing the specified tournament
+     */
     static JsonObject toJson(Tournament tournament) {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         objectBuilder.add(TOURNAMENT_FORMAT_KEY, tournament.getClass().getName());
