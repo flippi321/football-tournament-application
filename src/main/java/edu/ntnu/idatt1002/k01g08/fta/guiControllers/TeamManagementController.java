@@ -18,7 +18,8 @@ public class TeamManagementController {
     private Label errorLabel;
 
     @FXML
-    public void editExistingPlayer(ActionEvent actionEvent) {
+    public void editExistingPlayer(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("editPlayer");
     }
 
     @FXML
