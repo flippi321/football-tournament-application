@@ -22,7 +22,8 @@ public class TeamManagementController {
     }
 
     @FXML
-    public void addPlayer(ActionEvent actionEvent) {
+    public void addPlayer(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("newPlayer");
     }
 
     @FXML
