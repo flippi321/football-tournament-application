@@ -35,7 +35,7 @@ public class NewPlayerController {
                 "TEAM2",
                 "TEAM3"
         );
-        // TODO: 18.04.2022 Add real teams in list 
+        // TODO: 18.04.2022 Add real teams in list
     }
 
     @FXML
@@ -81,6 +81,7 @@ public class NewPlayerController {
         String firstName = firstNameInput.getText();
         String lastName = lastNameInput.getText();
 
+        errorLabel.setText("");
         // TODO: 18.04.2022 Create player and add it to the selected team
     }
 }
