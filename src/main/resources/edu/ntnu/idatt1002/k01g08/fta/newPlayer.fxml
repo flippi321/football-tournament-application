@@ -93,7 +93,7 @@
                   <Image url="@img/user.png" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
                   <Label text="First Name:">
                      <font>
