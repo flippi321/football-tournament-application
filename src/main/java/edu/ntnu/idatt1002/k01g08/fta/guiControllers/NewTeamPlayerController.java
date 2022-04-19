@@ -11,17 +11,27 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 /**
- * Controller for the new team page
+ * Controller for the new team-player page
  *
  * @author jfben
  */
-public class NewTeamController {
+public class NewTeamPlayerController {
     @FXML
     private Label errorLabel;
     @FXML
-    private TextField teamNameInput;
+    private TextField lastNameInput;
     @FXML
-    private TextField numOfPlayersInput;
+    private TextField playerNumberInput;
+    @FXML
+    private TextField firstNameInput;
+    @FXML
+    private Label titleText;
+
+    @Deprecated
+    public void initialize() {
+        titleText.setText("Player 1 of 11");
+        // TODO: 19.04.2022 Show real progress
+    }
 
     @FXML
     public void settingsButtonClick(Event event) throws IOException {
@@ -44,27 +54,30 @@ public class NewTeamController {
     }
 
     @FXML
-    public void discardChanges(ActionEvent actionEvent) throws IOException {
+    public void cancel(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("teamManagement");
     }
 
     @FXML
-    public void createTeam(ActionEvent actionEvent) throws IOException {
-        if (teamNameInput.getText().isBlank() || numOfPlayersInput.getText().isBlank()) {
+    public void next(ActionEvent actionEvent) {
+        if (playerNumberInput.getText().isBlank() || firstNameInput.getText().isBlank() || lastNameInput.getText().isBlank()) {
             errorLabel.setText("Missing requirements");
             return;
         }
 
-        int numberOfPlayers;
+        int playerNumber;
         try {
-            numberOfPlayers = Integer.parseInt(numOfPlayersInput.getText());
+            playerNumber = Integer.parseInt(playerNumberInput.getText());
         } catch (IllegalArgumentException e) {
             errorLabel.setText("Must enter a valid number");
             return;
         }
 
+        String firstName = firstNameInput.getText();
+        String lastName = lastNameInput.getText();
+
         errorLabel.setText("");
-        // TODO: 19.04.2022 Create team
-        SceneManager.setView("newTeamPlayer");
+        // TODO: 18.04.2022 Create player and add it to the selected team
+        // TODO: 19.04.2022 Go to next player if next player should be created
     }
 }
