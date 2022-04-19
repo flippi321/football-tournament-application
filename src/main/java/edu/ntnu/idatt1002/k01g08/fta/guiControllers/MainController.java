@@ -20,7 +20,8 @@ public class MainController{
     }
 
     @FXML
-    public void loadTournament(ActionEvent actionEvent) {
+    public void loadTournament(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("loadTournament");
     }
 
     @FXML
