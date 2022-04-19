@@ -33,7 +33,8 @@ public class TeamManagementController {
     }
 
     @FXML
-    public void editTeam(ActionEvent actionEvent) {
+    public void editTeam(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("editTeam");
     }
 
     @FXML
