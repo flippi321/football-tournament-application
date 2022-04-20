@@ -50,7 +50,7 @@ public class NewTournamentController {
     }
 
     @FXML
-    public void newTournament(ActionEvent actionEvent) {
+    public void newTournament(ActionEvent actionEvent) throws IOException {
         if (tournamentNameInput.getText().isBlank() || numberOfTeamsInput.getText().isBlank()) {
             errorLabel.setText("Missing requirements");
             return;
@@ -66,5 +66,6 @@ public class NewTournamentController {
         errorLabel.setText("");
 
         // TODO: Create a tournament
+        SceneManager.setView("newTournamentTeamSelection");
     }
 }
