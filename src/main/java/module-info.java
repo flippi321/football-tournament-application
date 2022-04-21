@@ -1,7 +1,7 @@
 module edu.ntnu.idatt1002.k01g08.fta {
     requires javafx.controls;
     requires javafx.fxml;
-
+    requires java.json;
 
     opens edu.ntnu.idatt1002.k01g08.fta to javafx.fxml;
     exports edu.ntnu.idatt1002.k01g08.fta;
@@ -13,4 +13,6 @@ module edu.ntnu.idatt1002.k01g08.fta {
     opens edu.ntnu.idatt1002.k01g08.fta.controllers to javafx.fxml;
     exports edu.ntnu.idatt1002.k01g08.fta.guiControllers;
     opens edu.ntnu.idatt1002.k01g08.fta.guiControllers to javafx.fxml;
+    exports edu.ntnu.idatt1002.k01g08.fta.util;
+    opens edu.ntnu.idatt1002.k01g08.fta.util to javafx.fxml;
 }

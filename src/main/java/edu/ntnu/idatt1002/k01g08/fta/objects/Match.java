@@ -268,7 +268,7 @@ public class Match implements Iterable<GameEvent> {
      * @throws IllegalStateException if the match has not started
      */
     public Team end() throws IllegalStateException{
-        if (!isStarted()) throw new IllegalStateException("match not started");
+        //if (!isStarted()) throw new IllegalStateException("match not started");
         stage = -1;
         return getWinner();
     }
@@ -544,11 +544,14 @@ public class Match implements Iterable<GameEvent> {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("(").append(homeTeam.getName()).append(" vs. ").append(awayTeam.getName())
-                .append(":\n[").append(getGameEvent(0).toString());
-        for (int i = 1; i < matchHistory.size(); i++) {
-            builder.append(",\n").append(getGameEvent(i).toString());
+        StringBuilder builder = new StringBuilder("(").append(homeTeam.getName()).append(" vs. ").append(awayTeam.getName());
+        if (!matchHistory.isEmpty()) {
+            builder.append(":\n[").append(getGameEvent(0).toString());
+            for (int i = 1; i < matchHistory.size(); i++) {
+                builder.append(",\n").append(getGameEvent(i).toString());
+            }
+            builder.append(']');
         }
-        return builder.append("])").toString();
+        return builder.append(')').toString();
     }
 }

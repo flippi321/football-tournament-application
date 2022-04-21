@@ -300,14 +300,6 @@ public class MatchTest {
         }
 
         @Test
-        @DisplayName("Match does not end before start")
-        public void matchDoesNotEndBeforeStart() {
-            Match match = new Match();
-            match.start();
-            assertThrows(IllegalStateException.class, match::end);
-        }
-
-        @Test
         @DisplayName("pause gives correct feedback")
         public void pauseGivesCorrectFeedback() {
             assertFalse(match.pause());
