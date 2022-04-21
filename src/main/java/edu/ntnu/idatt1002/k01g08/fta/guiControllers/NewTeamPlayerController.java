@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -12,30 +11,26 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 /**
- * Controller for the new player page
+ * Controller for the new team-player page
  *
  * @author jfben
  */
-public class NewPlayerController {
+public class NewTeamPlayerController {
     @FXML
     private Label errorLabel;
-    @FXML
-    private ComboBox teamSelectionBox;
     @FXML
     private TextField lastNameInput;
     @FXML
     private TextField playerNumberInput;
     @FXML
     private TextField firstNameInput;
-
     @FXML
+    private Label titleText;
+
+    @Deprecated
     public void initialize() {
-        teamSelectionBox.getItems().addAll(
-                "TEAM1",
-                "TEAM2",
-                "TEAM3"
-        );
-        // TODO: 18.04.2022 Add real teams in list
+        titleText.setText("Player 1 of 11");
+        // TODO: 19.04.2022 Show real progress
     }
 
     @FXML
@@ -59,12 +54,12 @@ public class NewPlayerController {
     }
 
     @FXML
-    public void discardChanges(ActionEvent actionEvent) throws IOException {
+    public void cancel(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("teamManagement");
     }
 
     @FXML
-    public void saveChanges(ActionEvent actionEvent) {
+    public void next(ActionEvent actionEvent) {
         if (playerNumberInput.getText().isBlank() || firstNameInput.getText().isBlank() || lastNameInput.getText().isBlank()) {
             errorLabel.setText("Missing requirements");
             return;
@@ -83,5 +78,6 @@ public class NewPlayerController {
 
         errorLabel.setText("");
         // TODO: 18.04.2022 Create player and add it to the selected team
+        // TODO: 19.04.2022 Go to next player if next player should be created
     }
 }

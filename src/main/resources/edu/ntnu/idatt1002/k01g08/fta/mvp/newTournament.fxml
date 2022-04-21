@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.mvp.NewTournamentController">
+   <top>
+      <Label text="Create new tournament" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox alignment="CENTER" fillWidth="false" minHeight="200.0" prefHeight="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="tournamentNameInput" alignment="CENTER" promptText="Tournament name">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tournamentNumberTeamsInput" alignment="CENTER" promptText="Number of teams">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label fx:id="errorLabel" textFill="RED" />
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <Button mnemonicParsing="false" onAction="#createTournament" text="Create tournament" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>

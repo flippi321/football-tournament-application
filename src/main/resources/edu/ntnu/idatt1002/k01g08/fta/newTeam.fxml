@@ -1,42 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.NewTeamController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.NewTeamController">
    <top>
-      <Label fx:id="teamIdLabel" text="Team: 1" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      <GridPane prefHeight="100.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Add Team">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <font>
+                  <Font size="44.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="270.0" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="280.0" layoutY="30.0" onMouseClicked="#backButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <image>
+                        <Image url="@img/backArrow.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="170.0" layoutY="35.0" onMouseClicked="#reportButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/circle-exclamation-solid.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" onMouseClicked="#settingsButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/gear-solid.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="230.0" layoutY="35.0" onMouseClicked="#exitButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/house.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </HBox>
+         </children>
+      </GridPane>
    </top>
    <center>
-      <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <TextField fx:id="teamNameInput" alignment="CENTER" promptText="Team name" />
-            <TextField fx:id="noOfPlayersInput" alignment="CENTER" promptText="Number of players">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Label fx:id="errorLabel" textFill="RED" />
+            <ImageView fitHeight="275.0" fitWidth="275.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@img/team-solid.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <children>
+                  <Label text="Team Name:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="teamNameInput" prefWidth="300.0" promptText="Team name">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="10.0" layoutY="10.0" text="Number of players:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="numOfPlayersInput" layoutX="10.0" layoutY="37.0" prefWidth="300.0" promptText="11">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </VBox>
          </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
+      </GridPane>
    </center>
    <bottom>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#createTeam" text="Create Team" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="10.0" />
-         </BorderPane.margin>
-      </Button>
+      <GridPane alignment="CENTER" minHeight="150.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane alignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#discardChanges" prefWidth="300.0" text="Discard Changes" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin></Button>
+                  <Button alignment="CENTER" layoutX="377.0" layoutY="20.0" mnemonicParsing="false" onAction="#createTeam" prefWidth="300.0" text="Create Team" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </GridPane>
+            <Label fx:id="errorLabel" alignment="BOTTOM_LEFT" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
    </bottom>
 </BorderPane>

@@ -1,10 +1,10 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author jfben
  */
-public class NewPlayerController {
+public class EditPlayerController {
     @FXML
     private Label errorLabel;
     @FXML
@@ -27,8 +27,12 @@ public class NewPlayerController {
     private TextField playerNumberInput;
     @FXML
     private TextField firstNameInput;
-
     @FXML
+    private ComboBox playerSelectionBox;
+    @FXML
+    private Button deletePlayerButton;
+
+    @Deprecated
     public void initialize() {
         teamSelectionBox.getItems().addAll(
                 "TEAM1",
@@ -65,6 +69,11 @@ public class NewPlayerController {
 
     @FXML
     public void saveChanges(ActionEvent actionEvent) {
+        if (playerSelectionBox.getValue() == null || teamSelectionBox.getValue() == null) {
+            errorLabel.setText("Must select a player to edit");
+            return;
+        }
+
         if (playerNumberInput.getText().isBlank() || firstNameInput.getText().isBlank() || lastNameInput.getText().isBlank()) {
             errorLabel.setText("Missing requirements");
             return;
@@ -82,6 +91,38 @@ public class NewPlayerController {
         String lastName = lastNameInput.getText();
 
         errorLabel.setText("");
-        // TODO: 18.04.2022 Create player and add it to the selected team
+        // TODO: 18.04.2022 Edit the selected player
+    }
+
+    @FXML
+    public void playerSelected(ActionEvent actionEvent) {
+        if (playerSelectionBox.getValue() != null) {
+            firstNameInput.setDisable(false);
+            lastNameInput.setDisable(false);
+            playerNumberInput.setDisable(false);
+            deletePlayerButton.setDisable(false);
+        } else {
+            firstNameInput.setDisable(true);
+            lastNameInput.setDisable(true);
+            playerNumberInput.setDisable(true);
+            deletePlayerButton.setDisable(true);
+        }
+    }
+
+    @FXML
+    public void deletePlayer(ActionEvent actionEvent) {
+        // TODO: 18.04.2022 Add functionality, maybe add a confirm box
+    }
+
+    @FXML
+    public void teamSelected(ActionEvent actionEvent) {
+        playerSelectionBox.getItems().removeAll(playerSelectionBox.getItems());
+        if (teamSelectionBox.getValue() != null) {
+            // TODO: 18.04.2022 Import list of players in the selected team for the user to select
+            playerSelectionBox.getItems().addAll(
+                    "PLAYER1",
+                    "PLAYER2"
+            );
+        }
     }
 }

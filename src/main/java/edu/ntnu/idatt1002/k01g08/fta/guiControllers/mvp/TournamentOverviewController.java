@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
+package edu.ntnu.idatt1002.k01g08.fta.guiControllers.mvp;
 
 import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;

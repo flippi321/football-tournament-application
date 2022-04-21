@@ -1,28 +1,41 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
-import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+
 import java.io.IOException;
-import java.util.Objects;
 
+/**
+ * Controller for the main page
+ *
+ * @author jfben
+ */
 public class MainController{
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-    @FXML
-    private Button createNewTournament;
 
     @FXML
-    public void createNewTournamentClick(ActionEvent actionEvent) throws IOException {
+    public void settingsButtonClick(Event event) throws IOException {
+        SceneManager.setView("settings");
+    }
+
+    @FXML
+    public void loadTournament(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("loadTournament");
+    }
+
+    @FXML
+    public void teamManagement(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("teamManagement");
+    }
+
+    @FXML
+    public void reportButtonClick(Event event) throws IOException {
+        SceneManager.setView("errorForm");
+    }
+
+    @FXML
+    public void newTournament(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("newTournament");
     }
 }

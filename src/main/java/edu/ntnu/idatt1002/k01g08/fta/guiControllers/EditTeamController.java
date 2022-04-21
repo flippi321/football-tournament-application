@@ -1,10 +1,10 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,23 +12,21 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 /**
- * Controller for the new player page
+ * Controller for the edit team page
  *
  * @author jfben
  */
-public class NewPlayerController {
+public class EditTeamController {
     @FXML
     private Label errorLabel;
     @FXML
     private ComboBox teamSelectionBox;
     @FXML
-    private TextField lastNameInput;
+    private TextField teamNameInput;
     @FXML
-    private TextField playerNumberInput;
-    @FXML
-    private TextField firstNameInput;
+    private Button deleteTeamButton;
 
-    @FXML
+    @Deprecated
     public void initialize() {
         teamSelectionBox.getItems().addAll(
                 "TEAM1",
@@ -65,23 +63,29 @@ public class NewPlayerController {
 
     @FXML
     public void saveChanges(ActionEvent actionEvent) {
-        if (playerNumberInput.getText().isBlank() || firstNameInput.getText().isBlank() || lastNameInput.getText().isBlank()) {
+        if (teamNameInput.getText().isBlank()) {
             errorLabel.setText("Missing requirements");
             return;
         }
 
-        int playerNumber;
-        try {
-            playerNumber = Integer.parseInt(playerNumberInput.getText());
-        } catch (IllegalArgumentException e) {
-            errorLabel.setText("Must enter a valid number");
-            return;
-        }
-
-        String firstName = firstNameInput.getText();
-        String lastName = lastNameInput.getText();
-
         errorLabel.setText("");
-        // TODO: 18.04.2022 Create player and add it to the selected team
+        // TODO: 19.04.2022 Change the name of the selected team
+    }
+
+    @FXML
+    public void deleteTeam(ActionEvent actionEvent) {
+        // TODO: 18.04.2022 Add functionality, maybe add a confirm box
+    }
+
+    @FXML
+    public void teamSelected(ActionEvent actionEvent) {
+        if (teamSelectionBox.getValue() != null) {
+            // TODO: 18.04.2022 Import list of players in the selected team for the user to select
+            teamNameInput.setDisable(false);
+            deleteTeamButton.setDisable(false);
+        } else {
+            teamNameInput.setDisable(true);
+            deleteTeamButton.setDisable(true);
+        }
     }
 }
