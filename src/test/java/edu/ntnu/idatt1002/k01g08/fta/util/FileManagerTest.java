@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import javax.json.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -282,16 +281,14 @@ public class FileManagerTest {
         }
 
         @Test
-        public void tournamentToJsonTest() {
-            ArrayList<Team> teams = new ArrayList<>();
-            for (String name : teamNames) {
-                Team rndTeam = randomTeam(5, name);
-                teams.add(rndTeam);
-            }
-            Tournament tournament = new KnockOut("Power cup", teams);
-            tournament.findUpcomingMatches();
-            JsonObject json = toJson(tournament);
-            System.out.println(json);
+        public void tournamentToJsonTest() throws IOException {
+            TeamRegister teamRegister = loadTeamRegister(
+                    new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
+            File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_knockout.json");
+            JsonObject jsonObject = loadJsonObject(file);
+            System.out.println(jsonObject);
+            Tournament tournament = parseTournament(jsonObject, teamRegister);
+            assertEquals(jsonObject, toJson(tournament));
         }
     }
 }

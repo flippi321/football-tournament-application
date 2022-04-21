@@ -30,8 +30,6 @@ public class FileManager {
     private static final String TOURNAMENT_PREVIOUS_MATCHES_KEY = "previousMatches";
     private static final String TOURNAMENT_TEAMS_KEY = "teams";
 
-    private static final String TOURNAMENT_KNOCKOUT_FORMAT = "knockout";
-
     private static final String MATCH_HOME_TEAM_KEY = "homeTeam";
     private static final String MATCH_AWAY_TEAM_KEY = "awayTeam";
     private static final String MATCH_EVENTS_KEY = "events";
@@ -275,7 +273,7 @@ public class FileManager {
         Tournament tournament;
 
         switch (format) {
-            case TOURNAMENT_KNOCKOUT_FORMAT:
+            case "KnockOut":
                 tournament = new KnockOut(teams, name, prize, startDate, matchLength);
                 break;
             default:
@@ -433,7 +431,7 @@ public class FileManager {
      */
     static JsonObject toJson(Tournament tournament) {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-        objectBuilder.add(TOURNAMENT_FORMAT_KEY, tournament.getClass().getName());
+        objectBuilder.add(TOURNAMENT_FORMAT_KEY, tournament.getClass().getSimpleName());
         objectBuilder.add(TOURNAMENT_NAME_KEY, tournament.getTournamentName());
 
         if (tournament.getFirstPrize() > 0) {
