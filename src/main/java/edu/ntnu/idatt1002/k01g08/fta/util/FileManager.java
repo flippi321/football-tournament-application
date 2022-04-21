@@ -9,6 +9,8 @@ import java.util.*;
 
 /**
  * Contains static methods for reading and writing teams and tournaments to JSON files.
+ * @author bendikme
+ * @version 2022-04-21
  */
 public class FileManager {
     private static final String PLAYER_NAME_KEY = "name";
