@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,8 +20,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try{
-            //SceneManager.setView("hello-view");
-
             FXMLLoader loader = SceneManager.getLoader("main");
             SceneManager.setScene(new Scene(loader.load()));
             SceneManager.setCurrentScene("main");
