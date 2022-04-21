@@ -298,6 +298,17 @@ public class FileManager {
     }
 
     /**
+     * Loads a tournament from a file, pulling teams from a team register.
+     * Convenience method for parseTournament(loadJsonObject(file), teamRegister).
+     * @param file a file to load a tournament from
+     * @return a tournament parsed from the contents of the file
+     * @throws IOException if the file for some reason could not be opened for reading
+     */
+    static Tournament loadTournament(File file, TeamRegister teamRegister) throws IOException {
+        return parseTournament(loadJsonObject(file), teamRegister);
+    }
+
+    /**
      * Returns a JSON object representation of the specified player.
      * @param player a player to get the JSON representation of
      * @return a JSON object representation of the player
