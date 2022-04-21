@@ -170,7 +170,7 @@ public class FileManagerTest {
 
         @Test
         @DisplayName("Upcoming matches parse successfully")
-        void parseUpcomingMatchTest() throws IOException {
+        public void parseUpcomingMatchTest() throws IOException {
             TeamRegister teamRegister = loadTeamRegister(
                     new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_upcoming_match.json");
@@ -184,7 +184,7 @@ public class FileManagerTest {
 
         @Test
         @DisplayName("Finished matches parse successfully")
-        void parseFinishedMatchTest() throws IOException {
+        public void parseFinishedMatchTest() throws IOException {
             TeamRegister teamRegister = loadTeamRegister(
                     new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_finished_match.json");
@@ -212,7 +212,7 @@ public class FileManagerTest {
 
         @Test
         @DisplayName("Knockout tournament parses successfully")
-        void parseKnockOutTest() throws IOException {
+        public void parseKnockOutTest() throws IOException {
             TeamRegister teamRegister = loadTeamRegister(
                     new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_knockout.json");
