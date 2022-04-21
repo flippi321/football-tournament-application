@@ -43,6 +43,7 @@ public abstract class Tournament {
         this.firstPrize = firstPrize;
         this.startDate = startDate;
         this.matchLength = 90;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 
@@ -63,6 +64,7 @@ public abstract class Tournament {
         this.startDate = startDate;
         this.firstPrize = 0;
         this.matchLength = matchLength;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 
@@ -80,6 +82,7 @@ public abstract class Tournament {
         this.startDate = "[NO DATE]";
         this.firstPrize = 0;
         this.matchLength = 90;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 
@@ -95,6 +98,7 @@ public abstract class Tournament {
         this.firstPrize = 0;
         this.startDate = "[NO DATE]";
         this.matchLength = 90;
+        matches = new ArrayList<>();
         upcomingMatches = new ArrayList<>();
     }
 
@@ -277,8 +281,10 @@ public abstract class Tournament {
                 throw new IllegalArgumentException(e.getMessage());
             }
         }
-        throw new IllegalArgumentException("Your date is empty or is using the wrong format. " +
-                "The date must be on the format mm:ss (ex 09:45 or 65:55)");
+        else {
+            throw new IllegalArgumentException("Your date is empty or is using the wrong format. " +
+                    "The date must be on the format mm:ss (ex 09:45 or 65:55)");
+        }
     }
 
     /**

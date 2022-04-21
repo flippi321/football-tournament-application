@@ -5,7 +5,7 @@
     {
       "type": "foul",
       "homeTeam": false,
-      "timestamp": "04",
+      "timestamp": "04:05",
       "player": 44,
       "giveCard": 2,
       "foulTag": "assault"
@@ -13,21 +13,21 @@
     {
       "type": "substitution",
       "homeTeam": true,
-      "timestamp": "04",
+      "timestamp": "04:45",
       "playerIn": 23,
       "playerOut": 3
     },
     {
       "type": "goal",
       "homeTeam": true,
-      "timestamp": "13",
+      "timestamp": "13:12",
       "player": 7,
       "assisting": 10
     },
     {
       "type": "selfGoal",
       "homeTeam": false,
-      "timestamp": "23",
+      "timestamp": "23:57",
       "player": 69
     }
   ]

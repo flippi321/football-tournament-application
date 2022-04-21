@@ -421,7 +421,7 @@ public class Match implements Iterable<GameEvent> {
             throws IllegalStateException, NullPointerException {
         if (scoringPlayer == null) throw new NullPointerException("player is null");
         if (team == null) throw new NullPointerException("team is null");
-        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentTime();
         addGameEvent(new Goal(scoringPlayer, team, timeStamp, assistingPlayer));
     }
 
@@ -468,7 +468,7 @@ public class Match implements Iterable<GameEvent> {
             throws IllegalStateException, NullPointerException {
         if (playerIn == null || playerOut == null) throw new NullPointerException("player is null");
         if (team == null) throw new NullPointerException("team is null");
-        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentTime();
         addGameEvent(new Substitution(timeStamp, team, playerIn, playerOut));
     }
 
@@ -500,7 +500,7 @@ public class Match implements Iterable<GameEvent> {
             throws IllegalStateException, NullPointerException {
         if (player == null) throw new NullPointerException("player is null");
         if (team == null) throw new NullPointerException("team is null");
-        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentMinute();
+        if (timeStamp == null || timeStamp.isEmpty()) timeStamp = currentTime();
         addGameEvent(new Foul(foulTag, timeStamp, player, team, giveCard));
     }
 

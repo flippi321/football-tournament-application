@@ -55,19 +55,20 @@ public class FileManagerTest {
             Team team;
             if (homeTeam) team = match.getHomeTeam();
             else team = match.getAwayTeam();
+            String timestamp = "0" + i + ":00";
 
             switch (rnd.nextInt(4)) {
                 case 0:
-                    match.addGoal(homeTeam, randomPlayerNumber(team, rnd), rnd.nextInt(4), ""+i);
+                    match.addGoal(homeTeam, randomPlayerNumber(team, rnd), rnd.nextInt(4), timestamp);
                     break;
                 case 1:
-                    match.addSelfGoal(homeTeam, randomPlayerNumber(team, rnd), ""+i);
+                    match.addSelfGoal(homeTeam, randomPlayerNumber(team, rnd), timestamp);
                     break;
                 case 2:
-                    match.addSubstitution(homeTeam, randomPlayerNumber(team, rnd), randomPlayerNumber(team, rnd), ""+i);
+                    match.addSubstitution(homeTeam, randomPlayerNumber(team, rnd), randomPlayerNumber(team, rnd), timestamp);
                     break;
                 case 3:
-                    match.addFoul(homeTeam, randomPlayerNumber(team, rnd), foulTags[rnd.nextInt(foulTags.length)], rnd.nextInt(3), ""+i);
+                    match.addFoul(homeTeam, randomPlayerNumber(team, rnd), foulTags[rnd.nextInt(foulTags.length)], rnd.nextInt(3), timestamp);
                     break;
             }
         }

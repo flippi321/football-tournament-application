@@ -447,8 +447,8 @@ public class MatchTest {
                 match.start();
                 match.addSelfGoal(true, 4, null);
                 match.addSelfGoal(true, 4, "");
-                assertEquals("01", match.getLastGameEvent(0).getTimeStampOfMatchTime());
-                assertEquals("01", match.getLastGameEvent(1).getTimeStampOfMatchTime());
+                assertEquals("00:00", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+                assertEquals("00:00", match.getLastGameEvent(1).getTimeStampOfMatchTime());
             }
         }
 
@@ -481,8 +481,8 @@ public class MatchTest {
                 match.addSubstitution(false, 4, 5, null);
                 match.addSubstitution(false, 4, 5, "");
                 System.out.println(match.getLastGameEvent(0).getTimeStampOfMatchTime());
-                assertEquals("01", match.getLastGameEvent(0).getTimeStampOfMatchTime());
-                assertEquals("01", match.getLastGameEvent(1).getTimeStampOfMatchTime());
+                assertEquals("00:00", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+                assertEquals("00:00", match.getLastGameEvent(1).getTimeStampOfMatchTime());
             }
         }
 
@@ -513,8 +513,8 @@ public class MatchTest {
                 match.start();
                 match.addFoul(true, 7, "", 2, null);
                 match.addFoul(true, 7, "", 2, "");
-                assertEquals("01", match.getLastGameEvent(0).getTimeStampOfMatchTime());
-                assertEquals("01", match.getLastGameEvent(1).getTimeStampOfMatchTime());
+                assertEquals("00:00", match.getLastGameEvent(0).getTimeStampOfMatchTime());
+                assertEquals("00:00", match.getLastGameEvent(1).getTimeStampOfMatchTime());
             }
         }
     }

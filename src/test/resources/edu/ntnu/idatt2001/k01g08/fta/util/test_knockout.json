@@ -25,7 +25,7 @@
           "type": "goal",
           "homeTeam": false,
           "player": 19,
-          "timestamp": "42"
+          "timestamp": "42:12"
         }
       ]
     },
@@ -37,13 +37,13 @@
           "type": "goal",
           "homeTeam": true,
           "player": 7,
-          "timestamp": "34"
+          "timestamp": "34:45"
         },
         {
           "type": "goal",
           "homeTeam": true,
           "player": 3,
-          "timestamp": "79"
+          "timestamp": "79:12"
         }
       ]
     }
