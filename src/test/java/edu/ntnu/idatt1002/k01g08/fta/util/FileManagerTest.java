@@ -97,7 +97,7 @@ public class FileManagerTest {
         }
 
         @Test
-        @DisplayName("Json is successfully saved")
+        @DisplayName("JSON is successfully saved")
         public void saveJsonTest() throws IOException {
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_save0.json");
             JsonObjectBuilder builder = Json.createObjectBuilder();
@@ -111,7 +111,7 @@ public class FileManagerTest {
         }
 
         @Test
-        @DisplayName("Json is saved if absent")
+        @DisplayName("JSON is saved if absent")
         public void saveIfAbsentTest() throws IOException {
             File file1 = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_save1.json");
             File file2 = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_save2.json");
@@ -217,7 +217,12 @@ public class FileManagerTest {
                     new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_knockout.json");
             Tournament tournament = parseTournament(loadJsonObject(file), teamRegister);
-            System.out.println(tournament);
+            assertEquals("Power Cup", tournament.getTournamentName());
+            assertEquals("12:05", tournament.getStartDate());
+            assertEquals(200, tournament.getFirstPrize());
+            assertEquals(4, tournament.getNumberOfTeams());
+            assertEquals(1, tournament.getUpcomingMatches().size());
+            assertEquals(2, tournament.getMatches().size());
         }
     }
 
