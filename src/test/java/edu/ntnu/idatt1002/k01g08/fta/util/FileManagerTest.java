@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k01g08.fta.util;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.*;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,8 +75,10 @@ public class FileManagerTest {
     }
 
     @Nested
+    @DisplayName("General method tests")
     public class GeneralMethodTests {
         @Test
+        @DisplayName("JSON file loads successfully")
         public void loadJsonTest() {
             try {
                 JsonObject json = loadJsonObject(new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_json.json"));
@@ -92,11 +95,45 @@ public class FileManagerTest {
                 fail();
             }
         }
+
+        @Test
+        @DisplayName("Json is successfully saved")
+        public void saveJsonTest() throws IOException {
+            File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_save0.json");
+            JsonObjectBuilder builder = Json.createObjectBuilder();
+            Random random = new Random();
+            for (int i = 0; i < 10; i++) {
+                builder.add(""+random.nextInt(), random.nextInt());
+            }
+            JsonObject json = builder.build();
+            saveJson(json, file);
+            assertEquals(json, loadJsonObject(file));
+        }
+
+        @Test
+        @DisplayName("Json is saved if absent")
+        public void saveIfAbsentTest() throws IOException {
+            File file1 = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_save1.json");
+            File file2 = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_save2.json");
+            JsonObjectBuilder builder = Json.createObjectBuilder();
+            Random random = new Random();
+            for (int i = 0; i < 10; i++) {
+                builder.add(""+random.nextInt(), random.nextInt());
+            }
+            JsonObject json = builder.build();
+            assertFalse(saveIfAbsent(json, file1));
+            assertNotEquals(json, loadJsonObject(file1));
+            assertTrue(saveIfAbsent(json, file2));
+            assertEquals(json, loadJsonObject(file2));
+            assertTrue(file2.delete());
+        }
     }
 
     @Nested
+    @DisplayName("Parsing tests")
     public class ParseTests {
         @Test
+        @DisplayName("Player is parsed successfully")
         public void parsePlayerTest() throws IOException {
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_player.json");
             JsonObject jsonObject;
@@ -112,6 +149,7 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Team is parsed successfully")
         public void parseTeamTest() throws IOException {
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team.json");
             JsonObject json = loadJsonObject(file);
@@ -120,7 +158,8 @@ public class FileManagerTest {
         }
 
         @Test
-        public void loadTeamRegisterTest() throws IOException {
+        @DisplayName("Team register is parsed successfully")
+        public void parseTeamRegisterTest() throws IOException {
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json");
             TeamRegister register = loadTeamRegister(file);
             assertEquals(6, register.getTeam("Rosenborg").size());
@@ -130,6 +169,7 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Upcoming matches parse successfully")
         void parseUpcomingMatchTest() throws IOException {
             TeamRegister teamRegister = loadTeamRegister(
                     new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
@@ -143,6 +183,7 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Finished matches parse successfully")
         void parseFinishedMatchTest() throws IOException {
             TeamRegister teamRegister = loadTeamRegister(
                     new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
@@ -170,6 +211,7 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Knockout tournament parses successfully")
         void parseKnockOutTest() throws IOException {
             TeamRegister teamRegister = loadTeamRegister(
                     new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
@@ -180,8 +222,10 @@ public class FileManagerTest {
     }
 
     @Nested
+    @DisplayName("To JSON conversion tests")
     public class ToJsonTests {
         @Test
+        @DisplayName("Player successfully converted to JSON")
         public void playerToJsonTest() {
             Player player = new Player("Martin Ødegaard", 8);
             player.increaseGoals();
@@ -195,6 +239,7 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Team successfully converted to JSON")
         public void teamToJsonTest() {
             Team team = new Team("Brann");
             team.addPlayer(new Player("Bjarne", 4));
@@ -209,6 +254,7 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Upcoming matches successfully converted to JSON")
         public void upcomingMatchToJsonTest() {
             Team team1 = randomTeam(5, "Odd");
             Team team2 = randomTeam(5, "Sexy Computer Boys");
@@ -228,6 +274,7 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Partially setup match successfully converted to JSON")
         public void partiallySetUpMatchToJsonTest() {
             Team team1 = randomTeam(5);
             Team team2;
@@ -257,6 +304,7 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Finished match successfully converted to JSON")
         public void finishedMatchToJsonTest() {
             Team team1 = randomTeam(5);
             Team team2;
@@ -281,12 +329,12 @@ public class FileManagerTest {
         }
 
         @Test
+        @DisplayName("Tournament successfully converted to JSON")
         public void tournamentToJsonTest() throws IOException {
             TeamRegister teamRegister = loadTeamRegister(
                     new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_team_register.json"));
             File file = new File("src/test/resources/edu/ntnu/idatt2001/k01g08/fta/util/test_knockout.json");
             JsonObject jsonObject = loadJsonObject(file);
-            System.out.println(jsonObject);
             Tournament tournament = parseTournament(jsonObject, teamRegister);
             assertEquals(jsonObject, toJson(tournament));
         }
