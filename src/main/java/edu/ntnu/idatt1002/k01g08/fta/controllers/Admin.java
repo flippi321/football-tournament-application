@@ -9,6 +9,7 @@ import edu.ntnu.idatt1002.k01g08.fta.util.FileManager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Admin {
     private static TeamRegister teamRegister;
@@ -62,11 +63,19 @@ public class Admin {
         }
     }
 
-    public static ArrayList<String> getTeamNames() {
+    public static List<String> getTeamNames() {
         loadTeams();
         ArrayList<String> list = new ArrayList<>();
         for (Team team : teamRegister) {
             list.add(team.getName());
+        }
+        return list;
+    }
+
+    public static List<String> getPlayerStrings(String teamName) {
+        List<String> list = new ArrayList<>();
+        for (Player player : teamRegister.getTeam(teamName)) {
+            list.add(player.getNumber() + " " + player.getName());
         }
         return list;
     }
@@ -87,6 +96,29 @@ public class Admin {
 
     public static void deleteTeam(String teamName) throws IOException {
         teamRegister.removeTeam(teamRegister.getTeam(teamName));
+        saveTeams();
+    }
+
+    public static void editPlayer(String teamName, int oldPlayerNumber, int newPlayerNumber, String playerName) throws IOException {
+        loadTeams();
+        Team team = teamRegister.getTeam(teamName);
+        if (oldPlayerNumber != newPlayerNumber && team.getPlayer(newPlayerNumber) != null) {
+            throw new IllegalArgumentException("Player number not available");
+        }
+        Player oldPlayer = team.getPlayer(oldPlayerNumber);
+        team.removePlayer(oldPlayerNumber);
+
+        Player newPlayer = new Player(playerName, newPlayerNumber);
+        newPlayer.increaseRedCards(oldPlayer.getRedCards());
+        newPlayer.increaseYellowCards(oldPlayer.getYellowCards());
+        newPlayer.increaseAssists(oldPlayer.getAssists());
+        newPlayer.increaseGoals(oldPlayer.getGoals());
+        team.addPlayer(newPlayer);
+        saveTeams();
+    }
+
+    public static void deletePlayer(String teamName, int playerNumber) throws IOException {
+        teamRegister.getTeam(teamName).removePlayer(playerNumber);
         saveTeams();
     }
 }

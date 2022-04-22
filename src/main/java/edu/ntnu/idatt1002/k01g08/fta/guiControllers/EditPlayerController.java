@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -32,14 +33,13 @@ public class EditPlayerController {
     @FXML
     private Button deletePlayerButton;
 
+    private boolean delete;
+
     @Deprecated
     public void initialize() {
         teamSelectionBox.getItems().addAll(
-                "TEAM1",
-                "TEAM2",
-                "TEAM3"
+                Admin.getTeamNames()
         );
-        // TODO: 18.04.2022 Add real teams in list
     }
 
     @FXML
@@ -68,7 +68,7 @@ public class EditPlayerController {
     }
 
     @FXML
-    public void saveChanges(ActionEvent actionEvent) {
+    public void saveChanges(ActionEvent actionEvent) throws IOException{
         if (playerSelectionBox.getValue() == null || teamSelectionBox.getValue() == null) {
             errorLabel.setText("Must select a player to edit");
             return;
@@ -89,9 +89,14 @@ public class EditPlayerController {
 
         String firstName = firstNameInput.getText();
         String lastName = lastNameInput.getText();
+        String playerName = firstName + ' ' + lastName;
+        String teamName = teamSelectionBox.getValue().toString();
+        int oldPlayerNumber = Integer.parseInt(playerSelectionBox.getValue().toString().split(" ")[0]);
 
         errorLabel.setText("");
         // TODO: 18.04.2022 Edit the selected player
+        Admin.editPlayer(teamName, oldPlayerNumber, playerNumber, playerName);
+        SceneManager.setView("teamManagement");
     }
 
     @FXML
@@ -110,18 +115,23 @@ public class EditPlayerController {
     }
 
     @FXML
-    public void deletePlayer(ActionEvent actionEvent) {
-        // TODO: 18.04.2022 Add functionality, maybe add a confirm box
+    public void deletePlayer(ActionEvent actionEvent) throws IOException {
+        if (!delete) {
+            delete = true;
+            deletePlayerButton.setText("Confirm");
+            return;
+        }
+        Admin.deletePlayer(teamSelectionBox.getValue().toString(),
+                Integer.parseInt(playerSelectionBox.getValue().toString().split(" ")[0]));
+        SceneManager.setView("teamManagement");
     }
 
     @FXML
     public void teamSelected(ActionEvent actionEvent) {
         playerSelectionBox.getItems().removeAll(playerSelectionBox.getItems());
         if (teamSelectionBox.getValue() != null) {
-            // TODO: 18.04.2022 Import list of players in the selected team for the user to select
             playerSelectionBox.getItems().addAll(
-                    "PLAYER1",
-                    "PLAYER2"
+                    Admin.getPlayerStrings(teamSelectionBox.getValue().toString())
             );
         }
     }
