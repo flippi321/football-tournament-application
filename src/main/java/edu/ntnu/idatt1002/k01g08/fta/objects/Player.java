@@ -2,11 +2,11 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
 
 /**
  * Represents a football player.
- * @author Bendik M. Engen
- * @version 2022-03-21
+ * @author bendikme
+ * @version 2022-04-22
  */
 public class Player {
-    final private String name;
+    private String name;
     final private int number;
     private int redCards = 0;
     private int yellowCards = 0;
@@ -32,6 +32,10 @@ public class Player {
      */
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
