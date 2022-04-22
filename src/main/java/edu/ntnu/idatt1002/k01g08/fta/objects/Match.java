@@ -238,12 +238,14 @@ public class Match implements Iterable<GameEvent> {
 
     /**
      * Starts the match, and the match clock, if both teams have been registered.
+     * If this is the third half, sets length of half to 15.
      * Returns true if this match's state changed because of the call.
      * @return true if this match's state changed because of the call
      */
     public boolean start() {
         if (onPause() && (homeTeam != null && awayTeam != null)) {
             stage++;
+            if (stage == 5) setLengthOfHalf(15);
             startTime = Instant.now();
         }
         return isStarted();
