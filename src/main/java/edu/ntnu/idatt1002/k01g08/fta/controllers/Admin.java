@@ -12,19 +12,18 @@ import java.io.IOException;
 public class Admin {
     private static TeamRegister teamRegister;
     private static TournamentRegister tournamentRegister;
-    private static File teamRegisterFile = new File("team_register.json");
+    private static File teamRegisterFile = new File("userdata/team_register.json");
 
     //Temporary variables
     private static int numOfPlayersToCreate;
     private static String newestTeamCreated;
 
-    public static void addTeam(String teamName, int numOfPlayers) {
+    public static void addTeam(String teamName, int numOfPlayers) throws IllegalArgumentException {
         loadTeams();
-        if (teamRegister.getTeam(teamName) == null) {
-            teamRegister.addTeam(new Team(teamName));
-        } else {
+        if (teamRegister.getTeams().containsKey(teamName)) {
             throw new IllegalArgumentException("team name already exists");
         }
+        teamRegister.addTeam(new Team(teamName));
         numOfPlayersToCreate = numOfPlayers;
         newestTeamCreated = teamName;
     }
