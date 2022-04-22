@@ -59,11 +59,18 @@ public class Admin {
         return list;
     }
 
-    public static void editTeamName(String teamName, String newTeamName) {
+    public static void editTeamName(String teamName, String newTeamName) throws IOException {
         loadTeams();
         if (teamRegister.getTeams().containsKey(newTeamName)) {
             throw new IllegalArgumentException("Can't change name into another existing teams name");
         }
+        Team newTeam = new Team(newTeamName);
+        for (Player player : teamRegister.getTeam(teamName)) {
+            newTeam.addPlayer(player);
+        }
+        teamRegister.addTeam(newTeam);
+        teamRegister.removeTeam(teamRegister.getTeam(teamName));
+        saveTeams();
     }
 
     public static void deleteTeam(String teamName) throws IOException {

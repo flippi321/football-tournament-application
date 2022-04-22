@@ -61,14 +61,21 @@ public class EditTeamController {
     }
 
     @FXML
-    public void saveChanges(ActionEvent actionEvent) {
-        if (teamNameInput.getText().isBlank()) {
+    public void saveChanges(ActionEvent actionEvent) throws IOException {
+        String newTeamName = teamNameInput.getText();
+        if (newTeamName.isBlank()) {
             errorLabel.setText("Missing requirements");
             return;
         }
 
         errorLabel.setText("");
         // TODO: 19.04.2022 Change the name of the selected team
+        try {
+            Admin.editTeamName(teamSelectionBox.getValue().toString(), newTeamName);
+        } catch (IOException e) {
+            errorLabel.setText(e.getMessage());
+        }
+        SceneManager.setView("teamManagement");
     }
 
     @FXML
