@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -31,11 +32,8 @@ public class NewPlayerController {
     @FXML
     public void initialize() {
         teamSelectionBox.getItems().addAll(
-                "TEAM1",
-                "TEAM2",
-                "TEAM3"
+                Admin.getTeamNames()
         );
-        // TODO: 18.04.2022 Add real teams in list
     }
 
     @FXML
@@ -64,7 +62,7 @@ public class NewPlayerController {
     }
 
     @FXML
-    public void saveChanges(ActionEvent actionEvent) {
+    public void saveChanges(ActionEvent actionEvent) throws IOException {
         if (playerNumberInput.getText().isBlank() || firstNameInput.getText().isBlank() || lastNameInput.getText().isBlank()) {
             errorLabel.setText("Missing requirements");
             return;
@@ -80,8 +78,14 @@ public class NewPlayerController {
 
         String firstName = firstNameInput.getText();
         String lastName = lastNameInput.getText();
+        String playerName = firstName + " " + lastName;
 
         errorLabel.setText("");
         // TODO: 18.04.2022 Create player and add it to the selected team
+        if (Admin.addPlayerToExistingTeam(playerName, playerNumber, teamSelectionBox.getValue().toString())) {
+            SceneManager.setView("teamManagement");
+        } else {
+            errorLabel.setText("Something went wrong");
+        }
     }
 }

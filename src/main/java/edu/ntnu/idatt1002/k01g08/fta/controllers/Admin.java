@@ -36,8 +36,18 @@ public class Admin {
     }
 
     public static boolean addPlayerToNewestTeam(String name, int number) {
-        Player player = new Player(name, number);
-        return teamRegister.getTeam(newestTeamCreated).addPlayer(player);
+        return addPlayerToTeam(name, number, newestTeamCreated);
+    }
+
+    public static boolean addPlayerToTeam(String playerName, int number, String teamName) {
+        Player player = new Player(playerName, number);
+        return teamRegister.getTeam(teamName).addPlayer(player);
+    }
+
+    public static boolean addPlayerToExistingTeam(String playerName, int number, String teamName) throws IOException {
+        boolean result = addPlayerToTeam(playerName, number, teamName);
+        saveTeams();
+        return result;
     }
 
     public static void saveTeams() throws IOException {
