@@ -311,8 +311,12 @@ public class FileManager {
      * @return a tournament parsed from the contents of the file
      * @throws IOException if the file for some reason could not be opened for reading
      */
-    static Tournament loadTournament(File file, TeamRegister teamRegister) throws IOException {
+    public static Tournament loadTournament(File file, TeamRegister teamRegister) throws IOException {
         return parseTournament(loadJsonObject(file), teamRegister);
+    }
+
+    public static void saveTournament(File file, Tournament tournament) throws IOException {
+        saveJson(toJson(tournament), file);
     }
 
     /**
