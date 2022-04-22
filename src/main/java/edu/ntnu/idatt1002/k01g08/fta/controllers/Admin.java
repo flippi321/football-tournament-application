@@ -14,6 +14,8 @@ public class Admin {
     private static TeamRegister teamRegister;
     private static TournamentRegister tournamentRegister;
     private static File teamRegisterFile = new File("userdata/team_register.json");
+    private static File tournamentPath = new File("userdata/tournaments");
+    private static ArrayList<File> tournamentFiles = new ArrayList<>();
 
     //Temporary variables
     private static int numOfPlayersToCreate;
