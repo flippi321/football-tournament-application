@@ -94,9 +94,12 @@ public class EditPlayerController {
         int oldPlayerNumber = Integer.parseInt(playerSelectionBox.getValue().toString().split(" ")[0]);
 
         errorLabel.setText("");
-        // TODO: 18.04.2022 Edit the selected player
-        Admin.editPlayer(teamName, oldPlayerNumber, playerNumber, playerName);
-        SceneManager.setView("teamManagement");
+        try {
+            Admin.editPlayer(teamName, oldPlayerNumber, playerNumber, playerName);
+            SceneManager.setView("teamManagement");
+        } catch (IllegalArgumentException e) {
+            errorLabel.setText("Player number is already in use");
+        }
     }
 
     @FXML
