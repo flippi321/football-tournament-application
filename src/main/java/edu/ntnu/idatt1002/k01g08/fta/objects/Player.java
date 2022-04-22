@@ -34,6 +34,10 @@ public class Player {
         return name;
     }
 
+    /**
+     * Sets the name of this player
+     * @param name the string to set this player's name to
+     */
     public void setName(String name) {
         this.name = name;
     }

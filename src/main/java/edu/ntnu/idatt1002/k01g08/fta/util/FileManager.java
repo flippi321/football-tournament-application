@@ -300,6 +300,12 @@ public class FileManager {
         return parseTeamRegister(loadJsonArray(file));
     }
 
+    /**
+     * Saves a team register to a file.
+     * @param teamRegister a team register to save
+     * @param file the file to save to
+     * @throws IOException if the team register for some reason could not be saved
+     */
     public static void saveTeamRegister(TeamRegister teamRegister, File file) throws IOException {
         saveJson(toJson(teamRegister), file);
     }
@@ -315,6 +321,12 @@ public class FileManager {
         return parseTournament(loadJsonObject(file), teamRegister);
     }
 
+    /**
+     * Saves a tournament to a file.
+     * @param tournament a tournament to save
+     * @param file the file to save to
+     * @throws IOException if the tournament for some reason could not be saved
+     */
     public static void saveTournament(File file, Tournament tournament) throws IOException {
         saveJson(toJson(tournament), file);
     }
