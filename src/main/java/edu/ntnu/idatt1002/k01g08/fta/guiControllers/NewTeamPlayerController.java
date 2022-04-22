@@ -92,7 +92,7 @@ public class NewTeamPlayerController {
                 Admin.saveTeams();
             } catch (IOException e) {
                 errorLabel.setText(e.getMessage());
-                System.out.println(e.getStackTrace());
+                System.out.println(e.getMessage());
             }
             SceneManager.setView("teamManagement");
         }

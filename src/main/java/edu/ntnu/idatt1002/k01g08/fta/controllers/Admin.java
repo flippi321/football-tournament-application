@@ -38,9 +38,6 @@ public class Admin {
     }
 
     public static void saveTeams() throws IOException {
-        if (!teamRegisterFile.exists()) {
-            teamRegisterFile.createNewFile();
-        }
         FileManager.saveTeamRegister(teamRegister, teamRegisterFile);
     }
 

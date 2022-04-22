@@ -97,6 +97,7 @@ public class FileManager {
      * @throws IOException if file for some reason could not be saved
      */
     public static void saveJson(JsonStructure json, File file) throws IOException {
+        file.getParentFile().mkdirs();
         try (FileWriter fileWriter = new FileWriter(file);
              JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
                 jsonWriter.write(json);
