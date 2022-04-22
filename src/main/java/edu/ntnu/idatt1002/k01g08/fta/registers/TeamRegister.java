@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.k01g08.fta.registers;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Map;
  * @version 2022-04-07
  */
 
-public class TeamRegister {
+public class TeamRegister implements Iterable<Team> {
     private final Map<String,Team> teams;
 
     /**
@@ -95,5 +96,10 @@ public class TeamRegister {
             sb.append(team.getName()).append("\n");
         }
         return sb.toString();
+    }
+
+    @Override
+    public Iterator<Team> iterator() {
+        return teams.values().iterator();
     }
 }
