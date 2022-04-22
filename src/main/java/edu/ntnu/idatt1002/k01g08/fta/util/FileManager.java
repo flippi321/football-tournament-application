@@ -61,7 +61,7 @@ public class FileManager {
      * @throws IOException if the file for some reason could not be opened for reading
      * @throws JsonException if a JSON object or array cannot be created due to incorrect representation
      */
-    static JsonStructure loadJson(File file) throws IOException {
+    public static JsonStructure loadJson(File file) throws IOException {
         try (FileReader fileReader = new FileReader(file);
              JsonReader jsonReader = Json.createReader(fileReader)) {
                 return jsonReader.read();
@@ -75,7 +75,7 @@ public class FileManager {
      * @throws IOException if the file for some reason could not be opened for reading
      * @throws JsonException if a JSON array cannot be created due to incorrect representation
      */
-    static JsonArray loadJsonArray(File file) throws IOException {
+    public static JsonArray loadJsonArray(File file) throws IOException {
         return (JsonArray) loadJson(file);
     }
 
@@ -86,7 +86,7 @@ public class FileManager {
      * @throws IOException if the file for some reason could not be opened for reading
      * @throws JsonException if a JSON object cannot be created due to incorrect representation
      */
-    static JsonObject loadJsonObject(File file) throws IOException {
+    public static JsonObject loadJsonObject(File file) throws IOException {
         return (JsonObject) loadJson(file);
     }
 
@@ -96,7 +96,7 @@ public class FileManager {
      * @param file the file to save the JSON object to
      * @throws IOException if file for some reason could not be saved
      */
-    static void saveJson(JsonStructure json, File file) throws IOException {
+    public static void saveJson(JsonStructure json, File file) throws IOException {
         try (FileWriter fileWriter = new FileWriter(file);
              JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
                 jsonWriter.write(json);
@@ -110,7 +110,7 @@ public class FileManager {
      * @return true if the file was created
      * @throws IOException if file for some reason could not be saved
      */
-    static boolean saveIfAbsent(JsonObject json, File file) throws IOException {
+    public static boolean saveIfAbsent(JsonObject json, File file) throws IOException {
         if (file.exists()) return false;
         saveJson(json, file);
         return true;
@@ -295,8 +295,12 @@ public class FileManager {
      * @return a team register parsed from the contents of the file
      * @throws IOException if the file for some reason could not be opened for reading
      */
-    static TeamRegister loadTeamRegister(File file) throws IOException {
+    public static TeamRegister loadTeamRegister(File file) throws IOException {
         return parseTeamRegister(loadJsonArray(file));
+    }
+
+    public static void saveTeamRegister(TeamRegister teamRegister, File file) throws IOException {
+        saveJson(toJson(teamRegister), file);
     }
 
     /**
@@ -340,6 +344,14 @@ public class FileManager {
         objectBuilder.add(TEAM_NAME_KEY, team.getName());
         objectBuilder.add(TEAM_PLAYERS_KEY, arrayBuilder.build());
         return objectBuilder.build();
+    }
+
+    static JsonArray toJson(TeamRegister teamRegister) {
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        for (Team team : teamRegister.getTeams().values()) {
+            arrayBuilder.add(toJson(team));
+        }
+        return arrayBuilder.build();
     }
 
     /**

@@ -1,10 +1,11 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
+import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -63,8 +64,15 @@ public class NewTeamController {
             return;
         }
 
-        errorLabel.setText("");
-        // TODO: 19.04.2022 Create team
-        SceneManager.setView("newTeamPlayer");
+        if (numberOfPlayers < 1) {
+            errorLabel.setText("The team must contain at least 1 player");
+        }
+
+        try {
+            Admin.addTeam(teamNameInput.getText(), numberOfPlayers);
+            SceneManager.setView("newTeamPlayer");
+        } catch (IllegalArgumentException e) {
+            errorLabel.setText("The team name is already in use");
+        }
     }
 }
