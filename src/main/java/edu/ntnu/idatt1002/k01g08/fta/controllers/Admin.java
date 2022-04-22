@@ -8,6 +8,7 @@ import edu.ntnu.idatt1002.k01g08.fta.util.FileManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Admin {
     private static TeamRegister teamRegister;
@@ -47,5 +48,26 @@ public class Admin {
         } catch (IOException e) {
             teamRegister = new TeamRegister();
         }
+    }
+
+    public static ArrayList<String> getTeamNames() {
+        loadTeams();
+        ArrayList<String> list = new ArrayList<>();
+        for (Team team : teamRegister) {
+            list.add(team.getName());
+        }
+        return list;
+    }
+
+    public static void editTeamName(String teamName, String newTeamName) {
+        loadTeams();
+        if (teamRegister.getTeams().containsKey(newTeamName)) {
+            throw new IllegalArgumentException("Can't change name into another existing teams name");
+        }
+    }
+
+    public static void deleteTeam(String teamName) throws IOException {
+        teamRegister.removeTeam(teamRegister.getTeam(teamName));
+        saveTeams();
     }
 }

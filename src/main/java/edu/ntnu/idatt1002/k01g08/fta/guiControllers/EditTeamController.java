@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
+import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -26,14 +28,11 @@ public class EditTeamController {
     @FXML
     private Button deleteTeamButton;
 
+    private boolean delete = false;
+
     @Deprecated
     public void initialize() {
-        teamSelectionBox.getItems().addAll(
-                "TEAM1",
-                "TEAM2",
-                "TEAM3"
-        );
-        // TODO: 18.04.2022 Add real teams in list
+        teamSelectionBox.getItems().addAll(Admin.getTeamNames());
     }
 
     @FXML
@@ -73,14 +72,19 @@ public class EditTeamController {
     }
 
     @FXML
-    public void deleteTeam(ActionEvent actionEvent) {
-        // TODO: 18.04.2022 Add functionality, maybe add a confirm box
+    public void deleteTeam(ActionEvent actionEvent) throws IOException {
+        if (!delete) {
+            delete = true;
+            deleteTeamButton.setText("Confirm");
+            return;
+        }
+        Admin.deleteTeam(teamSelectionBox.getValue().toString());
+        SceneManager.setView("teamManagement");
     }
 
     @FXML
     public void teamSelected(ActionEvent actionEvent) {
         if (teamSelectionBox.getValue() != null) {
-            // TODO: 18.04.2022 Import list of players in the selected team for the user to select
             teamNameInput.setDisable(false);
             deleteTeamButton.setDisable(false);
         } else {
