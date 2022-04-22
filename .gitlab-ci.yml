@@ -24,7 +24,7 @@ lint:
     - merge_requests
   script:
     - echo "Checking formatting"
-    - mvn clean formatter:validate
+    #- mvn clean formatter:validate
 
 test:
   stage: verify

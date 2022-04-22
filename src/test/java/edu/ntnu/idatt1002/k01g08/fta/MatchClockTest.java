@@ -8,7 +8,6 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-@Disabled
 @DisplayName("Match clock test")
 public class MatchClockTest {
     Team team1;

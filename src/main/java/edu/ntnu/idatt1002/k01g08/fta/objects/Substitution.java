@@ -29,7 +29,7 @@ public class Substitution extends GameEvent {
      */
     public Substitution(String timeStampOfMatchTime, Team teamSwitchingPlayers, Player playerIn, Player playerOut)
             throws IllegalArgumentException {
-        super(null, teamSwitchingPlayers, timeStampOfMatchTime);
+        super(playerIn, teamSwitchingPlayers, timeStampOfMatchTime);
         this.playerIn = playerIn;
         this.playerOut = playerOut;
     }
@@ -69,7 +69,6 @@ public class Substitution extends GameEvent {
      * GetEvent method to get a string description of the event
      * @return String substitution description
      */
-    //TODO: Add test
     @Override
     public String getEvent() {
         return "Team: " + getTeam() + " substituted player: "+ getPlayerOut() + " for: " + getPlayerIn() +
@@ -78,8 +77,7 @@ public class Substitution extends GameEvent {
     @Override
     public String toString() {
         return "Substitution:\n" +
-                "Player in: " + getPlayerIn() +
-                "\nPlayer out: " + getPlayerOut();
+                "Player in: " + getPlayerIn().getName() +
+                "\nPlayer out: " + getPlayerOut().getName();
     }
 }
-

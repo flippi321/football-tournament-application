@@ -41,13 +41,18 @@ public class Foul extends GameEvent{
             IllegalArgumentException {
         super(player, team, timeStampOfMatchTime);
 
-        if(foulTag.isBlank()) foulTag = null;
+        if(foulTag != null && foulTag.isBlank()) foulTag = null;
         this.foulTag = foulTag;
         if(giveCard == 1) {
             player.increaseYellowCards();
-            if(yellowCard == 2) player.increaseRedCards();
+            yellowCard++;
+            if(yellowCard == 2){
+                player.increaseRedCards();
+                redCard++;
+            }
         } else if (giveCard == 2) {
             player.increaseRedCards();
+            redCard++;
         }
     }
 

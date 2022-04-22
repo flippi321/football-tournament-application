@@ -60,9 +60,9 @@ public class FoulTest {
                     Player testPlayer = new Player("Morgan Freeman", 10);
                     Team testTeam = new Team("Team");
                     Foul testFoul = new Foul("Hands", null, testPlayer, testTeam, 1);
-                } catch(IllegalArgumentException e) {
-                    assertEquals("The value of the timestamp of substitution" +
-                            " was 'null', please try again.", e.getMessage());
+                } catch(NullPointerException n) {
+                    assertEquals("The value of the timestamp of substitution was 'null', which is not valid."
+                            , n.getMessage());
                 }
             }
 
@@ -76,13 +76,9 @@ public class FoulTest {
                     fail("'instantiatingAFoulWithParameterTimeStampAsABlankString()' did not throw an Exception " +
                             "when expected to.");
                 } catch(IllegalArgumentException e) {
-                    assertEquals("The timestamp was inputted as an empty string, " +
-                            "please try again.", e.getMessage());
+                    assertEquals("The timestamp was inputted as an empty string.", e.getMessage());
                 }
             }
         }
     }
-
-    //TODO
-    // Add @Displayname
 }

@@ -71,8 +71,8 @@ public class TeamRegisterTest {
     }
 
     @Test
-    @DisplayName("Throws Exception when trying to aquire non existent team")
-    public void getTeamNotInRegisterShouldThrowIllegalArgumenteException(){
+    @DisplayName("Throws Exception when trying to acquire non existent team")
+    public void getTeamNotInRegisterShouldThrowIllegalArgumentException(){
         TeamRegister register = new TeamRegister();
         register.addTeam(new Team("NTNUI"));
         register.addTeam(new Team("Tihlde Pythons"));
