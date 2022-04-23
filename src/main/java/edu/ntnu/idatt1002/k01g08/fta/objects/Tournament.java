@@ -281,6 +281,9 @@ public abstract class Tournament {
                 throw new IllegalArgumentException(e.getMessage());
             }
         }
+        else if (startDate.equals("[NO DATE]")) {
+            return;
+        }
         else {
             throw new IllegalArgumentException("Your date is empty or is using the wrong format. " +
                     "The date must be on the format mm:ss (ex 09:45 or 65:55)");

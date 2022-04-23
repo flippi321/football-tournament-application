@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -27,9 +28,7 @@ public class LoadTournamentController {
     @Deprecated
     public void initialize() {
         tournamentSelectionBox.getItems().addAll(
-                "T1",
-                "T2",
-                "T3"
+                Admin.getTournamentNames()
         );
         // TODO: 18.04.2022 Add real teams in list
     }

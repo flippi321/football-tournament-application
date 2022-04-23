@@ -1,7 +1,9 @@
 package edu.ntnu.idatt1002.k01g08.fta.controllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.objects.KnockOut;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;
 import edu.ntnu.idatt1002.k01g08.fta.util.FileManager;
@@ -10,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Admin {
     private static TeamRegister teamRegister;
@@ -21,6 +24,9 @@ public class Admin {
     //Temporary variables
     private static int numOfPlayersToCreate;
     private static String newestTeamCreated;
+    private static int numOfTeamsToAdd;
+    private static String tournamentToCreateName;
+    private static Tournament activeTournament;
 
     public static void addTeam(String teamName, int numOfPlayers) throws IllegalArgumentException {
         loadTeams();
@@ -61,6 +67,33 @@ public class Admin {
         } catch (IOException e) {
             teamRegister = new TeamRegister();
         }
+    }
+
+    public static void loadTournaments() {
+        tournamentRegister = new TournamentRegister();
+        if (!tournamentPath.exists()) {
+            return;
+        }
+        loadTeams();
+        if (tournamentPath.listFiles().length > 0) {
+            File[] listOfFiles = tournamentPath.listFiles();
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    try {
+                        tournamentRegister.addTournament(FileManager.loadTournament(file, teamRegister));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    return;
+                }
+            }
+        }
+    }
+
+    public static void saveTournament(Tournament tournament) throws IOException {
+        File file = new File(tournamentPath + "/" + tournament.getTournamentName().replaceAll(" ", "_") + ".json");
+        FileManager.saveTournament(file, tournament);
     }
 
     public static List<String> getTeamNames() {
@@ -120,5 +153,51 @@ public class Admin {
     public static void deletePlayer(String teamName, int playerNumber) throws IOException {
         teamRegister.getTeam(teamName).removePlayer(playerNumber);
         saveTeams();
+    }
+
+    public static boolean numberOfTeamsInvalid(int num) {
+        if (num < 2) {
+            return true;
+        } else {
+            return (num & num - 1) != 0;
+        }
+    }
+
+    public static void setTournamentToCreateName(String name) {
+        tournamentToCreateName = name;
+    }
+
+    public static void setNumOfTeamsToAdd(int num) {
+        numOfTeamsToAdd = num;
+    }
+
+    public static int getNumOfTeamsToAdd() {
+        return numOfTeamsToAdd;
+    }
+
+    public static void createTournament(ArrayList<String> teams) throws IOException {
+        Tournament tournament = new KnockOut(tournamentToCreateName, getTeams(teams));
+        activeTournament = tournament;
+        saveTournament(activeTournament);
+    }
+
+    public static ArrayList<Team> getTeams(ArrayList<String> teams) {
+        loadTeams();
+        ArrayList<Team> teamsList = new ArrayList<>();
+        for (String name : teams) {
+            teamsList.add(teamRegister.getTeam(name));
+        }
+        return teamsList;
+    }
+
+    public static ArrayList<String> getTournamentNames() {
+        loadTournaments();
+        ArrayList<String> names = new ArrayList<>();
+
+        for (Tournament tournament : tournamentRegister.getTournamentList()) {
+            names.add(tournament.getTournamentName());
+        }
+
+        return names;
     }
 }

@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -56,16 +57,21 @@ public class NewTournamentController {
             return;
         }
 
+        int numberOfTeams;
         try {
-            Integer.parseInt(numberOfTeamsInput.getText());
+            numberOfTeams = Integer.parseInt(numberOfTeamsInput.getText());
         } catch (IllegalArgumentException e) {
             errorLabel.setText("You must enter a number in number of teams");
             return;
         }
 
-        errorLabel.setText("");
+        if (Admin.numberOfTeamsInvalid(numberOfTeams)) {
+            errorLabel.setText("In a knockout-tournament the number of teams must be 2-4-8-16-32 . . .");
+            return;
+        }
 
-        // TODO: Create a tournament
+        Admin.setTournamentToCreateName(tournamentNameInput.getText());
+        Admin.setNumOfTeamsToAdd(numberOfTeams);
         SceneManager.setView("newTournamentTeamSelection");
     }
 }
