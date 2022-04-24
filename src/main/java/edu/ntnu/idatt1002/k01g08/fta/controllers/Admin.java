@@ -1,9 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.controllers;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.KnockOut;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
+import edu.ntnu.idatt1002.k01g08.fta.objects.*;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;
 import edu.ntnu.idatt1002.k01g08.fta.util.FileManager;
@@ -199,5 +196,18 @@ public class Admin {
         }
 
         return names;
+    }
+
+    public static Tournament getActiveTournament() {
+        return activeTournament;
+    }
+
+    public static Match getNextMatch() {
+        return activeTournament.getUpcomingMatches().get(0);
+    }
+
+    public static void selectActiveTournament(int n) {
+        loadTournaments();
+        activeTournament = tournamentRegister.getTournamentList().get(n);
     }
 }

@@ -30,7 +30,6 @@ public class LoadTournamentController {
         tournamentSelectionBox.getItems().addAll(
                 Admin.getTournamentNames()
         );
-        // TODO: 18.04.2022 Add real teams in list
     }
 
     @FXML
@@ -55,7 +54,20 @@ public class LoadTournamentController {
 
     @FXML
     public void loadTournament(ActionEvent actionEvent) {
-        // TODO: 19.04.2022 Add functionality
+        if (tournamentSelectionBox.getValue() == null) {
+            errorLabel.setText("You must select a tournament to load");
+            return;
+        }
+
+        String selectedTournamentName = tournamentSelectionBox.getValue().toString();
+        int n = Admin.getTournamentNames().indexOf(selectedTournamentName);
+        try {
+            Admin.selectActiveTournament(n);
+            SceneManager.setView("tournamentOverview");
+        } catch (IllegalArgumentException | IOException e) {
+            errorLabel.setText("Was not able to load the selected tournament");
+            e.printStackTrace();
+        }
     }
 
     @FXML

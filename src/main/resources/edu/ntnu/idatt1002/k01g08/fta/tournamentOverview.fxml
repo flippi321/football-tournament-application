@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.NewTournamentTeamSelectionController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k01g08.fta.guiControllers.TournamentOverviewController">
    <top>
       <GridPane prefHeight="100.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -88,11 +88,39 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
                   <Label text="Current status:">
                      <font>
                         <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="teamsLeftLabel" text="2 teams left">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="statusLabel" text="99 MATCHES REMAINING">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="-------------------------------------------">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label layoutX="202.0" layoutY="10.0" text="Next match:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="nextMatchLabel" text="TEAM1 vs TEAM2">
+                     <font>
+                        <Font size="24.0" />
                      </font>
                   </Label>
                </children>
@@ -100,7 +128,7 @@
                   <Insets top="20.0" />
                </GridPane.margin>
             </VBox>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets top="20.0" />
                </GridPane.margin>
@@ -110,6 +138,14 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="400.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <VBox fx:id="historyContainer" spacing="10.0">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </VBox>
+                     </content></ScrollPane>
                </children>
             </VBox>
          </children>
@@ -137,7 +173,7 @@
                <children>
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#save" prefWidth="250.0" text="Save Tournament" textFill="#00a130" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -145,7 +181,7 @@
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin></Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#nextMatch" prefWidth="250.0" text="Next Match" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Button fx:id="nextMatchButton" alignment="CENTER" mnemonicParsing="false" onAction="#nextMatch" prefWidth="250.0" text="Next Match" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

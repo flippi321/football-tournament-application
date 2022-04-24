@@ -59,8 +59,12 @@ public class NewTournamentTeamSelectionController {
     @FXML
     public void confirm(ActionEvent actionEvent) throws IOException {
         if (teamsAdded.size() == Admin.getNumOfTeamsToAdd()) {
-            Admin.createTournament(teamsAdded);
-            SceneManager.setView("main");
+            try {
+                Admin.createTournament(teamsAdded);
+                SceneManager.setView("tournamentOverview");
+            } catch (IOException e) {
+                errorLabel.setText("Was not able to create file, make sure to not use special characters such as '. or ?'");
+            }
         } else {
             errorLabel.setText("You must add " + Admin.getNumOfTeamsToAdd() + " teams");
         }
