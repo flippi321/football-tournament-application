@@ -9,9 +9,7 @@
 }
 
 .image-view{
-    -fx-background-insets: 0, 1;
-    -fx-background-radius: 3, 2;
-    -fx-background: rgb(255, 255, 255);
+    -fx-background-color: white;
 }
 
 .label{

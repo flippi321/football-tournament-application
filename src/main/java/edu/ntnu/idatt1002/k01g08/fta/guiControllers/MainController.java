@@ -1,9 +1,11 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 
@@ -13,6 +15,14 @@ import java.io.IOException;
  * @author jfben
  */
 public class MainController{
+
+    @FXML
+    private ImageView reportButton;
+
+    @Deprecated
+    public void initialize() {
+        reportButton.setStyle("-fx-background-color: WHITE");
+    }
 
     @FXML
     public void settingsButtonClick(Event event) throws IOException {
