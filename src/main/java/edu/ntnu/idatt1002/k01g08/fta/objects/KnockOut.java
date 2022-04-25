@@ -12,7 +12,7 @@ public class KnockOut extends Tournament {
     //Number of stages in the tournament
     private int stages;
     //Contains all matches from the previous stage
-    private final ArrayList<Match> previousRoundMatches = new ArrayList<>();
+    //private final ArrayList<Match> previousRoundMatches = new ArrayList<>();
 
 
     public KnockOut(String tournamentName, int stages) {
@@ -131,7 +131,17 @@ public class KnockOut extends Tournament {
     public void findUpcomingMatches() {
         Random random = new Random();
 
+        if (!getUpcomingMatches().isEmpty()) {
+            return;
+        }
+
+        if (previousRoundMatches.size() == 1) {
+            setWinner(previousRoundMatches.get(0).getWinner());
+            return;
+        }
+
         if (previousRoundMatches.isEmpty()) { //If previousRound == null, then it's the first round.
+            System.out.println("first round");
             ArrayList<Team> teamsRemaining = new ArrayList<>(getTeams());
 
             while (!teamsRemaining.isEmpty()) {
@@ -152,25 +162,34 @@ public class KnockOut extends Tournament {
                 teamsRemaining.remove(awayTeam);
             }
 
-            return;
+            //return;
         }
         else { //If a previous round has been played, get winners from the matches.
-            while (!previousRoundMatches.isEmpty()) {
+            System.out.println(previousRoundMatches.size() + " matches last round.");
+            while (previousRoundMatches.size() != 0) {
+                System.out.println("not first round");
                 int homeTeamNum = random.nextInt(previousRoundMatches.size());
                 int awayTeamNum;
                 do {
                     awayTeamNum = random.nextInt(previousRoundMatches.size());
                 } while (homeTeamNum == awayTeamNum);
 
-                Team homeTeam = previousRoundMatches.get(homeTeamNum).getWinner();
-                Team awayTeam = previousRoundMatches.get(awayTeamNum).getWinner();
+                Match match1 = previousRoundMatches.get(homeTeamNum);
+                Match match2 = previousRoundMatches.get(awayTeamNum);
+
+                Team homeTeam = match1.getWinner();
+                Team awayTeam = match2.getWinner();
+
+                System.out.println(homeTeam.getName() + " vs " + awayTeam.getName());
 
                 setUpcomingMatch(homeTeam, awayTeam);
 
-                previousRoundMatches.remove(previousRoundMatches.get(homeTeamNum));
-                previousRoundMatches.remove(previousRoundMatches.get(awayTeamNum));
+                previousRoundMatches.remove(match1);
+                previousRoundMatches.remove(match2);
             }
+            previousRoundMatches = new ArrayList<>();
         }
-        previousRoundMatches.addAll(getUpcomingMatches());
+        previousRoundMatches = new ArrayList<>();
+        //previousRoundMatches.addAll(getUpcomingMatches());
     }
 }

@@ -24,6 +24,7 @@ public abstract class Tournament {
     private final String startDate;
     private Team winner;
     private final int matchLength;
+    protected ArrayList<Match> previousRoundMatches = new ArrayList<>();
 
     /**
      * Constructor for object which represents an abstract tournament with all inputs
@@ -128,8 +129,11 @@ public abstract class Tournament {
      * and set the current match to empty
      */
     public void endMatch() {
-        matches.add(upcomingMatches.get(0));
-        upcomingMatches.remove(0);
+        System.out.println("---------------------Match ended--------------------");
+        matches.add(currentMatch);
+        //previousRoundMatches.remove(0);
+        previousRoundMatches.add(currentMatch);
+        upcomingMatches.remove(currentMatch);
         currentMatch = null;
     }
 

@@ -227,6 +227,7 @@ public class Match implements Iterable<GameEvent> {
             if (scores[0] > scores[1]) return homeTeam;
             else return awayTeam;
         }
+        System.out.println("Home goals: " + getHomeTeamScore());
         return null;
     }
 

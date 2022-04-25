@@ -39,10 +39,18 @@ public class TournamentOverviewController {
     @FXML
     private Label teamsLeftLabel;
 
+    private boolean tournamentDone = false;
+
     @Deprecated
     public void initialize() {
         tournamentNameLabel.setText(Admin.getActiveTournament().getTournamentName());
-        nextMatchLabel.setText(Admin.getNextMatch().getHomeTeam().getName() + " vs " + Admin.getNextMatch().getAwayTeam().getName());
+        try {
+            nextMatchLabel.setText(Admin.getNextMatch().getHomeTeam().getName() + " vs " + Admin.getNextMatch().getAwayTeam().getName());
+        } catch (IndexOutOfBoundsException e) {
+            tournamentDone = true;
+            nextMatchLabel.setText("The tournament is finished");
+            //e.printStackTrace();
+        }
         teamsLeftLabel.setText(Admin.getActiveTournament().getNumberOfTeams() + " teams are registered for this tournament");
         int matchesLeft = Admin.getActiveTournament().getUpcomingMatches().size();
         if (matchesLeft > 1) {

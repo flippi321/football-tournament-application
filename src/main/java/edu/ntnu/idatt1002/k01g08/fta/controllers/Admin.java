@@ -204,6 +204,7 @@ public class Admin {
     }
 
     public static Match getNextMatch() {
+        activeTournament.findUpcomingMatches();
         return activeTournament.getUpcomingMatches().get(0);
     }
 
