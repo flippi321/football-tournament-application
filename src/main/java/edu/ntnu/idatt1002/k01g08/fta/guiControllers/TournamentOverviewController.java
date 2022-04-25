@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Controller for the new tournament page
+ * Controller for the tournament-overview page
  *
  * @author jfben
  */
@@ -75,7 +75,8 @@ public class TournamentOverviewController {
     }
 
     @FXML
-    public void nextMatch(ActionEvent actionEvent) {
+    public void nextMatch(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("match");
     }
 
     @FXML

@@ -24,6 +24,7 @@ public class Admin {
     private static int numOfTeamsToAdd;
     private static String tournamentToCreateName;
     private static Tournament activeTournament;
+    private static Match activeMatch;
 
     public static void addTeam(String teamName, int numOfPlayers) throws IllegalArgumentException {
         loadTeams();
@@ -209,5 +210,18 @@ public class Admin {
     public static void selectActiveTournament(int n) {
         loadTournaments();
         activeTournament = tournamentRegister.getTournamentList().get(n);
+    }
+
+    public static void loadActiveMatch() {
+        if (activeTournament.getCurrentMatch() != null) {
+            activeMatch = activeTournament.getCurrentMatch();
+            return;
+        }
+        activeTournament.startNextMatch();
+        activeMatch = activeTournament.getCurrentMatch();
+    }
+
+    public static Match getActiveMatch() {
+        return activeMatch;
     }
 }
