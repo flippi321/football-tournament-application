@@ -55,8 +55,10 @@ public class MatchReportController {
             awayPlayerList.getChildren().add(label);
         }
 
-        Label label = new Label(Admin.getCurrentReportedMatch().toString());
-        eventList.getChildren().add(label);
+        for (int i = 0; i < Admin.getCurrentReportedMatch().getMatchHistorySize(); i++) {
+            Label label = new Label(Admin.getCurrentReportedMatch().getGameEvent(i).getEvent());
+            eventList.getChildren().add(label);
+        }
     }
 
     @FXML

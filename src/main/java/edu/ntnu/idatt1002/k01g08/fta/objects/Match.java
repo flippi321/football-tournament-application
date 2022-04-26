@@ -145,6 +145,13 @@ public class Match implements Iterable<GameEvent> {
     }
 
     /**
+     * @return the amount of match histories
+     */
+    public int getMatchHistorySize() {
+        return matchHistory.size();
+    }
+
+    /**
      * Returns the length of one half match.
      * @return the length of one half match
      */
