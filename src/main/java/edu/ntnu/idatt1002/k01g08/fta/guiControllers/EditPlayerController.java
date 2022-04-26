@@ -98,7 +98,7 @@ public class EditPlayerController {
             Admin.editPlayer(teamName, oldPlayerNumber, playerNumber, playerName);
             SceneManager.setView("teamManagement");
         } catch (IllegalArgumentException e) {
-            errorLabel.setText("Player number is already in use");
+            errorLabel.setText(e.getMessage());
         }
     }
 

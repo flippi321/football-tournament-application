@@ -82,10 +82,12 @@ public class NewPlayerController {
 
         errorLabel.setText("");
         // TODO: 18.04.2022 Create player and add it to the selected team
-        if (Admin.addPlayerToExistingTeam(playerName, playerNumber, teamSelectionBox.getValue().toString())) {
+
+        try{
+            Admin.addPlayerToExistingTeam(playerName, playerNumber, teamSelectionBox.getValue().toString());
             SceneManager.setView("teamManagement");
-        } else {
-            errorLabel.setText("Something went wrong");
+        } catch (IllegalArgumentException e){
+            errorLabel.setText(e.getMessage());
         }
     }
 }
