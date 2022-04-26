@@ -59,15 +59,6 @@ public class MatchTest {
             assertThrows(NullPointerException.class, () -> new Match(null, team1));
             assertThrows(NullPointerException.class, () -> new Match(team1, null));
         }
-/*
-        @Disabled
-        @Test
-        @DisplayName("Too small team throws exception")
-        public void tooSmallTeamThrowsException() {
-            team1.removePlayer(1);
-            assertThrows(IllegalArgumentException.class, () -> new Match(team1, team2));
-            assertThrows(IllegalArgumentException.class, () -> new Match(team2, team1));
-        }*/
 
         @Test
         @DisplayName("Empty constructor does not throw exception")
