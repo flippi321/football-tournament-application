@@ -84,6 +84,8 @@ public class MatchController {
     private String awayTeamName;
     private boolean penaltyShootout;
     private Timeline timeline;
+    private ArrayList<Integer> homeYellowCards = new ArrayList<>();
+    private ArrayList<Integer> awayYellowCards = new ArrayList<>();
 
     @Deprecated
     public void initialize() {
@@ -174,7 +176,7 @@ public class MatchController {
             return;
         }
 
-        int playerNum = Integer.parseInt(homePlayerList.getItems().get(0).toString().split(" ")[0]);
+        int playerNum = Integer.parseInt(homePlayerList.getValue().toString().split(" ")[0]);
         Object player = homePlayerList.getValue();
         homePlayerList.getItems().remove(player);
 
@@ -191,10 +193,14 @@ public class MatchController {
             return;
         }
 
-        int playerNum = Integer.parseInt(homePlayerList.getItems().get(0).toString().split(" ")[0]);
+        int playerNum = Integer.parseInt(homePlayerList.getValue().toString().split(" ")[0]);
         Admin.getActiveMatch().addFoul(true, playerNum, "Yellow card", 1, null);
-        Object player = homePlayerList.getValue().toString();
-        homePlayerList.getItems().remove(player);
+        if (homeYellowCards.contains(playerNum)) {
+            Object player = homePlayerList.getValue().toString();
+            homePlayerList.getItems().remove(player);
+        } else {
+            homeYellowCards.add(playerNum);
+        }
 
         lastEventLabel.setText("Yellow card given to number " + playerNum);
         homePlayerList.setValue(null);
@@ -209,7 +215,7 @@ public class MatchController {
             return;
         }
 
-        int playerNum = Integer.parseInt(homePlayerList.getItems().get(0).toString().split(" ")[0]);
+        int playerNum = Integer.parseInt(homePlayerList.getValue().toString().split(" ")[0]);
         Object player = homePlayerList.getValue();
         homePlayerList.getItems().remove(player);
 
@@ -259,10 +265,14 @@ public class MatchController {
             return;
         }
 
-        int playerNum = Integer.parseInt(awayPlayerList.getItems().get(0).toString().split(" ")[0]);
+        int playerNum = Integer.parseInt(awayPlayerList.getValue().toString().split(" ")[0]);
         Admin.getActiveMatch().addFoul(false, playerNum, "Yellow card", 1, null);
-        Object player = awayPlayerList.getValue().toString();
-        awayPlayerList.getItems().remove(player);
+        if (awayYellowCards.contains(playerNum)) {
+            Object player = awayPlayerList.getValue().toString();
+            awayPlayerList.getItems().remove(player);
+        } else {
+            awayYellowCards.add(playerNum);
+        }
 
         lastEventLabel.setText("Yellow card given to number " + playerNum);
         homePlayerList.setValue(null);
@@ -277,7 +287,7 @@ public class MatchController {
             return;
         }
 
-        int playerNum = Integer.parseInt(awayPlayerList.getItems().get(0).toString().split(" ")[0]);
+        int playerNum = Integer.parseInt(awayPlayerList.getValue().toString().split(" ")[0]);
         Object player = awayPlayerList.getValue();
         awayPlayerList.getItems().remove(player);
 
@@ -325,7 +335,7 @@ public class MatchController {
             return;
         }
 
-        int playerNum = Integer.parseInt(awayPlayerList.getItems().get(0).toString().split(" ")[0]);
+        int playerNum = Integer.parseInt(awayPlayerList.getValue().toString().split(" ")[0]);
         Object player = awayPlayerList.getValue();
         awayPlayerList.getItems().remove(player);
 
@@ -342,7 +352,7 @@ public class MatchController {
             return;
         }
 
-        int playerNum = Integer.parseInt(awayPlayerList.getItems().get(0).toString().split(" ")[0]);
+        int playerNum = Integer.parseInt(awayPlayerList.getValue().toString().split(" ")[0]);
         Admin.getActiveMatch().addFoul(false, playerNum, "Red card", 2, null);
         Object player = awayPlayerList.getValue().toString();
         awayPlayerList.getItems().remove(player);
@@ -360,7 +370,7 @@ public class MatchController {
             return;
         }
 
-        int playerNum = Integer.parseInt(homePlayerList.getItems().get(0).toString().split(" ")[0]);
+        int playerNum = Integer.parseInt(homePlayerList.getValue().toString().split(" ")[0]);
         Admin.getActiveMatch().addFoul(true, playerNum, "Red card", 2, null);
         Object player = homePlayerList.getValue();
         homePlayerList.getItems().remove(player);
@@ -373,8 +383,20 @@ public class MatchController {
 
     @FXML
     public void undo(ActionEvent actionEvent) {
+        try {
+            Admin.getActiveMatch().getLastGameEvent();
+        } catch (IndexOutOfBoundsException e) {
+            errorLabel.setText("No game event to undo");
+            return;
+        }
+        if (!Admin.getActiveMatch().getLastGameEvent().getClass().getSimpleName().equals("Goal")) {
+            errorLabel.setText("Can only undo goals");
+            return;
+        }
+        Admin.getActiveMatch().removeLastGameEvent();
+        lastEventLabel.setText("Removed last game event");
 
-        lastEventLabel.setText(Admin.getActiveMatch().getLastGameEvent().toString());
+        resultLabel.setText(Admin.getActiveMatch().getHomeTeamScore() + " : " + Admin.getActiveMatch().getAwayTeamScore());
         homePlayerList.setValue(null);
         awayPlayerList.setValue(null);
         errorLabel.setText("");
@@ -438,7 +460,7 @@ public class MatchController {
             nextButton.setText("End half");
         }
         else if (Admin.getActiveMatch().isFinished()) {
-            SceneManager.setView("tournamentOverview");
+            SceneManager.setView("matchReport");
         }
     }
 }

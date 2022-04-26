@@ -547,14 +547,14 @@ public class Match implements Iterable<GameEvent> {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("(").append(homeTeam.getName()).append(" vs. ").append(awayTeam.getName());
+        StringBuilder builder = new StringBuilder().append(homeTeam.getName()).append(" vs. ").append(awayTeam.getName());
         if (!matchHistory.isEmpty()) {
-            builder.append(":\n[").append(getGameEvent(0).toString());
+            builder.append(":\n").append(getGameEvent(0).toString());
             for (int i = 1; i < matchHistory.size(); i++) {
-                builder.append(",\n").append(getGameEvent(i).toString());
+                builder.append("\n").append(getGameEvent(i).toString());
             }
-            builder.append(']');
+            builder.append(' ');
         }
-        return builder.append(')').toString();
+        return builder.append(' ').toString();
     }
 }
