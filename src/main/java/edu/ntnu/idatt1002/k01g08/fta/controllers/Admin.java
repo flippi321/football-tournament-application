@@ -250,4 +250,8 @@ public class Admin {
             return "style/" + activeStyle + ".css";
         }
     }
+
+    public static void setActiveStyle(String style) {
+        activeStyle = style;
+    }
 }

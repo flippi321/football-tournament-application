@@ -20,7 +20,7 @@
     -fx-padding: 3 0 2 7;
     -fx-cell-size: 1.66667em;
     -fx-border-color: blue;
-    -fx-border-width: 2;
+    -fx-border-width: 5;
     -fx-border-style: solid;
     -fx-font-weight: bold;
 }
@@ -46,6 +46,4 @@
     -fx-font-weight: bold;
 }
 
-#errorLabel {
-    -fx-font-weight: bold;
-}
+

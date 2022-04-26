@@ -1,7 +1,7 @@
 .root{
     -fx-font-size: 14pt;
-    -fx-base: rgb(0, 0, 0);
-    -fx-background: rgb(255, 255, 255);
+    -fx-base: rgb(255, 255, 255);
+    -fx-background: rgb(0, 0, 0);
 }
 
 .image-view{
@@ -20,7 +20,7 @@
     -fx-padding: 3 0 2 7;
     -fx-cell-size: 1.66667em;
     -fx-border-color: blue;
-    -fx-border-width: 2;
+    -fx-border-width: 5;
     -fx-border-style: solid;
     -fx-font-weight: bold;
 }
@@ -43,9 +43,24 @@
 }
 
 .button {
+    -fx-background-color: yellow;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
 }
 
+#header {
+    -fx-background-color: yellow;
+    -fx-text-fill: black;
+}
+
+#header .label {
+    -fx-text-fill: black;
+    -fx-base: rgb(0, 0, 0);
+}
+
 #errorLabel {
+    -fx-text-fill: rgb(255, 150, 150);
     -fx-font-weight: bold;
 }
+
+

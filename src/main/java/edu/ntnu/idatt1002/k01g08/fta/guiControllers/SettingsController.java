@@ -69,7 +69,7 @@ public class SettingsController {
 
     @FXML
     public void changeContrast(ActionEvent actionEvent) {
-        // TODO: Add functionality
+        Admin.setActiveStyle("contrast2");
     }
 
     @FXML
