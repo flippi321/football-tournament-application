@@ -49,7 +49,7 @@ public class TournamentOverviewController {
         } catch (IndexOutOfBoundsException e) {
             tournamentDone = true;
             nextMatchLabel.setText("The tournament is finished");
-            //e.printStackTrace();
+            nextMatchButton.setText("Tournament report");
         }
         teamsLeftLabel.setText(Admin.getActiveTournament().getNumberOfTeams() + " teams are registered for this tournament");
         int matchesLeft = Admin.getActiveTournament().getUpcomingMatches().size();
@@ -59,6 +59,13 @@ public class TournamentOverviewController {
             statusLabel.setText(matchesLeft + " confirmed match left");
         } else {
             statusLabel.setText("All matches have been played");
+        }
+
+        if (Admin.getActiveTournament().getMatches().isEmpty()) {
+            Label label = new Label("No matches have been played");
+            historyContainer.getChildren().add(label);
+        } else {
+
         }
     }
 

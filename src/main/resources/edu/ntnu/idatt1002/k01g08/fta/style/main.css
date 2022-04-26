@@ -1,11 +1,11 @@
 .root{
     -fx-font-size: 16pt;
     -fx-font-family: "Courier New";
-    -fx-base: rgb(255, 255, 0);
+    -fx-base: rgb(0, 0, 0);
     /*
     -fx-background: rgb(225, 228, 203);
     */
-    -fx-background: rgb(115, 115, 115);
+    -fx-background: rgb(244, 255, 255);
 }
 
 .image-view{
@@ -13,7 +13,7 @@
 }
 
 .label{
-    -fx-text-inner-color: red;
+    -fx-text-inner-color: black;
 }
 
 

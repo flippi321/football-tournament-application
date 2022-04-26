@@ -103,6 +103,7 @@ public class MatchController {
         awayTeamLabel2.setText(awayTeamName);
         homePlayerList.getItems().addAll(Admin.getPlayerStrings(homeTeamName));
         awayPlayerList.getItems().addAll(Admin.getPlayerStrings(awayTeamName));
+        lastEventLabel.setText("");
     }
 
     private void disableButtons() {
@@ -407,6 +408,9 @@ public class MatchController {
                     disableButtons();
                     homeGoalButton.setDisable(false);
                     awayGoalButton.setDisable(false);
+                    timeline.stop();
+                    timeLabel.setText("120:00");
+                    lastEventLabel.setText("Select the winner by giving a winning goal.");
                 } else {
                     Admin.getActiveMatch().end();
                     matchEnded();
@@ -430,6 +434,7 @@ public class MatchController {
         else if (Admin.getActiveMatch().onPause()) {
             activateButtons();
             Admin.getActiveMatch().start();
+            lastEventLabel.setText("Match started!");
             nextButton.setText("End half");
         }
         else if (Admin.getActiveMatch().isFinished()) {
