@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
@@ -24,12 +26,15 @@ public class LoadTournamentController {
     private Button loadTournamentButton;
     @FXML
     private ComboBox tournamentSelectionBox;
+    @FXML
+    private BorderPane root;
 
     @Deprecated
     public void initialize() {
         tournamentSelectionBox.getItems().addAll(
                 Admin.getTournamentNames()
         );
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
     }
 
     @FXML

@@ -1,11 +1,13 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
@@ -18,10 +20,12 @@ public class MainController{
 
     @FXML
     private ImageView reportButton;
+    @FXML
+    private BorderPane root;
 
     @Deprecated
     public void initialize() {
-        reportButton.setStyle("-fx-background-color: WHITE");
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
     }
 
     @FXML

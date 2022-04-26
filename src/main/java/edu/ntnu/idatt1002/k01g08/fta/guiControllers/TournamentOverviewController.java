@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -21,7 +23,8 @@ import java.util.ArrayList;
  * @author jfben
  */
 public class TournamentOverviewController {
-
+    @FXML
+    private BorderPane root;
     @FXML
     private Label errorLabel;
     @FXML
@@ -45,6 +48,7 @@ public class TournamentOverviewController {
 
     @Deprecated
     public void initialize() {
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
         tournamentNameLabel.setText(Admin.getActiveTournament().getTournamentName());
         try {
             nextMatchLabel.setText(Admin.getNextMatch().getHomeTeam().getName() + " vs " + Admin.getNextMatch().getAwayTeam().getName());

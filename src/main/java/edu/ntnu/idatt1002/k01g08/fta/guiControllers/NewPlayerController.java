@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
@@ -18,6 +20,8 @@ import java.io.IOException;
  * @author jfben
  */
 public class NewPlayerController {
+    @FXML
+    private BorderPane root;
     @FXML
     private Label errorLabel;
     @FXML
@@ -34,6 +38,7 @@ public class NewPlayerController {
         teamSelectionBox.getItems().addAll(
                 Admin.getTeamNames()
         );
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
     }
 
     @FXML

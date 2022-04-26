@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
@@ -17,6 +19,8 @@ import java.io.IOException;
  * @author jfben
  */
 public class NewTeamPlayerController {
+    @FXML
+    private BorderPane root;
     @FXML
     private Label errorLabel;
     @FXML
@@ -35,7 +39,7 @@ public class NewTeamPlayerController {
     public void initialize() {
         numOfPlayersToCreate = Admin.getNumOfPlayersToCreate();
         titleText.setText("Player " + (playersCreated+1) + " of " + numOfPlayersToCreate);
-        // TODO: 19.04.2022 Show real progress
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
     }
 
     @FXML

@@ -1,12 +1,15 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
@@ -16,6 +19,8 @@ import java.io.IOException;
  * @author jfben
  */
 public class SettingsController {
+    @FXML
+    private BorderPane root;
     @FXML
     private ComboBox textSizeBox;
     @FXML
@@ -30,6 +35,7 @@ public class SettingsController {
           "Normal",
           "Large"
         );
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
     }
 
     @FXML

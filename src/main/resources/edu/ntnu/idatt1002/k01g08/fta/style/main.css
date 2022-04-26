@@ -1,10 +1,6 @@
 .root{
-    -fx-font-size: 16pt;
-    -fx-font-family: "Courier New";
-    -fx-base: rgb(0, 0, 0);
-    /*
-    -fx-background: rgb(225, 228, 203);
-    */
+    -fx-font-size: 14pt;
+    -fx-base: rgb(10, 10, 10);
     -fx-background: rgb(234, 255, 255);
 }
 
@@ -13,7 +9,26 @@
 }
 
 .label{
-    -fx-text-inner-color: black;
+    -fx-text-inner-color: white;
+}
+
+.combo-box{
+    -fx-background: black;
+    -fx-base: rgb(255, 255, 255);
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em;
+}
+
+.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
 }
 
 

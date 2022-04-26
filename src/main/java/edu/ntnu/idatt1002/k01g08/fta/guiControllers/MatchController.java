@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.animation.Animation;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -24,7 +26,8 @@ import java.util.ArrayList;
  * @author jfben
  */
 public class MatchController {
-
+    @FXML
+    private BorderPane root;
     @FXML
     private Label errorLabel;
     @FXML
@@ -89,6 +92,7 @@ public class MatchController {
 
     @Deprecated
     public void initialize() {
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
         disableButtons();
         nextButton.setText("Start match");
         penaltyShootout = false;

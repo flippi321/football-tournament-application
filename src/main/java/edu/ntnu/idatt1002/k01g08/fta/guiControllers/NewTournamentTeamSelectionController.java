@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
@@ -7,6 +8,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -18,7 +20,8 @@ import java.util.ArrayList;
  * @author jfben
  */
 public class NewTournamentTeamSelectionController {
-
+    @FXML
+    private BorderPane root;
     @FXML
     private Label errorLabel;
     @FXML
@@ -34,6 +37,7 @@ public class NewTournamentTeamSelectionController {
     public void initialize() {
         registeredTeamsLabel.setText("Registered Teams (0/" + Admin.getNumOfTeamsToAdd() + ")");
         teamsToSelectBox.getItems().addAll(Admin.getTeamNames());
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
     }
 
     @FXML

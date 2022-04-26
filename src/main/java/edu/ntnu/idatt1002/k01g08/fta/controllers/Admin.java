@@ -17,6 +17,7 @@ public class Admin {
     private static File teamRegisterFile = new File("userdata/team_register.json");
     private static File tournamentPath = new File("userdata/tournaments");
     private static ArrayList<File> tournamentFiles = new ArrayList<>();
+    private static String activeStyle;
 
     //Temporary variables
     private static int numOfPlayersToCreate;
@@ -240,5 +241,13 @@ public class Admin {
 
     public static Match getActiveMatch() {
         return activeMatch;
+    }
+
+    public static String getActiveStyle() {
+        if (activeStyle == null) {
+            return "style/main.css";
+        } else {
+            return "style/" + activeStyle + ".css";
+        }
     }
 }

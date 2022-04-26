@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
@@ -9,7 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -34,12 +37,15 @@ public class EditPlayerController {
     private Button deletePlayerButton;
 
     private boolean delete;
+    @FXML
+    private BorderPane root;
 
     @Deprecated
     public void initialize() {
         teamSelectionBox.getItems().addAll(
                 Admin.getTeamNames()
         );
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
     }
 
     @FXML

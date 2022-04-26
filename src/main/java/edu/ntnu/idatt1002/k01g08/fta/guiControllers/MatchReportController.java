@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
@@ -7,6 +8,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -18,7 +20,8 @@ import java.util.ArrayList;
  * @author jfben
  */
 public class MatchReportController {
-
+    @FXML
+    private BorderPane root;
     @FXML
     private Label awayTeamLabel;
     @FXML
@@ -39,6 +42,7 @@ public class MatchReportController {
 
     @Deprecated
     public void initialize() {
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
         homeTeam = Admin.getCurrentReportedMatch().getHomeTeam().getName();
         awayTeam = Admin.getCurrentReportedMatch().getAwayTeam().getName();
 

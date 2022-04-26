@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
@@ -27,12 +29,15 @@ public class EditTeamController {
     private TextField teamNameInput;
     @FXML
     private Button deleteTeamButton;
+    @FXML
+    private BorderPane root;
 
     private boolean delete = false;
 
     @Deprecated
     public void initialize() {
         teamSelectionBox.getItems().addAll(Admin.getTeamNames());
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
     }
 
     @FXML

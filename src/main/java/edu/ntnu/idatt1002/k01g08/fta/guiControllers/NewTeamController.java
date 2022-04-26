@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
@@ -8,6 +9,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
@@ -18,11 +20,18 @@ import java.io.IOException;
  */
 public class NewTeamController {
     @FXML
+    private BorderPane root;
+    @FXML
     private Label errorLabel;
     @FXML
     private TextField teamNameInput;
     @FXML
     private TextField numOfPlayersInput;
+
+    @FXML
+    public void initialize() {
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
+    }
 
     @FXML
     public void settingsButtonClick(Event event) throws IOException {
