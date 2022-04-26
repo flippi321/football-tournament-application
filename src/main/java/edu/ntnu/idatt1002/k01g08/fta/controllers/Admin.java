@@ -80,8 +80,8 @@ public class Admin {
                 if (file.isFile()) {
                     try {
                         tournamentRegister.addTournament(FileManager.loadTournament(file, teamRegister));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {
+
                     }
                 } else {
                     return;
