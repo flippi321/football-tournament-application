@@ -124,6 +124,7 @@ public class TournamentOverviewController {
     public void save(ActionEvent actionEvent) {
         try {
             Admin.saveTournament(Admin.getActiveTournament());
+            errorLabel.setText("Tournament was saved");
         } catch (IOException e) {
             errorLabel.setText("Was not able to save the active tournament");
         }
