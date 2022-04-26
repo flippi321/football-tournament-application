@@ -140,7 +140,7 @@
                   </Label>
                   <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="400.0" vbarPolicy="ALWAYS">
                      <content>
-                        <VBox fx:id="historyContainer" spacing="10.0">
+                        <VBox fx:id="historyContainer" spacing="2.0">
                            <padding>
                               <Insets left="5.0" />
                            </padding>

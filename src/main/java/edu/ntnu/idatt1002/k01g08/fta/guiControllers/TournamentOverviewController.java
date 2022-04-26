@@ -5,9 +5,11 @@ import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -65,7 +67,25 @@ public class TournamentOverviewController {
             Label label = new Label("No matches have been played");
             historyContainer.getChildren().add(label);
         } else {
-
+            for (int i = 0; i < Admin.getActiveTournament().getMatches().size(); i++) {
+                String homeTeam = Admin.getActiveTournament().getMatches().get(i).getHomeTeam().getName();
+                String awayTeam = Admin.getActiveTournament().getMatches().get(i).getAwayTeam().getName();
+                int homeScore = Admin.getActiveTournament().getMatches().get(i).getHomeTeamScore();
+                int awayScore = Admin.getActiveTournament().getMatches().get(i).getAwayTeamScore();
+                String title = homeTeam + " vs " + awayTeam + " (" + homeScore + ":" + awayScore + ")";
+                Button button = new Button((i + 1) + " - " + title);
+                button.setPrefWidth(375.0);
+                button.setCursor(Cursor.HAND);
+                int finalI = i;
+                button.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                    try {
+                        loadMatchHistory(finalI);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                historyContainer.getChildren().add(button);
+            }
         }
     }
 
@@ -95,6 +115,17 @@ public class TournamentOverviewController {
     }
 
     @FXML
+    public void loadMatchHistory(int n) throws IOException {
+        Admin.setCurrentReportedMatch(n);
+        SceneManager.setView("matchReport");
+    }
+
+    @FXML
     public void save(ActionEvent actionEvent) {
+        try {
+            Admin.saveTournament(Admin.getActiveTournament());
+        } catch (IOException e) {
+            errorLabel.setText("Was not able to save the active tournament");
+        }
     }
 }
