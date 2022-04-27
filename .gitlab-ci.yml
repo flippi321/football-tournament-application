@@ -45,5 +45,5 @@ pages:
     paths:
       - public
   only:
-    - master
+    - product
 
