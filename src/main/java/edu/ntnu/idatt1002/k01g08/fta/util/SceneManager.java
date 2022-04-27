@@ -1,5 +1,6 @@
-package edu.ntnu.idatt1002.k01g08.fta;
+package edu.ntnu.idatt1002.k01g08.fta.util;
 
+import edu.ntnu.idatt1002.k01g08.fta.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

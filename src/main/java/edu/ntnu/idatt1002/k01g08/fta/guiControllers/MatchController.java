@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.Main;
-import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.util.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -14,7 +14,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;

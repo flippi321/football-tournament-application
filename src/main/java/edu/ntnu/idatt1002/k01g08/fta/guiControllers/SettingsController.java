@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.Main;
-import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.util.SceneManager;
 import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
