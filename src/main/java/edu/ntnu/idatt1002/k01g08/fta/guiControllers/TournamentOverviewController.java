@@ -53,8 +53,8 @@ public class TournamentOverviewController {
             nextMatchLabel.setText(Admin.getNextMatch().getHomeTeam().getName() + " vs " + Admin.getNextMatch().getAwayTeam().getName());
         } catch (IndexOutOfBoundsException e) {
             tournamentDone = true;
-            nextMatchLabel.setText("The tournament is finished");
-            nextMatchButton.setText("Tournament report");
+            nextMatchLabel.setText("The tournament is finished,\n" + Admin.getActiveTournament().getWinner().getName() + " won!");
+            nextMatchButton.setDisable(true);
         }
         teamsLeftLabel.setText(Admin.getActiveTournament().getNumberOfTeams() + " teams are registered for this tournament");
         int matchesLeft = Admin.getActiveTournament().getUpcomingMatches().size();

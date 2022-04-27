@@ -136,7 +136,7 @@ public class KnockOut extends Tournament {
         }
 
         if (previousRoundMatches.size() == 1 || getMatches().size() == getNumberOfTeams()-1) {
-            setWinner(previousRoundMatches.get(0).getWinner());
+            setWinner(getMatches().get(getMatches().size()-1).getWinner());
             System.out.println("Vinner er funnet, turneringen er ferdig.");
             return;
         }
