@@ -49,15 +49,6 @@ public class ErrorFormController {
         SceneManager.setView("settings");
     }
 
-    @FXML
-    public void sendMail(ActionEvent actionEvent) {
-        if (inputTopic.getText().isBlank()) {
-            errorLabel.setText("You most enter a topic.");
-            return;
-        }
-        errorLabel.setText("");
-        // TODO: Add functionality
-    }
 
     @FXML
     public void exitButtonClick(Event event) throws IOException {

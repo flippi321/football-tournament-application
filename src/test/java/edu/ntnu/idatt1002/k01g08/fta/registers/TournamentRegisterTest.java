@@ -76,7 +76,7 @@ public class TournamentRegisterTest {
             @DisplayName("It is not possible to add a 'null' tournament to the register")
             public void addingATournamentWithValueNull(){
                 try{
-                    Tournament testTournament = null; //TODO: must be updated
+                    Tournament testTournament = null;
                     testReg.addTournament(testTournament);
                 }catch (IllegalArgumentException e){
                     assertEquals("Tournament was inputted with value 'null', " +
@@ -145,7 +145,7 @@ public class TournamentRegisterTest {
             }
             @Test
             @DisplayName("Two Identical Tournaments cannot be Saved")
-            public void addOnlyTournamentsWhichAreNotAlreadyRegisteredToTheRegister(){ //TODO: must be updated after equals
+            public void addOnlyTournamentsWhichAreNotAlreadyRegisteredToTheRegister(){
                 ArrayList<Tournament> testList = new ArrayList<>();
                 testList.add(testTournament);
                 testList.add(testTournament2);

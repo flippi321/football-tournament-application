@@ -99,7 +99,6 @@ public class NewPlayerController {
         String playerName = firstName + " " + lastName;
 
         errorLabel.setText("");
-        // TODO: 18.04.2022 Create player and add it to the selected team
 
         try{
             Admin.addPlayerToExistingTeam(playerName, playerNumber, teamSelectionBox.getValue().toString());

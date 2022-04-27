@@ -119,7 +119,5 @@ public class NewTeamPlayerController {
         firstNameInput.setText("");
         lastNameInput.setText("");
 
-        // TODO: 18.04.2022 Create player and add it to the selected team
-        // TODO: 19.04.2022 Go to next player if next player should be created
     }
 }

@@ -1,11 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.objects;
 
-//TODO
-// Use NullPointerException
-// Reword method descriptions to descibe what the methods does
-// Better test coverage
-// Could change getYellowCard and getRedCard to a getCardType
-// Related: store card-type in a bool, or similar
+
 
 
 /**
@@ -68,7 +63,7 @@ public class Foul extends GameEvent{
      * Mutator method to alter the tag of this foul
      * @param foulTag is a String
      */
-    public void setFoulTag(String foulTag) { //TODO: add null check
+    public void setFoulTag(String foulTag) {
         this.foulTag = foulTag;
     }
 
