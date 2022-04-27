@@ -91,7 +91,7 @@
          <children>
             <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Label text="Send a mail with a describtion of your problem to:">
+                  <Label text="Send a mail with a description of your problem to:">
                      <font>
                         <Font size="18.0" />
                      </font>
