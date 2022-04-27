@@ -13,7 +13,11 @@
 }
 
 .image-view:focused {
-    -fx-opacity: 0.35;
+    -fx-opacity: 0.6;
+}
+
+.image-view:disabled {
+    -fx-opacity: 0.1;
 }
 
 .combo-box{
@@ -58,6 +62,12 @@
     -fx-background-color: yellow;
     -fx-text-fill: black;
     -fx-font-weight: bold;
+}
+
+.button:focused {
+    -fx-border-color: pink;
+    -fx-border-width: 5;
+    -fx-border-style: solid;
 }
 
 #header {
