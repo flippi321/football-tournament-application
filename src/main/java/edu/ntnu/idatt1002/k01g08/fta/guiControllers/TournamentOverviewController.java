@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -42,12 +44,24 @@ public class TournamentOverviewController {
     private Label statusLabel;
     @FXML
     private Label teamsLeftLabel;
+    @FXML
+    private ImageView reportButton;
+    @FXML
+    private ImageView settingsButton;
+    @FXML
+    private ImageView backButton;
+    @FXML
+    private ImageView homeButton;
 
     private boolean tournamentDone = false;
 
     @Deprecated
     public void initialize() {
         root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
+        Tooltip.install(reportButton, new Tooltip("Go to report page"));
+        Tooltip.install(settingsButton, new Tooltip("Go to settings"));
+        Tooltip.install(backButton, new Tooltip("Go back to last page"));
+        Tooltip.install(homeButton, new Tooltip("Go to home page"));
         tournamentNameLabel.setText(Admin.getActiveTournament().getTournamentName());
         try {
             nextMatchLabel.setText(Admin.getNextMatch().getHomeTeam().getName() + " vs " + Admin.getNextMatch().getAwayTeam().getName());

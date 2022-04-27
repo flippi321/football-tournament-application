@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
@@ -70,17 +71,17 @@ public class MatchController {
     @FXML
     private Label resultLabel;
     @FXML
-    private ImageView topButton1;
-    @FXML
-    private ImageView topButton2;
-    @FXML
-    private ImageView topButton3;
-    @FXML
-    private ImageView topButton4;
-    @FXML
     private Label awayTeamLabel2;
     @FXML
     private Label homeTeamLabel2;
+    @FXML
+    private ImageView reportButton;
+    @FXML
+    private ImageView settingsButton;
+    @FXML
+    private ImageView backButton;
+    @FXML
+    private ImageView homeButton;
 
     private String homeTeamName;
     private String awayTeamName;
@@ -92,6 +93,10 @@ public class MatchController {
     @Deprecated
     public void initialize() {
         root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
+        Tooltip.install(reportButton, new Tooltip("Go to report page"));
+        Tooltip.install(settingsButton, new Tooltip("Go to settings"));
+        Tooltip.install(backButton, new Tooltip("Go back to last page"));
+        Tooltip.install(homeButton, new Tooltip("Go to home page"));
         disableButtons();
         nextButton.setText("Start match");
         penaltyShootout = false;
@@ -407,14 +412,14 @@ public class MatchController {
 
     @FXML
     public void next(ActionEvent actionEvent) throws IOException {
-        topButton1.setOpacity(0.2);
-        topButton1.setDisable(true);
-        topButton2.setOpacity(0.2);
-        topButton2.setDisable(true);
-        topButton3.setOpacity(0.2);
-        topButton3.setDisable(true);
-        topButton4.setOpacity(0.2);
-        topButton4.setDisable(true);
+        settingsButton.setOpacity(0.2);
+        settingsButton.setDisable(true);
+        reportButton.setOpacity(0.2);
+        reportButton.setDisable(true);
+        backButton.setOpacity(0.2);
+        backButton.setDisable(true);
+        homeButton.setOpacity(0.2);
+        homeButton.setDisable(true);
 
         if (!Admin.getActiveMatch().isStarted()) {
             Admin.getActiveMatch().start();
