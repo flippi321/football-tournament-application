@@ -43,6 +43,10 @@ public class SettingsController {
         Tooltip.install(settingsButton, new Tooltip("Go to settings"));
         Tooltip.install(backButton, new Tooltip("Go back to last page"));
         Tooltip.install(homeButton, new Tooltip("Go to home page"));
+
+        if (Admin.isHighContrast()) {
+            highContrastButton.setSelected(true);
+        }
     }
 
     @FXML
@@ -71,7 +75,7 @@ public class SettingsController {
 
     @FXML
     public void changeContrast(ActionEvent actionEvent) {
-        Admin.setActiveStyle("contrast2");
+        Admin.changeContrast();
     }
 
     @FXML

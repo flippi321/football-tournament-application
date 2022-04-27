@@ -33,6 +33,7 @@ public class Admin {
     private static Tournament activeTournament;
     private static Match activeMatch;
     private static Match currentReportedMatch;
+    private static boolean highContrast = false;
 
     /**
      * Method for adding a team
@@ -405,5 +406,25 @@ public class Admin {
      */
     public static void setActiveStyle(String style) {
         activeStyle = style;
+    }
+
+    /**
+     * Method for changing the contrast-style
+     */
+    public static void changeContrast() {
+        highContrast = !highContrast;
+        if (highContrast) {
+            setActiveStyle("contrast2");
+        } else {
+            setActiveStyle("main");
+        }
+    }
+
+    /**
+     * Checks if it's high contrast mode
+     * @return true if is high contrast mode
+     */
+    public static boolean isHighContrast() {
+        return highContrast;
     }
 }
