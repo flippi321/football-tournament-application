@@ -29,7 +29,7 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="270.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="backButton" fitHeight="60.0" fitWidth="60.0" layoutX="280.0" layoutY="30.0" onMouseClicked="#backButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="backButton" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" layoutX="280.0" layoutY="30.0" onKeyPressed="#backButtonEnter" onMouseClicked="#backButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -40,7 +40,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="reportButton" fitHeight="60.0" fitWidth="60.0" layoutX="170.0" layoutY="35.0" onMouseClicked="#reportButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="reportButton" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" layoutX="170.0" layoutY="35.0" onKeyPressed="#reportButtonEnter" onMouseClicked="#reportButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/circle-exclamation-solid.png" />
                      </image>
@@ -51,7 +51,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="settingsButton" disable="true" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#settingsButtonClick" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="settingsButton" disable="true" fitHeight="60.0" fitWidth="60.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/gear-solid.png" />
                      </image>
@@ -62,7 +62,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="homeButton" fitHeight="60.0" fitWidth="60.0" layoutX="230.0" layoutY="35.0" onMouseClicked="#exitButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="homeButton" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" layoutX="230.0" layoutY="35.0" onKeyPressed="#homeButtonEnter" onMouseClicked="#exitButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/house.png" />
                      </image>

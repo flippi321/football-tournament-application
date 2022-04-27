@@ -29,7 +29,7 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="270.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="backButton" fitHeight="60.0" fitWidth="60.0" layoutX="170.0" layoutY="35.0" onMouseClicked="#backButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="backButton" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" layoutX="170.0" layoutY="35.0" onKeyPressed="#backButtonEnter" onMouseClicked="#backButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/backArrow.png" />
                      </image>
@@ -51,7 +51,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="settingsButton" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#settingsButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="settingsButton" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" onKeyPressed="#settingsButtonEnter" onMouseClicked="#settingsButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/gear-solid.png" />
                      </image>
@@ -62,7 +62,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="homeButton" fitHeight="60.0" fitWidth="60.0" layoutX="230.0" layoutY="35.0" onMouseClicked="#exitButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="homeButton" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" layoutX="230.0" layoutY="35.0" onKeyPressed="#homeButtonEnter" onMouseClicked="#exitButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/house.png" />
                      </image>
