@@ -4,7 +4,7 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  * Represents a game event which occurs during match-time
  * Is an abstract superclass describing the commonalities of all
  * subclasses.
- * @author bjornjob & magnulal
+ * @author bjornjob, magnulal
  * @version 2022-03-21
  */
 public abstract class GameEvent {

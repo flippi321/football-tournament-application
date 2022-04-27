@@ -35,3 +35,15 @@ test:
     - echo "Running tests"
     - mvn clean test
 
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r JavaDoc/* .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+

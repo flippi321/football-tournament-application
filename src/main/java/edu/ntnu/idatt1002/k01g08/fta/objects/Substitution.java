@@ -10,7 +10,7 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  *
  * and understands which team that is making a substitution based on the players switched
  *
- * @author bjornjob & magnulal
+ * @author bjornjob, magnulal
  * @version 2022-03-21
  *
  */

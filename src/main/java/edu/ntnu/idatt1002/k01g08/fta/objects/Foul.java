@@ -12,7 +12,7 @@ package edu.ntnu.idatt1002.k01g08.fta.objects;
  * foul. This attribute is of class Player. A foul is also done by one of the two teams, and therefore
  * the foul has information about Team teamCommittingFoul.
  *
- * @author bjornjob & magnulal
+ * @author bjornjob, magnulal
  * @version 2022-03-21
  */
 public class Foul extends GameEvent{
