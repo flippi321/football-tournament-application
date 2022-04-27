@@ -8,7 +8,15 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * Entry page for the application
+ */
 public class Main extends Application {
+
+    /**
+     * Starts the application
+     * @param stage Stage sent by JavaFX
+     */
     @Override
     public void start(Stage stage) {
         try{
@@ -25,6 +33,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Main
+     * @param args args
+     */
     public static void main(String[] args) {
         launch(args);
     }
