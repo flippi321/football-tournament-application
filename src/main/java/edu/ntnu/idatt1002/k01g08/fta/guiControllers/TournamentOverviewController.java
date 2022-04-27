@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -144,6 +146,34 @@ public class TournamentOverviewController {
             errorLabel.setText("Tournament was saved");
         } catch (IOException e) {
             errorLabel.setText("Was not able to save the active tournament");
+        }
+    }
+
+    @FXML
+    public void settingsButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            settingsButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void reportButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            reportButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void backButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            backButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void homeButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            exitButtonClick(event);
         }
     }
 }

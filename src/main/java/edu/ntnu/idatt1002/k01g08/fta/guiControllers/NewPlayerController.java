@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -105,6 +107,34 @@ public class NewPlayerController {
             SceneManager.setView("teamManagement");
         } catch (IllegalArgumentException e){
             errorLabel.setText(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void settingsButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            settingsButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void reportButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            reportButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void backButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            backButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void homeButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            exitButtonClick(event);
         }
     }
 }

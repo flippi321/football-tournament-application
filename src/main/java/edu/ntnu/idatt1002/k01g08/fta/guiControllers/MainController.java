@@ -8,6 +8,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -56,5 +58,19 @@ public class MainController{
     @FXML
     public void newTournament(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("newTournament");
+    }
+
+    @FXML
+    public void settingsButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            settingsButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void reportButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            reportButtonClick(event);
+        }
     }
 }

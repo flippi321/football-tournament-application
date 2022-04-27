@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -50,10 +52,6 @@ public class SettingsController {
     }
 
     @FXML
-    public void settingsButtonClick(Event event) {
-    }
-
-    @FXML
     public void resetSettings(ActionEvent actionEvent) {
         Admin.setActiveStyle("main");
     }
@@ -81,5 +79,26 @@ public class SettingsController {
     @FXML
     public void backButtonClick(Event event) throws IOException {
         SceneManager.goToLastScene();
+    }
+
+    @FXML
+    public void reportButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            reportButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void backButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            backButtonClick(event);
+        }
+    }
+
+    @FXML
+    public void homeButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            exitButtonClick(event);
+        }
     }
 }
