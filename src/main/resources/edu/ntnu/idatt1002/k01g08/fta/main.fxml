@@ -29,7 +29,7 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="270.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="reportButton" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" layoutX="170.0" layoutY="35.0" onKeyPressed="#reportButtonEnter" onMouseClicked="#reportButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="reportButton" accessibleRole="BUTTON" accessibleText="Report a bug" accessibleHelp="Go to report page" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" layoutX="170.0" layoutY="35.0" onKeyPressed="#reportButtonEnter" onMouseClicked="#reportButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/circle-exclamation-solid.png" />
                      </image>
@@ -40,7 +40,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="settingsButton" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" onKeyPressed="#settingsButtonEnter" onMouseClicked="#settingsButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="settingsButton" accessibleRole="BUTTON" accessibleText="Settings" accessibleHelp="Go to the settings" fitHeight="60.0" fitWidth="60.0" focusTraversable="true" onKeyPressed="#settingsButtonEnter" onMouseClicked="#settingsButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/gear-solid.png" />
                      </image>
