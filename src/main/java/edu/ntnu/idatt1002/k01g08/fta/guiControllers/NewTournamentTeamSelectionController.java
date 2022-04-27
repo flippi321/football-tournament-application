@@ -19,9 +19,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Controller for the new tournament page
+ * Controller for the new tournament team selection page. This is where the user selects which teams are in the
+ * tournament
  *
- * @author jfben
+ * @author johnfn, teodorbi
  */
 public class NewTournamentTeamSelectionController {
     @FXML
@@ -45,6 +46,9 @@ public class NewTournamentTeamSelectionController {
 
     ArrayList<String> teamsAdded = new ArrayList<>();
 
+    /**
+     * Initializes the view on load.
+     */
     @Deprecated
     public void initialize() {
         registeredTeamsLabel.setText("Registered Teams (0/" + Admin.getNumOfTeamsToAdd() + ")");
@@ -56,26 +60,52 @@ public class NewTournamentTeamSelectionController {
         Tooltip.install(homeButton, new Tooltip("Go to home page"));
     }
 
+    /**
+     * Goes to the settings view when user clicks on the settings button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void settingsButtonClick(Event event) throws IOException {
         SceneManager.setView("settings");
     }
 
+    /**
+     * Goes to the report page view when the user clicks on the report button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void reportButtonClick(Event event) throws IOException {
         SceneManager.setView("errorForm");
     }
 
+    /**
+     * Goes to the main page view when the user clicks on the home button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void exitButtonClick(Event event) throws IOException {
         SceneManager.setView("main");
     }
 
+    /**
+     * Goes to the last page view when the user clicks on the back button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void backButtonClick(Event event) throws IOException {
         SceneManager.goToLastScene();
     }
 
+    /**
+     * Lets the user confirm their selection when they have added the correct amount of teams. Goes to the tournament
+     * overview page
+     * @param actionEvent Click Event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void confirm(ActionEvent actionEvent) throws IOException {
         if (teamsAdded.size() == Admin.getNumOfTeamsToAdd()) {
@@ -90,11 +120,20 @@ public class NewTournamentTeamSelectionController {
         }
     }
 
+    /**
+     * Lets the user cancel the selection and returns to home page when clicking the cancel button
+     * @param actionEvent Click Event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void cancel(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("main");
     }
 
+    /**
+     * Lets the user select teams from the drop-down menu
+     * @param event event
+     */
     @FXML
     public void clickedOnSelection(Event event) {
         if (teamsToSelectBox.getValue() == null) {
@@ -114,11 +153,21 @@ public class NewTournamentTeamSelectionController {
         registeredTeamsLabel.setText("Registered Teams (" + teamsAdded.size() + "/" + Admin.getNumOfTeamsToAdd() + ")");
     }
 
+    /**
+     * Lets the user reset their selection when clicking the reset button
+     * @param actionEvent Click Event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void reset(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("newTournamentTeamSelection");
     }
 
+    /**
+     * Enables user to use enter key to go to the settings page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void settingsButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -126,6 +175,11 @@ public class NewTournamentTeamSelectionController {
         }
     }
 
+    /**
+     * Enables user to use enter key to go to the report page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void reportButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -133,6 +187,11 @@ public class NewTournamentTeamSelectionController {
         }
     }
 
+    /**
+     * Enables user to use enter key to use the back button
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void backButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -140,6 +199,11 @@ public class NewTournamentTeamSelectionController {
         }
     }
 
+    /**
+     * Enables user to use enter key to go to the home page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void homeButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {

@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * Controller for the tournament-overview page
  *
- * @author jfben
+ * @author johnfb, teodorbi
  */
 public class MatchReportController {
     @FXML
@@ -50,6 +50,9 @@ public class MatchReportController {
     private String homeTeam;
     private String awayTeam;
 
+    /**
+     * Initializes the view on load.
+     */
     @Deprecated
     public void initialize() {
         root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
@@ -79,31 +82,61 @@ public class MatchReportController {
         }
     }
 
+    /**
+     * Goes to the settings view when user clicks on the settings button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void settingsButtonClick(Event event) throws IOException {
         SceneManager.setView("settings");
     }
 
+    /**
+     * Goes to the report page view when the user clicks on the report button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void reportButtonClick(Event event) throws IOException {
         SceneManager.setView("errorForm");
     }
 
+    /**
+     * Goes to the main page view when the user clicks on the home button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void exitButtonClick(Event event) throws IOException {
         SceneManager.setView("main");
     }
 
+    /**
+     * Goes to the last page view when the user clicks on the back button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void backButtonClick(Event event) throws IOException {
         SceneManager.goToLastScene();
     }
 
+    /**
+     * Goes to tournament overview page when the user clicks on the next button
+     * @param actionEvent Click Event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void next(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("tournamentOverview");
     }
 
+    /**
+     * Enables user to use enter key to go to the settings page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void settingsButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -111,6 +144,11 @@ public class MatchReportController {
         }
     }
 
+    /**
+     * Enables user to use enter key to go to the report page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void reportButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -118,6 +156,11 @@ public class MatchReportController {
         }
     }
 
+    /**
+     * Enables user to use enter key to use the back button
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void backButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -125,6 +168,11 @@ public class MatchReportController {
         }
     }
 
+    /**
+     * Enables user to use enter key to go to the home page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void homeButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {

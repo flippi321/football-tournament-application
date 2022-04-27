@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  * Controller for the new player page
  *
- * @author jfben
+ * @author johnfb, teodorbi
  */
 public class NewPlayerController {
     @FXML
@@ -44,6 +44,9 @@ public class NewPlayerController {
     @FXML
     private ImageView homeButton;
 
+    /**
+     * Initializes the view on load.
+     */
     @FXML
     public void initialize() {
         teamSelectionBox.getItems().addAll(
@@ -56,30 +59,61 @@ public class NewPlayerController {
         Tooltip.install(homeButton, new Tooltip("Go to home page"));
     }
 
+    /**
+     * Goes to the settings view when user clicks on the settings button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void settingsButtonClick(Event event) throws IOException {
         SceneManager.setView("settings");
     }
 
+    /**
+     * Goes to the report page view when the user clicks on the report button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void reportButtonClick(Event event) throws IOException {
         SceneManager.setView("errorForm");
     }
 
+    /**
+     * Goes to the main page view when the user clicks on the home button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void exitButtonClick(Event event) throws IOException {
         SceneManager.setView("main");
     }
 
+    /**
+     * Goes to the last page view when the user clicks on the back button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void backButtonClick(Event event) throws IOException {
         SceneManager.goToLastScene();
     }
 
+    /**
+     * Goes back to the team management page when the user clicks the discard changes button
+     * @param actionEvent Click Event
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void discardChanges(ActionEvent actionEvent) throws IOException {
         SceneManager.setView("teamManagement");
     }
+
+    /**
+     * Lets the user save the changes made when clicking the save button
+     * @param actionEvent Click Event
+     * @throws IOException if an error occurs
+     */
 
     @FXML
     public void saveChanges(ActionEvent actionEvent) throws IOException {
@@ -110,6 +144,11 @@ public class NewPlayerController {
         }
     }
 
+    /**
+     * Enables user to use enter key to go to the settings page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void settingsButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -117,6 +156,11 @@ public class NewPlayerController {
         }
     }
 
+    /**
+     * Enables user to use enter key to go to the report page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void reportButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -124,6 +168,11 @@ public class NewPlayerController {
         }
     }
 
+    /**
+     * Enables user to use enter key to use the back button
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void backButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
@@ -131,6 +180,11 @@ public class NewPlayerController {
         }
     }
 
+    /**
+     * Enables user to use enter key to go to the home page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
     @FXML
     public void homeButtonEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
