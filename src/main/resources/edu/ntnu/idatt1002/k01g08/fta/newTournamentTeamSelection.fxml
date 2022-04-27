@@ -82,14 +82,14 @@
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="6.0" prefWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" percentWidth="7.0" prefWidth="10.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
                   <Label text="Load Teams">
                      <font>
@@ -102,7 +102,7 @@
                   <Insets top="20.0" />
                </GridPane.margin>
             </VBox>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets top="20.0" />
                </GridPane.margin>
@@ -119,10 +119,13 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" onAction="#clickedOnSelection" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#clickedOnSelection" prefHeight="50.0" prefWidth="100.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </GridPane>
