@@ -40,7 +40,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" onMouseClicked="#settingsButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="settingsButton" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#settingsButtonClick" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/gear-solid.png" />
                      </image>

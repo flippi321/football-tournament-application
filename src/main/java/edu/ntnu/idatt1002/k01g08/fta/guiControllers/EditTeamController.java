@@ -6,10 +6,8 @@ import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -30,6 +28,14 @@ public class EditTeamController {
     private Button deleteTeamButton;
     @FXML
     private BorderPane root;
+    @FXML
+    private ImageView reportButton;
+    @FXML
+    private ImageView settingsButton;
+    @FXML
+    private ImageView backButton;
+    @FXML
+    private ImageView homeButton;
 
     private boolean delete = false;
 
@@ -37,6 +43,10 @@ public class EditTeamController {
     public void initialize() {
         teamSelectionBox.getItems().addAll(Admin.getTeamNames());
         root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
+        Tooltip.install(reportButton, new Tooltip("Go to report page"));
+        Tooltip.install(settingsButton, new Tooltip("Go to settings"));
+        Tooltip.install(backButton, new Tooltip("Go back to last page"));
+        Tooltip.install(homeButton, new Tooltip("Go to home page"));
     }
 
     @FXML
