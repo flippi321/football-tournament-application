@@ -2,6 +2,8 @@ module:edu.ntnu.idatt1002.k01g08.fta
 edu.ntnu.idatt1002.k01g08.fta
 edu.ntnu.idatt1002.k01g08.fta.controllers
 edu.ntnu.idatt1002.k01g08.fta.guiControllers
-edu.ntnu.idatt1002.k01g08.fta.objects
+edu.ntnu.idatt1002.k01g08.fta.objects.events
+edu.ntnu.idatt1002.k01g08.fta.objects.team
+edu.ntnu.idatt1002.k01g08.fta.objects.tournaments
 edu.ntnu.idatt1002.k01g08.fta.registers
 edu.ntnu.idatt1002.k01g08.fta.util
