@@ -3,6 +3,7 @@ image: maven:latest
 stages:
   - build
   - verify
+  - deploy
 
 cache:
   paths:
@@ -24,7 +25,7 @@ lint:
     - merge_requests
   script:
     - echo "Checking formatting"
-    - mvn clean formatter:validate
+    #- mvn clean formatter:validate
 
 test:
   stage: verify
@@ -34,4 +35,17 @@ test:
   script:
     - echo "Running tests"
     - mvn clean test
+
+pages:
+  stage: deploy
+  script:
+  - mkdir .public
+  - cp -r JavaDoc/* .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - main
+
 

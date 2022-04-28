@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.KnockOut;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
+import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.KnockOut;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.Tournament;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class KnockOutTest {
     @Nested
+    @DisplayName("Tests for Constructor")
     public class TestingConstructor{
         @Test
         @DisplayName("Testing Constructor with correct parameters")
@@ -54,7 +55,7 @@ public class KnockOutTest {
                 Tournament testTournament = new KnockOut("Tippeligaen2022", teams);
                 fail("Test 'testTournamentWithEmptyTeamsList' did not throw an exception to when expected to.");
             } catch (Exception e) {
-                assertEquals( "Must have a valid list of teams, yours was empty", e.getMessage());
+                assertEquals( "The number of teams is invalid.", e.getMessage());
             }
         }
 

@@ -1,0 +1,9 @@
+{
+  "field1": 4,
+  "field2": "a string",
+  "field3": [
+    "item1",
+    2,
+    null
+  ]
+}

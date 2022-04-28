@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,7 +19,7 @@ public class PlayerTest {
     }
 
     @Test
-    @DisplayName("Statistics increment")
+    @DisplayName("Player Statistics works")
     public void statisticsIncrement() {
         Player player = new Player("Ole Gunnar Solskjær", 40);
 
@@ -57,7 +57,7 @@ public class PlayerTest {
     }
 
     @Test
-    @DisplayName("Name and number are correct")
+    @DisplayName("Get methods for name and number works")
     public void nameAndNumberAreCorrect() {
         Player player = new Player("Ole Gunnar Solskjær", 40);
 
@@ -66,7 +66,7 @@ public class PlayerTest {
     }
 
     @Test
-    @DisplayName("toString test")
+    @DisplayName("toString works as intended")
     public void toStringTest() {
         Player player = new Player("Ole Gunnar Solskjær", 40);
         player.increaseRedCards(2);

@@ -1,0 +1,78 @@
+[
+  {
+    "name": "Rosenborg",
+    "players": [
+      {
+        "name": "Andre Hansen",
+        "number": 1
+      },
+      {
+        "name": "Erland Dahl Reitan",
+        "number": 2
+      },
+      {
+        "name": "Jonathan Augustinsson",
+        "number": 3
+      },
+      {
+        "name": "Markus Henriksen",
+        "number": 7
+      },
+      {
+        "name": "Carlo Holse",
+        "number": 10
+      },
+      {
+        "name": "Pavle Vagić",
+        "number": 23
+      }
+    ]
+  },
+  {
+    "name": "Manchester",
+    "players": [
+      {
+        "name": "Oddbjørn",
+        "number": 3
+      }
+    ]
+  },
+  {
+    "name": "Liverpool",
+    "players": [
+      {
+        "name": "Oddbjørn",
+        "number": 3
+      }
+    ]
+  },
+  {
+    "name": "Sexy Computer Boys",
+    "players": [
+      {
+        "name": "Bendik",
+        "number": 19
+      },
+      {
+        "name": "Bjørn-Johnny",
+        "number": 1
+      },
+      {
+        "name": "Christoffer",
+        "number": 69
+      },
+      {
+        "name": "John-Fredrik",
+        "number": 44
+      },
+      {
+        "name": "Magnus",
+        "number": 15
+      },
+      {
+        "name": "Teodor",
+        "number": 37
+      }
+    ]
+  }
+]

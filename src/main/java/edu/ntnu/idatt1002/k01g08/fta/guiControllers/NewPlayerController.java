@@ -1,54 +1,194 @@
 package edu.ntnu.idatt1002.k01g08.fta.guiControllers;
 
 import edu.ntnu.idatt1002.k01g08.fta.Main;
-import edu.ntnu.idatt1002.k01g08.fta.SceneManager;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
+import edu.ntnu.idatt1002.k01g08.fta.util.SceneManager;
+import edu.ntnu.idatt1002.k01g08.fta.controllers.Admin;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-import static java.lang.Integer.parseInt;
-
+/**
+ * Controller for the new player page
+ *
+ * @author johnfb, teodorbi
+ */
 public class NewPlayerController {
     @FXML
-    private TextField playerNameInput;
+    private BorderPane root;
     @FXML
-    private Label playerIdLabel;
+    private Label errorLabel;
+    @FXML
+    private ComboBox teamSelectionBox;
+    @FXML
+    private TextField lastNameInput;
     @FXML
     private TextField playerNumberInput;
     @FXML
-    private Label errorLabel;
+    private TextField firstNameInput;
+    @FXML
+    private ImageView reportButton;
+    @FXML
+    private ImageView settingsButton;
+    @FXML
+    private ImageView backButton;
+    @FXML
+    private ImageView homeButton;
 
+    /**
+     * Initializes the view on load.
+     */
     @FXML
     public void initialize() {
-        playerIdLabel.setText("Player: " + (1 + Main.getPlayersMade().size()));
+        teamSelectionBox.getItems().addAll(
+                Admin.getTeamNames()
+        );
+        root.getStylesheets().add(Main.class.getResource(Admin.getActiveStyle()).toExternalForm());
+        Tooltip.install(reportButton, new Tooltip("Go to report page"));
+        Tooltip.install(settingsButton, new Tooltip("Go to settings"));
+        Tooltip.install(backButton, new Tooltip("Go back to last page"));
+        Tooltip.install(homeButton, new Tooltip("Go to home page"));
     }
 
+    /**
+     * Goes to the settings view when user clicks on the settings button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
     @FXML
-    public void createPlayer(ActionEvent actionEvent) throws IOException {
-        for (int i = 0; i < 12; i++) {
-            Main.addPlayer(new Player(playerNameInput.getText(), Integer.parseInt(playerNumberInput.getText()) + i));
+    public void settingsButtonClick(Event event) throws IOException {
+        SceneManager.setView("settings");
+    }
+
+    /**
+     * Goes to the report page view when the user clicks on the report button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
+    @FXML
+    public void reportButtonClick(Event event) throws IOException {
+        SceneManager.setView("errorForm");
+    }
+
+    /**
+     * Goes to the main page view when the user clicks on the home button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
+    @FXML
+    public void exitButtonClick(Event event) throws IOException {
+        SceneManager.setView("main");
+    }
+
+    /**
+     * Goes to the last page view when the user clicks on the back button
+     * @param event Click event
+     * @throws IOException if an error occurs
+     */
+    @FXML
+    public void backButtonClick(Event event) throws IOException {
+        SceneManager.goToLastScene();
+    }
+
+    /**
+     * Goes back to the team management page when the user clicks the discard changes button
+     * @param actionEvent Click Event
+     * @throws IOException if an error occurs
+     */
+    @FXML
+    public void discardChanges(ActionEvent actionEvent) throws IOException {
+        SceneManager.setView("teamManagement");
+    }
+
+    /**
+     * Lets the user save the changes made when clicking the save button
+     * @param actionEvent Click Event
+     * @throws IOException if an error occurs
+     */
+
+    @FXML
+    public void saveChanges(ActionEvent actionEvent) throws IOException {
+        if (playerNumberInput.getText().isBlank() || firstNameInput.getText().isBlank() || lastNameInput.getText().isBlank()) {
+            errorLabel.setText("Missing requirements");
+            return;
         }
 
-        playerIdLabel.setText("Player: " + (1 + Main.getPlayersMade().size()));
-        playerNameInput.setText("");
-        playerNumberInput.setText("");
+        int playerNumber;
+        try {
+            playerNumber = Integer.parseInt(playerNumberInput.getText());
+        } catch (IllegalArgumentException e) {
+            errorLabel.setText("Must enter a valid number");
+            return;
+        }
 
-       if (Main.getNumOfPlayers() <= Main.getPlayersMade().size()) {
-           Main.getTournamentRegister().getTournamentList().get(0).getTeams()
-                   .get(Main.getTournamentRegister().getTournamentList().get(0).getNumberOfTeams()-1)
-                   .addPlayers(Main.getPlayersMade());
-           if (Main.getTournamentRegister().getTournamentList().get(0).getNumberOfTeams()
-                   == Main.getNumOfTeams()) {
-               Main.getTournamentRegister().getTournamentList().get(0).findUpcomingMatches();
-               SceneManager.setView("tournamentOverview");
-           }
-           else {
-               SceneManager.setView("newTeam");
-           }
-       }
+        String firstName = firstNameInput.getText();
+        String lastName = lastNameInput.getText();
+        String playerName = firstName + " " + lastName;
+
+        errorLabel.setText("");
+
+        try{
+            Admin.addPlayerToExistingTeam(playerName, playerNumber, teamSelectionBox.getValue().toString());
+            SceneManager.setView("teamManagement");
+        } catch (IllegalArgumentException e){
+            errorLabel.setText(e.getMessage());
+        }
+    }
+
+    /**
+     * Enables user to use enter key to go to the settings page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
+    @FXML
+    public void settingsButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            settingsButtonClick(event);
+        }
+    }
+
+    /**
+     * Enables user to use enter key to go to the report page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
+    @FXML
+    public void reportButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            reportButtonClick(event);
+        }
+    }
+
+    /**
+     * Enables user to use enter key to use the back button
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
+    @FXML
+    public void backButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            backButtonClick(event);
+        }
+    }
+
+    /**
+     * Enables user to use enter key to go to the home page
+     * @param event KeyEvent
+     * @throws IOException if an error occurs
+     */
+    @FXML
+    public void homeButtonEnter(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            exitButtonClick(event);
+        }
     }
 }

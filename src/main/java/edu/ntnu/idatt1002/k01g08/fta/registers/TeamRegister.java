@@ -1,17 +1,18 @@
 package edu.ntnu.idatt1002.k01g08.fta.registers;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
  * Represents a register of football teams
  * @author teodorbi
- * @version 2022-03-21
+ * @version 2022-04-07
  */
 
-public class TeamRegister {
+public class TeamRegister implements Iterable<Team> {
     private final Map<String,Team> teams;
 
     /**
@@ -77,6 +78,14 @@ public class TeamRegister {
     }
 
     /**
+     * Checks if the team-register has any teams registered
+     * @return true if it contains any teams
+     */
+    public boolean hasTeams() {
+        return !teams.isEmpty();
+    }
+
+    /**
      * toString
      * @return information about the teams in the register as a String
      */
@@ -87,5 +96,10 @@ public class TeamRegister {
             sb.append(team.getName()).append("\n");
         }
         return sb.toString();
+    }
+
+    @Override
+    public Iterator<Team> iterator() {
+        return teams.values().iterator();
     }
 }
