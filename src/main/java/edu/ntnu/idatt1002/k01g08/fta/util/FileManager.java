@@ -236,6 +236,12 @@ public class FileManager {
         return match;
     }
 
+    /**
+     * Returns a tournament parsed from a JSON object, using teams pulled from the given team register.
+     * @param json a JSON object to parse
+     * @param register a register to pull teams from
+     * @return a tournament parsed from the specified JSON object
+     */
     static Tournament parseTournament(JsonObject json, TeamRegister register) {
         String name = "";
         String format = "";

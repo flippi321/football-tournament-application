@@ -1,6 +1,5 @@
-package edu.ntnu.idatt1002.k01g08.fta;
+package edu.ntnu.idatt1002.k01g08.fta.objects.tournaments;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.Match;
 import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
 import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
 import org.junit.jupiter.api.*;

@@ -72,7 +72,7 @@ public class SceneManager {
 
     /**
      * Retrieves a scene
-     * @return
+     * @return the scene
      */
     public static Scene getScene() {
         return scene;

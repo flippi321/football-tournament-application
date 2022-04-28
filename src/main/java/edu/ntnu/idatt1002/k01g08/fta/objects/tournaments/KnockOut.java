@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * Creates a KnockOut type of Tournament
- * @author John Fredrik Bendvold
+ * @author johnfb
  * @version 2022-03-22
  */
 public class KnockOut extends Tournament {
