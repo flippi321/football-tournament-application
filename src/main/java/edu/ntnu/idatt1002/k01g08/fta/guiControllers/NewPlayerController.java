@@ -129,19 +129,22 @@ public class NewPlayerController {
             errorLabel.setText("Must enter a valid number");
             return;
         }
+        if (!(playerNumber >=1 && playerNumber <= 99)){
+            errorLabel.setText("Shirt number must be between 1 and 99");
+            return;
+        }
 
         String firstName = firstNameInput.getText();
         String lastName = lastNameInput.getText();
         String playerName = firstName + " " + lastName;
 
         errorLabel.setText("");
-
-        try{
-            Admin.addPlayerToExistingTeam(playerName, playerNumber, teamSelectionBox.getValue().toString());
+        if (Admin.addPlayerToExistingTeam(playerName, playerNumber, teamSelectionBox.getValue().toString())){
             SceneManager.setView("teamManagement");
-        } catch (IllegalArgumentException e){
-            errorLabel.setText(e.getMessage());
         }
+
+        errorLabel.setText("Shirt number is already in use");
+
     }
 
     /**
