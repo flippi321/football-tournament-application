@@ -225,6 +225,11 @@ public class MatchController {
             return;
         }
 
+        if (homePlayerList.getItems().size() == 1) {
+            errorLabel.setText("The last player of the team can't be sent off");
+            return;
+        }
+
         int playerNum = Integer.parseInt(homePlayerList.getValue().toString().split(" ")[0]);
         Object player = homePlayerList.getValue();
         homePlayerList.getItems().remove(player);
@@ -249,6 +254,10 @@ public class MatchController {
         int playerNum = Integer.parseInt(homePlayerList.getValue().toString().split(" ")[0]);
         Admin.getActiveMatch().addFoul(true, playerNum, "Yellow card", 1, null);
         if (homeYellowCards.contains(playerNum)) {
+            if (homePlayerList.getItems().size() == 1) {
+                errorLabel.setText("The last player of the team can't be sent off");
+                return;
+            }
             Object player = homePlayerList.getValue().toString();
             homePlayerList.getItems().remove(player);
         } else {
@@ -269,6 +278,11 @@ public class MatchController {
     public void homeInj(ActionEvent actionEvent) {
         if (homePlayerList.getValue() == null) {
             errorLabel.setText("You must select a player");
+            return;
+        }
+
+        if (homePlayerList.getItems().size() == 1) {
+            errorLabel.setText("The last player of the team can't be sent off");
             return;
         }
 
@@ -333,6 +347,10 @@ public class MatchController {
         int playerNum = Integer.parseInt(awayPlayerList.getValue().toString().split(" ")[0]);
         Admin.getActiveMatch().addFoul(false, playerNum, "Yellow card", 1, null);
         if (awayYellowCards.contains(playerNum)) {
+            if (awayPlayerList.getItems().size() == 1) {
+                errorLabel.setText("The last player of the team can't be sent off");
+                return;
+            }
             Object player = awayPlayerList.getValue().toString();
             awayPlayerList.getItems().remove(player);
         } else {
@@ -353,6 +371,11 @@ public class MatchController {
     public void awayInj(ActionEvent actionEvent) {
         if (awayPlayerList.getValue() == null) {
             errorLabel.setText("You must select a player");
+            return;
+        }
+
+        if (awayPlayerList.getItems().size() == 1) {
+            errorLabel.setText("The last player of the team can't be sent off");
             return;
         }
 
@@ -412,6 +435,11 @@ public class MatchController {
             return;
         }
 
+        if (awayPlayerList.getItems().size() == 1) {
+            errorLabel.setText("The last player of the team can't be sent off");
+            return;
+        }
+
         int playerNum = Integer.parseInt(awayPlayerList.getValue().toString().split(" ")[0]);
         Object player = awayPlayerList.getValue();
         awayPlayerList.getItems().remove(player);
@@ -430,6 +458,11 @@ public class MatchController {
     public void awayRedCard(ActionEvent actionEvent) {
         if (awayPlayerList.getValue() == null) {
             errorLabel.setText("You must select a player");
+            return;
+        }
+
+        if (awayPlayerList.getItems().size() == 1) {
+            errorLabel.setText("The last player of the team can't be sent off");
             return;
         }
 
@@ -452,6 +485,11 @@ public class MatchController {
     public void homeRedCard(ActionEvent actionEvent) {
         if (homePlayerList.getValue() == null) {
             errorLabel.setText("You must select a player");
+            return;
+        }
+
+        if (homePlayerList.getItems().size() == 1) {
+            errorLabel.setText("The last player of the team can't be sent off");
             return;
         }
 

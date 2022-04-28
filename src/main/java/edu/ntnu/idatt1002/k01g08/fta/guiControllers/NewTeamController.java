@@ -118,12 +118,12 @@ public class NewTeamController {
         try {
             numberOfPlayers = Integer.parseInt(numOfPlayersInput.getText());
         } catch (IllegalArgumentException e) {
-            errorLabel.setText(e.getMessage());
+            errorLabel.setText("You must enter a valid number");
             return;
         }
 
-        if (numberOfPlayers < 1) {
-            errorLabel.setText("The team must contain at least 1 player");
+        if (numberOfPlayers < 1 || numberOfPlayers > 100) {
+            errorLabel.setText("Number of players must be between 1 and 99");
             return;
         }
 

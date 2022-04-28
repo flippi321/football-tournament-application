@@ -119,8 +119,40 @@ public class NewTournamentController {
         }
 
         if (Admin.numberOfTeamsInvalid(numberOfTeams)) {
-            errorLabel.setText("In a knockout-tournament the number of teams must be 2-4-8-16-32 . . .");
+            errorLabel.setText("A knockout-tournament must contain 2-4-8-16-32 . . . teams");
             return;
+        }
+
+        int prize;
+        if (!winningPrizeInput.getText().isBlank()) {
+            try {
+                prize = Integer.parseInt(winningPrizeInput.getText());
+            } catch (IllegalArgumentException e) {
+                errorLabel.setText("You must enter a valid number in winning prize");
+                return;
+            }
+        }
+
+        if (!dateInput.getText().isBlank()) {
+            String[] inputText = dateInput.getText().split("/");
+            if (inputText.length != 3) {
+                errorLabel.setText("Date format must be DD/MM/YYYY");
+                return;
+            }
+
+            for (String text : inputText) {
+                try {
+                    int i = Integer.parseInt(text);
+                } catch (IllegalArgumentException e) {
+                    errorLabel.setText("Date format must be DD/MM/YYYY");
+                    return;
+                }
+            }
+
+            if (inputText[0].length() != 2 || inputText[1].length() != 2 || inputText[2].length() != 4) {
+                errorLabel.setText("Date format must be DD/MM/YYYY");
+                return;
+            }
         }
 
         Admin.setTournamentToCreateName(tournamentNameInput.getText());
