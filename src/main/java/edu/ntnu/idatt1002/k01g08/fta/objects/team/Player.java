@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k01g08.fta.objects;
+package edu.ntnu.idatt1002.k01g08.fta.objects.team;
 
 /**
  * Represents a football player.

@@ -1,6 +1,13 @@
 package edu.ntnu.idatt1002.k01g08.fta.util;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.*;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.Foul;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.GameEvent;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.Goal;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.Substitution;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.Match;
+import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.Tournament;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.registers;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.Tournament;
-import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;
+import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.Tournament;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

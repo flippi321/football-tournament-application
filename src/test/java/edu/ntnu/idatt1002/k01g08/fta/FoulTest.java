@@ -1,8 +1,8 @@
 package edu.ntnu.idatt1002.k01g08.fta;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.Foul;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Player;
-import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.Foul;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

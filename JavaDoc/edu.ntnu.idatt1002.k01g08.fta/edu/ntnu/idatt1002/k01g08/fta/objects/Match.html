@@ -74,7 +74,7 @@ loadScripts(document, 'script');</script>
 <h1 title="Class Match" class="title">Class Match</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">edu.ntnu.idatt1002.k01g08.fta.objects.Match</div>
+<div class="inheritance">edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.Match</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -101,7 +101,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="col-last even-row-color">
 <div class="block">Creates a new match</div>
 </div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(edu.ntnu.idatt1002.k01g08.fta.objects.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Team)" class="member-name-link">Match</a><wbr>(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;homeTeam,
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(edu.ntnu.idatt1002.k01g08.fta.objects.team.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Team)" class="member-name-link">Match</a><wbr>(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;homeTeam,
  <a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;awayTeam)</code></div>
 <div class="col-last odd-row-color">
 <div class="block">Creates a new match with the specified home and away team.</div>
@@ -130,7 +130,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="block">Adds a new foul to the match history.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addFoul(edu.ntnu.idatt1002.k01g08.fta.objects.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Player,java.lang.String,int,java.lang.String)" class="member-name-link">addFoul</a><wbr>(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addFoul(edu.ntnu.idatt1002.k01g08.fta.objects.team.Team,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,java.lang.String,int,java.lang.String)" class="member-name-link">addFoul</a><wbr>(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
  <a href="Player.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Player</a>&nbsp;player,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;foulTag,
  int&nbsp;giveCard,
@@ -152,7 +152,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="block">Adds a new goal to the match history.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addGoal(edu.ntnu.idatt1002.k01g08.fta.objects.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Player,edu.ntnu.idatt1002.k01g08.fta.objects.Player,java.lang.String)" class="member-name-link">addGoal</a><wbr>(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addGoal(edu.ntnu.idatt1002.k01g08.fta.objects.team.Team,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,java.lang.String)" class="member-name-link">addGoal</a><wbr>(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
  <a href="Player.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Player</a>&nbsp;scoringPlayer,
  <a href="Player.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Player</a>&nbsp;assistingPlayer,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;timeStamp)</code></div>
@@ -175,7 +175,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="block">Adds a new substitution to the match history.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addSubstitution(edu.ntnu.idatt1002.k01g08.fta.objects.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Player,edu.ntnu.idatt1002.k01g08.fta.objects.Player,java.lang.String)" class="member-name-link">addSubstitution</a><wbr>(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addSubstitution(edu.ntnu.idatt1002.k01g08.fta.objects.team.Team,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,java.lang.String)" class="member-name-link">addSubstitution</a><wbr>(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
  <a href="Player.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Player</a>&nbsp;playerIn,
  <a href="Player.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Player</a>&nbsp;playerOut,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;timeStamp)</code></div>
@@ -363,7 +363,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(edu.ntnu.idatt1002.k01g08.fta.objects.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Team)">
+<section class="detail" id="&lt;init&gt;(edu.ntnu.idatt1002.k01g08.fta.objects.team.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Team)">
 <h3>Match</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Match</span><wbr><span class="parameters">(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;homeTeam,
  <a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;awayTeam)</span>
@@ -758,7 +758,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </section>
 </li>
 <li>
-<section class="detail" id="addGoal(edu.ntnu.idatt1002.k01g08.fta.objects.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Player,edu.ntnu.idatt1002.k01g08.fta.objects.Player,java.lang.String)">
+<section class="detail" id="addGoal(edu.ntnu.idatt1002.k01g08.fta.objects.team.Team,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,java.lang.String)">
 <h3>addGoal</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addGoal</span><wbr><span class="parameters">(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
  <a href="Player.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Player</a>&nbsp;scoringPlayer,
@@ -822,7 +822,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </section>
 </li>
 <li>
-<section class="detail" id="addSubstitution(edu.ntnu.idatt1002.k01g08.fta.objects.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Player,edu.ntnu.idatt1002.k01g08.fta.objects.Player,java.lang.String)">
+<section class="detail" id="addSubstitution(edu.ntnu.idatt1002.k01g08.fta.objects.team.Team,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,java.lang.String)">
 <h3>addSubstitution</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addSubstitution</span><wbr><span class="parameters">(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
  <a href="Player.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Player</a>&nbsp;playerIn,
@@ -866,7 +866,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </section>
 </li>
 <li>
-<section class="detail" id="addFoul(edu.ntnu.idatt1002.k01g08.fta.objects.Team,edu.ntnu.idatt1002.k01g08.fta.objects.Player,java.lang.String,int,java.lang.String)">
+<section class="detail" id="addFoul(edu.ntnu.idatt1002.k01g08.fta.objects.team.Team,edu.ntnu.idatt1002.k01g08.fta.objects.team.Player,java.lang.String,int,java.lang.String)">
 <h3>addFoul</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addFoul</span><wbr><span class="parameters">(<a href="Team.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Team</a>&nbsp;team,
  <a href="Player.html" title="class in edu.ntnu.idatt1002.k01g08.fta.objects">Player</a>&nbsp;player,

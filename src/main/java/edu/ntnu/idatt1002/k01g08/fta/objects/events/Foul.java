@@ -1,7 +1,8 @@
-package edu.ntnu.idatt1002.k01g08.fta.objects;
+package edu.ntnu.idatt1002.k01g08.fta.objects.events;
 
 
-
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
 
 /**
  * Class representing a specific type of GameEvent called Foul

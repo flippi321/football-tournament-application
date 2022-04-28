@@ -1,4 +1,7 @@
-package edu.ntnu.idatt1002.k01g08.fta.objects;
+package edu.ntnu.idatt1002.k01g08.fta.objects.events;
+
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
 
 /**
  * Class representing a goal scored in a match. This is a specific game event and is therefore represented as being a

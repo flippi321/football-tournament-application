@@ -1,4 +1,6 @@
-package edu.ntnu.idatt1002.k01g08.fta.objects;
+package edu.ntnu.idatt1002.k01g08.fta.objects.tournaments;
+
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
 
 import java.util.ArrayList;
 import java.util.Random;

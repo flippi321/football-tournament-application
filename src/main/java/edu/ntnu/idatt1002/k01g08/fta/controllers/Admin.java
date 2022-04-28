@@ -1,6 +1,10 @@
 package edu.ntnu.idatt1002.k01g08.fta.controllers;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.*;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.KnockOut;
+import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.Match;
+import edu.ntnu.idatt1002.k01g08.fta.objects.tournaments.Tournament;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TeamRegister;
 import edu.ntnu.idatt1002.k01g08.fta.registers.TournamentRegister;
 import edu.ntnu.idatt1002.k01g08.fta.util.FileManager;
@@ -9,7 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Admin class. Used to link GUI controllers with the other class

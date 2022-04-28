@@ -1,4 +1,11 @@
-package edu.ntnu.idatt1002.k01g08.fta.objects;
+package edu.ntnu.idatt1002.k01g08.fta.objects.tournaments;
+
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.Foul;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.GameEvent;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.Goal;
+import edu.ntnu.idatt1002.k01g08.fta.objects.events.Substitution;
 
 import java.text.NumberFormat;
 import java.time.Duration;

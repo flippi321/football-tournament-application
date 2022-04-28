@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.k01g08.fta.registers;
 
-import edu.ntnu.idatt1002.k01g08.fta.objects.Team;
+import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
 
 import java.util.HashMap;
 import java.util.Iterator;
