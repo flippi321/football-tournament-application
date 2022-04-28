@@ -1,5 +1,5 @@
 # Fotball Tournament Application 
-![Fotball Tournament Application logo](src/main/resources/edu/ntnu/idatt1002/k2g10/todolistapp/img/icon.png)
+![Fotball Tournament Application logo](src/main/resources/edu/ntnu/idatt1002/k01g08/fta/img/logo.png)
 
 Fotball Tournament Application is an app made to help you manage a fotball tournament with ease. The app lets you register teams and 
 individual players as well as automatically generating match ups between the entered teams. Statitics for each game and individual
