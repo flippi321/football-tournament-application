@@ -1,7 +1,6 @@
-package edu.ntnu.idatt1002.k01g08.fta;
+package edu.ntnu.idatt1002.k01g08.fta.objects.events;
 
 import edu.ntnu.idatt1002.k01g08.fta.objects.team.Player;
-import edu.ntnu.idatt1002.k01g08.fta.objects.events.Substitution;
 import edu.ntnu.idatt1002.k01g08.fta.objects.team.Team;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
