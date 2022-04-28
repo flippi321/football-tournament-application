@@ -36,13 +36,11 @@ TodoListApp → Plugins → compiler → compiler:compile
 TodoListApp → Plugins → javafx → javafx:run
 ```
 
-### Database connection
-To be added.
 
 ## Documentation
 All relevant documentation for the project can be found in one of these locations:
 * Our wiki, which can be read [here](https://gitlab.stud.idi.ntnu.no/johnfb/football-tournament-application/-/wikis/home).
-* Our javadoc, which can be read [here](javadoc link to be added).
+* Our javadoc, which can be read [here](https://johnfb.pages.stud.idi.ntnu.no/football-tournament-application/).
 
 If you have further questions about the project, feel free to send an email to one of the group members by clicking one
 of the names below. We will be happy to help!
