@@ -40,7 +40,7 @@ pages:
   stage: deploy
   script:
   - mkdir .public
-  - cp -r JavaDoc/* .public
+  - cp -r javadoc/* .public
   - mv .public public
   artifacts:
     paths:
