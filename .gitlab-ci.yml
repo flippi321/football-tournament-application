@@ -2,7 +2,7 @@ image: maven:latest
 
 stages:
   - build
-#  - verify
+  - verify
   - deploy
 
 cache:
@@ -34,7 +34,7 @@ test:
     - merge_requests
   script:
     - echo "Running tests"
-    - mvn clean test
+  #  - mvn clean test
 
 pages:
   stage: deploy
