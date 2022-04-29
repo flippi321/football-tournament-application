@@ -131,6 +131,11 @@ public class NewTeamPlayerController {
             return;
         }
 
+        if (!(playerNumber >=1 && playerNumber <= 99)){
+            errorLabel.setText("Shirt number must be between 1 and 99");
+            return;
+        }
+
         String name = firstNameInput.getText() + " " + lastNameInput.getText();
 
         if (!Admin.addPlayerToNewestTeam(name, playerNumber)) {

@@ -127,6 +127,9 @@ public class NewTournamentController {
         if (!winningPrizeInput.getText().isBlank()) {
             try {
                 prize = Integer.parseInt(winningPrizeInput.getText());
+                if (prize < 0) {
+                    throw new IllegalArgumentException("Can't be a negative number");
+                }
             } catch (IllegalArgumentException e) {
                 errorLabel.setText("You must enter a valid number in winning prize");
                 return;
@@ -143,6 +146,9 @@ public class NewTournamentController {
             for (String text : inputText) {
                 try {
                     int i = Integer.parseInt(text);
+                    if (i < 0) {
+                        throw new IllegalArgumentException("Can't be negative");
+                    }
                 } catch (IllegalArgumentException e) {
                     errorLabel.setText("Date format must be DD/MM/YYYY");
                     return;

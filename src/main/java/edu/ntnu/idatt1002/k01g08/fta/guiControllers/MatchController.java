@@ -107,6 +107,7 @@ public class MatchController {
         penaltyShootout = false;
 
         Admin.loadActiveMatch();
+        Admin.setCurrentReportedMatch(-1);
         homeTeamName = Admin.getActiveMatch().getHomeTeam().getName();
         awayTeamName = Admin.getActiveMatch().getAwayTeam().getName();
 
@@ -292,7 +293,6 @@ public class MatchController {
 
         lastEventLabel.setText("Player number " + playerNum + " got injured");
 
-        lastEventLabel.setText(Admin.getActiveMatch().getLastGameEvent().toString());
         homePlayerList.setValue(null);
         awayPlayerList.setValue(null);
         errorLabel.setText("");
@@ -513,7 +513,7 @@ public class MatchController {
         try {
             Admin.getActiveMatch().getLastGameEvent();
         } catch (IndexOutOfBoundsException e) {
-            errorLabel.setText("No game event to undo");
+            errorLabel.setText("Can only undo goals");
             return;
         }
         if (!Admin.getActiveMatch().getLastGameEvent().getClass().getSimpleName().equals("Goal")) {
@@ -559,6 +559,7 @@ public class MatchController {
         else if (Admin.getActiveMatch().isPlaying()) {
             if (Admin.getActiveMatch().currentHalf() == 4) { //Overtime
                 if (Admin.getActiveMatch().getHomeTeamScore() == Admin.getActiveMatch().getAwayTeamScore()) {
+                    Admin.getActiveMatch().pause();
                     penaltyShootout = true;
                     disableButtons();
                     homeGoalButton.setDisable(false);
@@ -586,7 +587,7 @@ public class MatchController {
                 nextButton.setText("Start second-half");
             }
         }
-        else if (Admin.getActiveMatch().onPause()) {
+        else if (Admin.getActiveMatch().onPause() && Admin.getActiveMatch().currentHalf() != 4) {
             activateButtons();
             Admin.getActiveMatch().start();
             lastEventLabel.setText("Match started!");
