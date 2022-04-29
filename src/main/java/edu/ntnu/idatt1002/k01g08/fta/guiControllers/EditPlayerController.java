@@ -177,6 +177,10 @@ public class EditPlayerController {
      */
     @FXML
     public void deletePlayer(ActionEvent actionEvent) throws IOException {
+        if (Admin.getNumberOfPlayerOfTeam(teamSelectionBox.getValue().toString()) == 1) {
+            errorLabel.setText("Can't delete the last player of a team");
+            return;
+        }
         if (!delete) {
             delete = true;
             deletePlayerButton.setText("Confirm");

@@ -430,4 +430,8 @@ public class Admin {
     public static boolean isHighContrast() {
         return highContrast;
     }
+
+    public static int getNumberOfPlayerOfTeam(String teamName) {
+        return teamRegister.getTeam(teamName).size();
+    }
 }

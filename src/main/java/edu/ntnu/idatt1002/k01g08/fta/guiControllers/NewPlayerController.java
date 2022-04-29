@@ -133,6 +133,10 @@ public class NewPlayerController {
             errorLabel.setText("Shirt number must be between 1 and 99");
             return;
         }
+        if (teamSelectionBox.getValue() == null) {
+            errorLabel.setText("A team must be selected");
+            return;
+        }
 
         String firstName = firstNameInput.getText();
         String lastName = lastNameInput.getText();
