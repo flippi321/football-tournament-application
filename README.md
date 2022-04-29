@@ -32,8 +32,8 @@ Once the source code is open in a code editor, run the maven commands `compiler:
 IDEA this can be done by pressing the following:
 ```
 View → Tool Windows → Maven
-TodoListApp → Plugins → compiler → compiler:compile
-TodoListApp → Plugins → javafx → javafx:run
+ftaProject → Plugins → compiler → compiler:compile
+ftaProject → Plugins → javafx → javafx:run
 ```
 
 
