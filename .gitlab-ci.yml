@@ -2,7 +2,7 @@ image: maven:latest
 
 stages:
   - build
-  - verify
+#  - verify
   - deploy
 
 cache:
